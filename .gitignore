@@ -1,2 +1,5 @@
+.idea
+.idea/**
+.DS_Store
 work_dirs
 *.pyc
