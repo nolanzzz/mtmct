@@ -6,10 +6,11 @@ joblib==0.14.1
 kiwisolver==1.1.0
 lapsolver==1.1.0
 matplotlib==3.2.1
-mkl-random==1.2.0
+mkl-fft==1.0.15
+mkl-random==1.1.0
 mkl-service==2.3.0
 mmcv==0.4.2
-numpy
+numpy==1.18.1
 olefile==0.46
 opencv-python==4.2.0.32
 pandas==1.0.3
