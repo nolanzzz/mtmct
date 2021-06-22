@@ -7,8 +7,8 @@ kiwisolver==1.1.0
 lapsolver==1.1.0
 matplotlib==3.2.1
 mkl-fft
-mkl-random==1.2.0
-mkl-service==2.3.0
+mkl-random
+mkl-service
 mmcv==0.4.2
 numpy
 olefile==0.46
