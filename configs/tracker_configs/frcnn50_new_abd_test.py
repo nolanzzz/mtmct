@@ -13,7 +13,8 @@ root = {
 
     "data" : {
         # To increase the speed while developing an specific interval of all frames can be set.
-        "selection_interval" : [0,10000],
+        # "selection_interval" : [0,10000],
+        "selection_interval" : [0,100],
 
         "source" : {
             "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
