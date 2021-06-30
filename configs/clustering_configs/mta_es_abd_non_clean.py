@@ -70,7 +70,7 @@ root = {
 
                 }
 
-            ,"dataset_type" : "test"
+            ,"dataset_type" : "train"
             ,"run" : True
         },
 
