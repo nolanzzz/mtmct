@@ -335,10 +335,10 @@ class Draw_multi_camera_tracks:
 
 
 if __name__ == "__main__":
-    trv = Draw_multi_camera_tracks(dataset_base_folder="/media/philipp/philippkoehl_ssd/GTA_ext_short/test"
-                              , track_results_folder="/media/philipp/philippkoehl_ssd/work_dirs/clustering/config_runs/multi_cam_clustering_GTA_ext_short/multicam_clustering_results/chunk_0/test"
-                              , track_evaluation_results_path="/media/philipp/philippkoehl_ssd/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
-                              , work_dirs="/media/philipp/philippkoehl_ssd/work_dirs"
+    trv = Draw_multi_camera_tracks(dataset_base_folder="/u40/zhanr110/MTA_ext_short/test"
+                              , track_results_folder="/u40/zhanr110/wda_tracker/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test"
+                              , track_evaluation_results_path="/u40/zhanr110/wda_tracker/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
+                              , work_dirs="/u40/zhanr110/wda_tracker/work_dirs"
                               , cam_ids=[0,1,2,3,4,5])
 
 
