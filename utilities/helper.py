@@ -10,7 +10,7 @@ import pandas as pd
 from math import ceil
 from datetime import timedelta
 import os
-from utilities.pandas_loader import load_csv
+from pandas_loader import load_csv
 
 import cv2
 
