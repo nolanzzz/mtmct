@@ -106,6 +106,7 @@ class Abd_net_extractor:
             features = self.model(image_batch)[0]
 
             features = features.cpu().numpy()
+            print("Features shape: ", features.shape)
 
             for i in range(features.shape[0]):
                 feature = features[i,:]
