@@ -5,10 +5,10 @@ import pandas as pd
 from helper import get_bbox_middle_pos,drawBoundingBox
 # from clustering.clustering_utils import get_person_id_to_track,get_groundtruth_person_id_to_track
 import cv2
-from utilities.helper import *
-from utilities.pandas_loader import load_csv
+from helper import *
+from pandas_loader import load_csv
 
-from utilities.glasbey import Glasbey
+from glasbey import Glasbey
 
 
 class Draw_multi_camera_tracks:
