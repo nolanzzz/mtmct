@@ -2,7 +2,7 @@
 import os
 from tqdm import tqdm
 import pandas as pd
-from utilities.helper import get_bbox_middle_pos,drawBoundingBox
+from helper import get_bbox_middle_pos,drawBoundingBox
 from clustering.clustering_utils import get_person_id_to_track,get_groundtruth_person_id_to_track
 import cv2
 from utilities.helper import *
