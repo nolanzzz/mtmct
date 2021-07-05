@@ -111,6 +111,7 @@ class Abd_net_extractor:
             for i in range(features.shape[0]):
                 feature = features[i,:]
                 print("Feature shape: ", feature.shape)
+                print("feature_content: ", feature)
                 # feature = np.reshape(feature,(-1,))
                 result.append(feature)
 
