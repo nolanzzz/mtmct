@@ -281,6 +281,7 @@ class Multi_cam_clustering:
 
             with open(feature_pickle_name, 'rb') as handle:
                 feature_dict = pickle.load(handle)
+                print("Test Printing Feature:")
                 pprint.pprint(feature_dict)
 
                 track_features.append(feature_dict[person_id])
