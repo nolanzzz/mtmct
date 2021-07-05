@@ -1,5 +1,7 @@
 import os.path as osp
 import gc
+import pprint
+
 import pandas as pd
 import mmcv
 from clustering.feature_extraction_track_results import Feature_extraction
@@ -279,6 +281,7 @@ class Multi_cam_clustering:
 
             with open(feature_pickle_name, 'rb') as handle:
                 feature_dict = pickle.load(handle)
+                pprint.pprint(feature_dict)
 
                 track_features.append(feature_dict[person_id])
 
