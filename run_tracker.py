@@ -53,7 +53,7 @@ class Run_tracker:
 
 
         #Set up the logger
-        logger = setup_logger("wda_tracker", self.cfg.general.config_run_path, 0)
+        logger = setup_logger("mtmct", self.cfg.general.config_run_path, 0)
 
         logger.info(args)
         logger.info(json.dumps(self.cfg,sort_keys=True, indent=4))
@@ -208,7 +208,7 @@ class Run_tracker:
 
 
     def run_on_dataset(self):
-        logger = logging.getLogger("wda_tracker")
+        logger = logging.getLogger("mtmct")
         logger.info("Starting tracking on dataset.")
 
         cam_iterators = get_cam_iterators(self.cfg, self.cfg.data.source.cam_ids)

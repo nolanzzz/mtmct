@@ -105,8 +105,8 @@ E.g. in `configs/clustering_configs/mta_es_abd_non_clean.py`
 ```python
 ...
 "work_dirs" : "/media/philipp/philippkoehl_ssd/work_dirs"
-,"train_track_results_folder" : "/home/philipp/Documents/repos/wda_tracker/work_dirs/tracker/config_runs/frcnn50_new_abd_train/tracker_results"
-,"test_track_results_folder" : "/home/philipp/Documents/repos/wda_tracker/work_dirs/tracker/config_runs/frcnn50_new_abd_test/tracker_results"
+,"train_track_results_folder" : "/home/philipp/Documents/repos/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_train/tracker_results"
+,"test_track_results_folder" : "/home/philipp/Documents/repos/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/tracker_results"
 ,"train_dataset_folder" : "/media/philipp/philippkoehl_ssd/MTA_ext_short/train"
 ,"test_dataset_folder" : "/media/philipp/philippkoehl_ssd/MTA_ext_short/test"
 ...
