@@ -21,6 +21,9 @@ from utils.post_process import ctdet_post_process
 from utils.image import get_affine_transform
 from models.utils import _tranpose_and_gather_feat
 
+import pickle
+from .detection import Detection
+
 
 class STrack(BaseTrack):
     shared_kalman = KalmanFilter()
@@ -226,7 +229,7 @@ class JDETracker(object):
                 results[j] = results[j][keep_inds]
         return results
 
-    def update(self, im_blob, img0):
+    def update(self, im_blob, img0, cam_id, frame_id):
         self.frame_id += 1
         activated_starcks = []
         refind_stracks = []
@@ -263,10 +266,8 @@ class JDETracker(object):
         remain_inds = dets[:, 4] > self.opt.conf_thres
         dets = dets[remain_inds]
         id_feature = id_feature[remain_inds]
-        print("dets shape: ", dets.shape)
-        print("dets: ", dets)
-        print("id_feature shape: ", id_feature.shape)
-        print("id_feature: ", id_feature)
+        # print("dets shape: ", dets.shape)
+        # print("id_feature shape: ", id_feature.shape)
 
         # vis
         '''
@@ -279,13 +280,25 @@ class JDETracker(object):
         cv2.waitKey(0)
         id0 = id0-1
         '''
+        feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/features"
+        os.makedirs(feature_pickle_folder, exist_ok=True)
+        feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
+        # print("feature_pkl_path: ", feature_pkl_path)
 
         if len(dets) > 0:
             '''Detections'''
             detections = [STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], f, 30) for
                           (tlbrs, f) in zip(dets[:, :5], id_feature)]
+
+            feature_detections = [Detection(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], feature) for
+                            tlbrs, feature in zip(dets[:, :5], id_feature)]
+            with open(feature_pkl_path, 'wb') as handle:
+                pickle.dump(feature_detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
         else:
             detections = []
+        # for (tlbrs, f) in zip(dets[:, :5], id_feature):
+        #     print("Score: ", tlbrs[4])
+        #     print("tlwh: ", STrack.tlbr_to_tlwh(tlbrs[:4]))
 
         ''' Add newly detected tracklets to tracked_stracks'''
         unconfirmed = []
