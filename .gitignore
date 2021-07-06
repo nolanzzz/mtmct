@@ -3,3 +3,13 @@
 .DS_Store
 work_dirs
 *.pyc
+# fair
+trackers/fair/.idea
+trackers/fair/.idea/**
+trackers/fair/.DS_Store
+trackers/fair/demos/**
+trackers/fair/models/**
+trackers/fair/**/__pycache__
+trackers/fair/**/__pycache__/**
+trackers/fair/data/**
+trackers/fair/exp/**
