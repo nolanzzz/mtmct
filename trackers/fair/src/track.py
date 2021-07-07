@@ -25,7 +25,8 @@ from opts import opts
 
 def write_results(filename, results, data_type, cam_id=None):
     if data_type == 'mot':
-        # save_format = '{frame},{id},{x1},{y1},{w},{h},1,-1,-1,-1\n'
+        save_format = '{frame},{id},{x1},{y1},{w},{h},1,-1,-1,-1\n'
+    elif data_type == 'wda':
         save_format = '{frame_no_cam},{cam_id},{person_id},{detection_idx},{xtl},{ytl},{xbr},{ybr}\n'
     elif data_type == 'kitti':
         save_format = '{frame} {id} pedestrian 0 0 -10 {x1} {y1} {x2} {y2} -10 -10 -10 -1000 -1000 -1000 -10\n'
@@ -42,18 +43,12 @@ def write_results(filename, results, data_type, cam_id=None):
                     continue
                 x1, y1, w, h = tlwh
                 x2, y2 = x1 + w, y1 + h
-                line = save_format.format(frame_no_cam=frame_id, cam_id=cam_id, person_id=track_id,
-                                          detection_idx=det_idx, xtl=x1, ytl=y1, xbr=x2, ybr=y2, w=w, h=h)
+                if data_type == 'wda':
+                    line = save_format.format(frame_no_cam=frame_id, cam_id=cam_id, person_id=track_id,
+                                              detection_idx=det_idx, xtl=x1, ytl=y1, xbr=x2, ybr=y2, w=w, h=h)
+                else:
+                    line = save_format.format(frame=frame_id, id=track_id, x1=x1, y1=y1, x2=x2, y2=y2, w=w, h=h)
                 f.write(line)
-            '''
-            for tlwh, track_id in zip(tlwhs, track_ids):
-                if track_id < 0:
-                    continue
-                x1, y1, w, h = tlwh
-                x2, y2 = x1 + w, y1 + h
-                line = save_format.format(frame=frame_id, id=track_id, x1=x1, y1=y1, x2=x2, y2=y2, w=w, h=h)
-                f.write(line)
-            '''
 
     logger.info('save results to {}'.format(filename))
 
@@ -80,7 +75,7 @@ def write_results_score(filename, results, data_type):
     logger.info('save results to {}'.format(filename))
 
 
-def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None, show_image=True, frame_rate=30, use_cuda=True):
+def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, save_dir=None, show_image=True, frame_rate=30, use_cuda=True):
     if save_dir:
         mkdir_if_missing(save_dir)
     tracker = JDETracker(opt, frame_rate=frame_rate, use_cuda=use_cuda)
@@ -126,18 +121,19 @@ def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None,
             cv2.imwrite(os.path.join(save_dir, '{:05d}.jpg'.format(frame_id)), online_im)
         frame_id += 1
     # save results
-    write_results(result_filename, results, data_type, seq_id[-1])
-    #write_results_score(result_filename, results, data_type)
+    write_results(result_filename_wda, results, 'wda', seq_id[-1])
+    write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
 
 def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), exp_name='demo',
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
-    # result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
+    result_root = os.path.join(data_root, '..', 'results', exp_name)
+    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
     # result_root = os.path.join('/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
     mkdir_if_missing(result_root)
+    mkdir_if_missing(result_root_wda)
     data_type = 'mot'
 
     # run tracking
@@ -149,12 +145,12 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         logger.info('start seq: {}'.format(seq))
         print("data_root: ", data_root)
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
-        # result_filename = os.path.join(result_root, '{}.txt'.format(seq))
-        result_filename = os.path.join(result_root, 'tracker_results_{}.txt'.format(seq[-1]))
+        result_filename = os.path.join(result_root, '{}.txt'.format(seq))
+        result_filename_wda = os.path.join(result_root_wda, 'tracker_results_{}.txt'.format(seq[-1]))
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
-        nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, seq,
+        nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
                               save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
         n_frame += nf
         timer_avgs.append(ta)
