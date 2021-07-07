@@ -134,7 +134,9 @@ def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None,
 def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), exp_name='demo',
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
-    result_root = os.path.join(data_root, '..', 'results', exp_name)
+    # result_root = os.path.join(data_root, '..', 'results', exp_name)
+    result_root = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
+    # result_root = os.path.join('/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
     mkdir_if_missing(result_root)
     data_type = 'mot'
 
@@ -147,7 +149,8 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         logger.info('start seq: {}'.format(seq))
         print("data_root: ", data_root)
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
-        result_filename = os.path.join(result_root, '{}.txt'.format(seq))
+        # result_filename = os.path.join(result_root, '{}.txt'.format(seq))
+        result_filename = os.path.join(result_root, 'tracker_results_{}.txt'.format(seq[-1]))
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu

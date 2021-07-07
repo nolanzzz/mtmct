@@ -280,7 +280,8 @@ class JDETracker(object):
         cv2.waitKey(0)
         id0 = id0-1
         '''
-        feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/features"
+        # feature_pickle_folder = "/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/features"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/features"
         os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
         # print("feature_pkl_path: ", feature_pkl_path)
