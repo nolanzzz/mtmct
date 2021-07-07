@@ -23,18 +23,29 @@ from tracking_utils.utils import mkdir_if_missing
 from opts import opts
 
 
-def write_results(filename, results, data_type):
+def write_results(filename, results, data_type, cam_id=None):
     if data_type == 'mot':
-        save_format = '{frame},{id},{x1},{y1},{w},{h},1,-1,-1,-1\n'
+        # save_format = '{frame},{id},{x1},{y1},{w},{h},1,-1,-1,-1\n'
+        save_format = '{frame_no_cam},{cam_id},{person_id},{detection_idx},{xtl},{ytl},{xbr},{ybr}\n'
     elif data_type == 'kitti':
         save_format = '{frame} {id} pedestrian 0 0 -10 {x1} {y1} {x2} {y2} -10 -10 -10 -1000 -1000 -1000 -10\n'
     else:
         raise ValueError(data_type)
 
     with open(filename, 'w') as f:
-        for frame_id, tlwhs, track_ids in results:
+        f.write("frame_no_cam,cam_id,person_id,detection_idx,xtl,ytl,xbr,ybr")
+        for frame_id, tlwhs, track_ids, det_idxs in results:
             if data_type == 'kitti':
                 frame_id -= 1
+            for tlwh, track_id, det_idx in zip(tlwhs, track_ids, det_idxs):
+                if track_id < 0:
+                    continue
+                x1, y1, w, h = tlwh
+                x2, y2 = x1 + w, y1 + h
+                line = save_format.format(frame_no_cam=frame_id, cam_id=cam_id, person_id=track_id,
+                                          detection_idx=det_idx, xtl=x1, ytl=y1, xbr=x2, ybr=y2, w=w, h=h)
+                f.write(line)
+            '''
             for tlwh, track_id in zip(tlwhs, track_ids):
                 if track_id < 0:
                     continue
@@ -42,6 +53,8 @@ def write_results(filename, results, data_type):
                 x2, y2 = x1 + w, y1 + h
                 line = save_format.format(frame=frame_id, id=track_id, x1=x1, y1=y1, x2=x2, y2=y2, w=w, h=h)
                 f.write(line)
+            '''
+
     logger.info('save results to {}'.format(filename))
 
 
@@ -90,6 +103,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None,
         online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
         online_tlwhs = []
         online_ids = []
+        online_det_idxs = [i in range(len(online_targets))]
         #online_scores = []
         for t in online_targets:
             tlwh = t.tlwh
@@ -101,7 +115,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None,
                 #online_scores.append(t.score)
         timer.toc()
         # save results
-        results.append((frame_id + 1, online_tlwhs, online_ids))
+        results.append((frame_id + 1, online_tlwhs, online_ids, online_det_idxs))
         #results.append((frame_id + 1, online_tlwhs, online_ids, online_scores))
         if show_image or save_dir is not None:
             online_im = vis.plot_tracking(img0, online_tlwhs, online_ids, frame_id=frame_id,
@@ -112,7 +126,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, seq_id, save_dir=None,
             cv2.imwrite(os.path.join(save_dir, '{:05d}.jpg'.format(frame_id)), online_im)
         frame_id += 1
     # save results
-    write_results(result_filename, results, data_type)
+    write_results(result_filename, results, data_type, seq_id[-1])
     #write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
