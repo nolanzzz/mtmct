@@ -155,7 +155,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
         nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, seq,
-                              save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=False)
+                              save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
         n_frame += nf
         timer_avgs.append(ta)
         timer_calls.append(tc)
