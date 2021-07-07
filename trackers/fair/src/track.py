@@ -34,7 +34,8 @@ def write_results(filename, results, data_type, cam_id=None):
         raise ValueError(data_type)
 
     with open(filename, 'w') as f:
-        f.write("frame_no_cam,cam_id,person_id,detection_idx,xtl,ytl,xbr,ybr")
+        if data_type == 'wda':
+            f.write("frame_no_cam,cam_id,person_id,detection_idx,xtl,ytl,xbr,ybr\n")
         for frame_id, tlwhs, track_ids, det_idxs in results:
             if data_type == 'kitti':
                 frame_id -= 1
@@ -98,7 +99,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
         online_tlwhs = []
         online_ids = []
-        online_det_idxs = [i in range(len(online_targets))]
+        online_det_idxs = [i for i in range(len(online_targets))]
         #online_scores = []
         for t in online_targets:
             tlwh = t.tlwh
@@ -122,7 +123,8 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         frame_id += 1
     # save results
     write_results(result_filename_wda, results, 'wda', seq_id[-1])
-    write_results_score(result_filename, results, data_type)
+    write_results(result_filename, results, data_type, seq_id[-1])
+    # write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
 
@@ -131,7 +133,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
     result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
-    # result_root = os.path.join('/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
+    # result_root_wda = os.path.join('/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
