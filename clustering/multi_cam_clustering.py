@@ -29,6 +29,7 @@ import multiprocessing
 from evaluation.motmetrics_evaluation import calculate_single_cam_mean_and_std
 from evaluation.multicam_evaluation import split_data
 
+import trackers.fair.src.lib.tracker
 
 def get_feature_pickle_folder(work_dirs, config_basename, dataset_type):
     feature_pickle_folder = os.path.join(work_dirs
@@ -46,7 +47,8 @@ def get_feature_pickle_path(work_dirs, frame_no_cam, cam_id, config_basename, da
     feature_pickle_folder = get_feature_pickle_folder(work_dirs, config_basename, dataset_type)
 
     os.makedirs(feature_pickle_folder, exist_ok=True)
-    feature_pickle_filename = os.path.join(feature_pickle_folder, "frameno_{}_camid_{}.pkl".format(frame_no_cam,cam_id))
+    # feature_pickle_filename = os.path.join(feature_pickle_folder, "frameno_{}_camid_{}.pkl".format(frame_no_cam,cam_id))
+    feature_pickle_filename = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_no_cam,cam_id))
 
     return feature_pickle_filename
 
@@ -277,7 +279,7 @@ class Multi_cam_clustering:
                                                           ,config_basename=self.config_basename
                                                           ,dataset_type=dataset_type)
 
-
+            # print("cam_id: ", cam_id, ', frame_no_cam: ', frame_no_cam)
             with open(feature_pickle_name, 'rb') as handle:
                 feature_dict = pickle.load(handle)
 
@@ -602,7 +604,7 @@ class Multi_cam_clustering:
 
         overlapping_area_hulls_path = get_overlapping_area_hulls_path(work_dirs=self.work_dirs
                                                                       ,config_basename=self.config_basename
-                                                                      ,dataset_type="train")
+                                                                      ,dataset_type="test")
 
         cam_id_to_cam_id_to_hull = get_overlapping_areas(dataset_path=self.train_dataset_folder
                                                          ,working_dirs=self.work_dirs
@@ -633,7 +635,7 @@ class Multi_cam_clustering:
 
         transition_matrix_path = get_cam_transition_matrix_path(work_dirs=self.work_dirs
                                                                 ,config_basename=self.config_basename
-                                                                ,dataset_type="train")
+                                                                ,dataset_type="test")
 
         if os.path.exists(transition_matrix_path):
             print("Found stored camera transition matrix.")
@@ -658,7 +660,7 @@ class Multi_cam_clustering:
 
         cam_homographies_path = get_cam_homographies_path(work_dirs=self.work_dirs
                                                           ,config_basename=self.config_basename
-                                                          , dataset_type="train")
+                                                          , dataset_type="test")
 
         self.cam_homographies = get_cam_homographies(self.train_dataset_folder
                              , self.work_dirs
@@ -989,7 +991,7 @@ class Multi_cam_clustering:
                                                           , message="Starting clustering for dist_name: {} weight: {} "
                                                                     "weight_no of weights: {} of {}".format(dist_name,weight,weight_no+1,len(search_weights))))
 
-                clustering_results = self.cluster_tracks_via_hierarchical(dataset_type="train"
+                clustering_results = self.cluster_tracks_via_hierarchical(dataset_type="test"
                                               ,dist_name_to_distance_weights=dist_name_to_distance_weights
                                               ,person_count=1
                                                 ,distance_cache_active=True
@@ -1177,7 +1179,7 @@ def find_clustering_weights(test_track_results_folder
                              , track_results_folder=train_track_results_dataframes
                              , dataset_folder=train_dataset_folder
                              , config_basename=config_basename
-                             , dataset_type="train"
+                             , dataset_type="test"
                              , cam_count=cam_count
                              , feature_extraction=feature_extraction)
 

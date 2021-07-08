@@ -22,7 +22,7 @@ from utils.image import get_affine_transform
 from models.utils import _tranpose_and_gather_feat
 
 import pickle
-from .detection import Detection
+# from .detection import Detection
 
 
 class STrack(BaseTrack):
@@ -280,8 +280,8 @@ class JDETracker(object):
         cv2.waitKey(0)
         id0 = id0-1
         '''
-        # feature_pickle_folder = "/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/features"
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/features"
+        # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/pickled_appearance_features/test"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/pickled_appearance_features/test"
         os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
         # print("feature_pkl_path: ", feature_pkl_path)
@@ -290,16 +290,12 @@ class JDETracker(object):
             '''Detections'''
             detections = [STrack(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], f, 30) for
                           (tlbrs, f) in zip(dets[:, :5], id_feature)]
-
-            feature_detections = [Detection(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], feature) for
-                            tlbrs, feature in zip(dets[:, :5], id_feature)]
-            with open(feature_pkl_path, 'wb') as handle:
-                pickle.dump(feature_detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # feature_detections = [Detection(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], feature) for
+            #                 tlbrs, feature in zip(dets[:, :5], id_feature)]
+            # with open(feature_pkl_path, 'wb') as handle:
+            #     pickle.dump(feature_detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
         else:
             detections = []
-        # for (tlbrs, f) in zip(dets[:, :5], id_feature):
-        #     print("Score: ", tlbrs[4])
-        #     print("tlwh: ", STrack.tlbr_to_tlwh(tlbrs[:4]))
 
         ''' Add newly detected tracklets to tracked_stracks'''
         unconfirmed = []
@@ -390,6 +386,14 @@ class JDETracker(object):
         self.tracked_stracks, self.lost_stracks = remove_duplicate_stracks(self.tracked_stracks, self.lost_stracks)
         # get scores of lost tracks
         output_stracks = [track for track in self.tracked_stracks if track.is_activated]
+
+        ''' store track features per detection '''
+        person_id_to_feature = {}
+        for track in output_stracks:
+            if len(track.features) > 0:
+                person_id_to_feature[track.track_id] = track.features[-1]
+                with open(feature_pkl_path, 'wb') as handle:
+                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         logger.debug('===========Frame {}=========='.format(self.frame_id))
         logger.debug('Activated: {}'.format([track.track_id for track in activated_starcks]))
