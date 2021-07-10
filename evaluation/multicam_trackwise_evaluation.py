@@ -179,9 +179,9 @@ class Multicam_trackwise_evaluation:
 
 
         mh = mm.metrics.create()
-        summary = mh.compute(self.acc, metrics=["idfn_track_matching"
-            , "idfp_track_matching"
-            , "idtp_track_matching"
+        summary = mh.compute(self.acc, metrics=["idfn"
+            , "idfp"
+            , "idtp"
             , "id_global_assignment"
             , "obj_frequencies"
             , "pred_frequencies"], return_dataframe=False, name='acc')
@@ -198,18 +198,18 @@ class Multicam_trackwise_evaluation:
 
         df = pd.DataFrame({ "rid" : [] , "oid" : [] , "cid" : [] , "hid" : [] , "idfn" : [] , "idfp" : [] , "idtp" : [] , "idfp_idfn_sum" : [] })
 
-        idtp_track_matching = summary["idtp_track_matching"]
+        idtp_track_matching = summary["idtp"]
 
-        idfp_track_matching = summary["idfp_track_matching"]
+        idfp_track_matching = summary["idfp"]
 
-        idfn_track_matching = summary["idfn_track_matching"]
+        idfn_track_matching = summary["idfn"]
 
         id_global_assignment = summary["id_global_assignment"]
 
         pred_frequencies = summary["pred_frequencies"]
 
         obj_frequencies = summary["obj_frequencies"]
-
+        print(summary)
         idx_hids = id_global_assignment["idx_hids"]
         idx_oids = id_global_assignment["idx_oids"]
 
@@ -302,13 +302,19 @@ if __name__ == "__main__":
 
     '''
 
-
-    result = Multicam_trackwise_evaluation(dataset_folder="/media/philipp/philippkoehl_ssd/GTA_ext_short/test"
-                                             , track_results_folder="/media/philipp/philippkoehl_ssd/work_dirs/clustering/config_runs/multi_cam_clustering_GTA_ext_short/multicam_clustering_results/chunk_0/test"
+    result = Multicam_trackwise_evaluation(dataset_folder="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
+                                             , track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test"
                                              , cam_ids=[0,1,2,3,4,5]
-                                             , working_dir="/media/philipp/philippkoehl_ssd/work_dirs"
-                                             , evaluation_results_path="/media/philipp/philippkoehl_ssd/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
+                                             , working_dir="/Users/nolanzhang/Projects/mtmct/work_dirs"
+                                             , evaluation_results_path="/Users/nolanzhang/Projects/mtmct/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
                                              , motmetrics_distance=Motmetrics_distance.iou_matrix).evaluate()
+
+    # result = Multicam_trackwise_evaluation(dataset_folder="/media/philipp/philippkoehl_ssd/GTA_ext_short/test"
+    #                                          , track_results_folder="/media/philipp/philippkoehl_ssd/work_dirs/clustering/config_runs/multi_cam_clustering_GTA_ext_short/multicam_clustering_results/chunk_0/test"
+    #                                          , cam_ids=[0,1,2,3,4,5]
+    #                                          , working_dir="/media/philipp/philippkoehl_ssd/work_dirs"
+    #                                          , evaluation_results_path="/media/philipp/philippkoehl_ssd/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
+    #                                          , motmetrics_distance=Motmetrics_distance.iou_matrix).evaluate()
 
 
 

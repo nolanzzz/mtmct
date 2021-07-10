@@ -335,11 +335,17 @@ class Draw_multi_camera_tracks:
 
 
 if __name__ == "__main__":
-    trv = Draw_multi_camera_tracks(dataset_base_folder="/u40/zhanr110/MTA_ext_short/test"
-                              , track_results_folder="/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test"
-                              , track_evaluation_results_path="/u40/zhanr110/mtmct/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv"
-                              , work_dirs="/u40/zhanr110/mtmct/work_dirs"
-                              , cam_ids=[0,1,2,3,4,5])
+    trv = Draw_multi_camera_tracks(dataset_base_folder="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test",
+                                   track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test",
+                                   track_evaluation_results_path="/Users/nolanzhang/Projects/mtmct/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv",
+                                   work_dirs="/Users/nolanzhang/Projects/mtmct/work_dirs",
+                                   cam_ids=[0,1,2,3,4,5])
+
+    # trv = Draw_multi_camera_tracks(dataset_base_folder="/u40/zhanr110/MTA_ext_short/test",
+    #                                track_results_folder="/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test",
+    #                                track_evaluation_results_path="/u40/zhanr110/mtmct/work_dirs/evaluation/multi_cam_trackwise_evaluation/eval_results.csv",
+    #                                work_dirs="/u40/zhanr110/mtmct/work_dirs",
+    #                                cam_ids=[0, 1, 2, 3, 4, 5])
 
 
 
