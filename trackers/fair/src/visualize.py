@@ -93,9 +93,10 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
 def main(opt, seqs, data_root, exp_name='demo',
          save_images=True, save_videos=False):
     # logger.setLevel(logging.INFO)
-    # result_root = os.path.join('/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test')
-    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
+    result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
+    # result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
+    output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
+    # output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
     print("\n", result_root, "\n")
     mkdir_if_missing(result_root)
 
