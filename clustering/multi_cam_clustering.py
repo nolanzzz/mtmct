@@ -24,6 +24,7 @@ from evaluation.multicam_evaluation import Multicam_evaluation, Motmetrics_dista
 import pickle
 from evaluation.motmetrics_evaluation import eval_single_cam_multiple_cams
 import multiprocessing
+import traceback
 
 
 from evaluation.motmetrics_evaluation import calculate_single_cam_mean_and_std
@@ -135,26 +136,27 @@ def pickle_all_reid_features(work_dirs
                                                               , config_basename=config_basename
                                                               , dataset_type=dataset_type)
 
-            if not os.path.exists(feature_pickle_filename):
-                if len(feature_extraction) == 0:
-                    feature_extraction.append(Feature_extraction(mc_cfg))
-
-                video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
-
-                ret, frame = video_capture.read()
-
-                if not ret:
-                    raise Exception("Unable to read video frame.")
-
-
-
-                features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
-                person_id_to_feature = {}
-                for person_id, feature in zip(one_frame["person_id"], features_frame):
-                    person_id_to_feature[person_id] = feature
-
-                with open(feature_pickle_filename, 'wb') as handle:
-                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # if not os.path.exists(feature_pickle_filename):
+            #     print("no_features: ", feature_pickle_filename)
+            #     if len(feature_extraction) == 0:
+            #         feature_extraction.append(Feature_extraction(mc_cfg))
+            #
+            #     video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
+            #
+            #     ret, frame = video_capture.read()
+            #
+            #     if not ret:
+            #         raise Exception("Unable to read video frame.")
+            #
+            #
+            #
+            #     features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
+            #     person_id_to_feature = {}
+            #     for person_id, feature in zip(one_frame["person_id"], features_frame):
+            #         person_id_to_feature[person_id] = feature
+            #
+            #     with open(feature_pickle_filename, 'wb') as handle:
+            #         pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -280,12 +282,11 @@ class Multi_cam_clustering:
                                                           ,dataset_type=dataset_type)
 
             # print("cam_id: ", cam_id, ', frame_no_cam: ', frame_no_cam)
-            with open(feature_pickle_name, 'rb') as handle:
-                feature_dict = pickle.load(handle)
-
-                track_features.append(feature_dict[person_id])
-
-
+            if os.path.exists(feature_pickle_name):
+                with open(feature_pickle_name, 'rb') as handle:
+                    feature_dict = pickle.load(handle)
+                    if person_id in feature_dict:
+                        track_features.append(feature_dict[person_id])
 
         track_features = np.array(track_features)
         track_mean = np.mean(track_features,axis=0)
@@ -1278,7 +1279,12 @@ def splitted_clustering_from_weights(test_track_results_folder
         for result in eval_results:
 
             if isinstance(result, multiprocessing.pool.AsyncResult):
-                result = result.get()
+                try:
+                    result = result.get()
+                except Exception:
+                    print("Exception in worker")
+                    traceback.print_exc()
+                    raise
 
             tracking_results.append(result)
 
