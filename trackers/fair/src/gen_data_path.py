@@ -119,7 +119,7 @@ def gen_data_path_mta_partial(root_path, gen_type, num_steps, expected_frames):
                 i += 1
                 period_i += 1
                 image = ((images[i])[:-3] + 'jpg').replace(label_path, data_path)
-                print(image[29:], file=f)
+                print(image, file=f)
     f.close()
 
 
