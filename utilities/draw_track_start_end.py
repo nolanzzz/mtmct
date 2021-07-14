@@ -174,9 +174,9 @@ class Draw_track_start_end:
 
 
 if __name__ == "__main__":
-    draw_track_start_end = Draw_track_start_end("/home/koehlp/Downloads/work_dirs"
-                                                ,"/home/koehlp/Downloads/work_dirs/config_runs/faster_rcnn_r50_fpn_1x_strong_reid_Gta2207_iosb/track_results_cam_2.txt"
-                                                ,"/net/merkur/storage/deeplearning/users/koehl/gta/Recording_12.07.2019_17/cam_2/image_0_2.jpg")
+    draw_track_start_end = Draw_track_start_end("/Users/nolanzhang/Projects/mtmct/work_dirs"
+                                                ,"/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test/track_results_1.txt"
+                                                ,"/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA/mta_data/images/test/cam_1/img1/000001.jpg")
     draw_track_start_end.load_track_positions()
 
     draw_track_start_end.draw_end_positions()
