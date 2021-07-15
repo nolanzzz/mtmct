@@ -40,6 +40,19 @@ def load_tracks_per_cam(cam_id, track_results_folder):
     return track_result_df
 
 
+def load_gt_per_cam(cam_id, track_results_folder):
+    track_result_path = osp.join(track_results_folder, "cam_{}".format(cam_id), "coords_fib_cam_{}.csv".format(cam_id))
+    track_result_df = pd.read_csv(track_result_path)
+    track_result_df = track_result_df.astype({"frame_no_cam": int,
+                                              "person_id": int,
+                                              "x_top_left_BB": int,
+                                              "y_top_left_BB": int,
+                                              "x_bottom_right_BB": int,
+                                              "y_bottom_right_BB": int})
+    track_result_df = track_result_df.set_index(['frame_no_cam'])
+    return track_result_df
+
+
 def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_rate=41):
     if save_dir:
         mkdir_if_missing(save_dir)
@@ -62,17 +75,23 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
         if (tracks_df.index == frame_id).any():
             if isinstance(tracks_df.loc[frame_id], pd.DataFrame):
                 for index, t in tracks_df.loc[frame_id].iterrows():
-                    tlwh = [t.xtl, t.ytl, t.xbr - t.xtl, t.ybr - t.ytl]
+                    # tlwh = [t.xtl, t.ytl, t.xbr - t.xtl, t.ybr - t.ytl]
+                    tlwh = [t.x_top_left_BB, t.y_top_left_BB, t.x_bottom_right_BB - t.x_top_left_BB, t.y_bottom_right_BB - t.y_top_left_BB]
                     tid = t.person_id
                     vertical = tlwh[2] / tlwh[3] > 1.6
                     if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
                         online_tlwhs.append(tlwh)
                         online_ids.append(tid)
             else:
-                tlwh = [tracks_df.loc[frame_id].xtl,
-                        tracks_df.loc[frame_id].ytl,
-                        tracks_df.loc[frame_id].xbr - tracks_df.loc[frame_id].xtl,
-                        tracks_df.loc[frame_id].ybr - tracks_df.loc[frame_id].ytl]
+                # tlwh = [tracks_df.loc[frame_id].xtl,
+                #         tracks_df.loc[frame_id].ytl,
+                #         tracks_df.loc[frame_id].xbr - tracks_df.loc[frame_id].xtl,
+                #         tracks_df.loc[frame_id].ybr - tracks_df.loc[frame_id].ytl]
+
+                tlwh = [tracks_df.loc[frame_id].x_top_left_BB,
+                        tracks_df.loc[frame_id].y_top_left_BB,
+                        tracks_df.loc[frame_id].x_bottom_right_BB - tracks_df.loc[frame_id].x_top_left_BB,
+                        tracks_df.loc[frame_id].y_bottom_right_BB - tracks_df.loc[frame_id].y_top_left_BB]
                 tid = tracks_df.loc[frame_id].person_id
                 vertical = tlwh[2] / tlwh[3] > 1.6
                 if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
@@ -93,12 +112,12 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
 def main(opt, seqs, data_root, exp_name='demo',
          save_images=True, save_videos=False):
     # logger.setLevel(logging.INFO)
-    result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    # result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
-    # output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
+    # result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
+    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
+    gt_root = '/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test'
+    # output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
+    output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
     print("\n", result_root, "\n")
-    mkdir_if_missing(result_root)
 
     # run visualizing
     n_frame = 0
@@ -112,7 +131,8 @@ def main(opt, seqs, data_root, exp_name='demo',
 
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
 
-        seq_track_result_df = load_tracks_per_cam(seq[-1], result_root)
+        # seq_track_result_df = load_tracks_per_cam(seq[-1], result_root)
+        seq_track_result_df = load_gt_per_cam(seq[-1], gt_root)
 
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
