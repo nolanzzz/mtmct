@@ -75,7 +75,7 @@ class DeepSort(object):
 
             features = self._get_features(bboxes_xtylwh, dataset_img.img)
             detections = [Detection(bbox_xtylwh, conf, feature) for bbox_xtylwh,conf, feature in zip(bboxes_xtylwh, confidences, features)]
-            print("Detections: ", detections)
+            # print("Detections: ", detections)
             with open(feature_pkl_path, 'wb') as handle:
                 pickle.dump(detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
