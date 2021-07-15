@@ -13,8 +13,8 @@ root = {
 
     "data" : {
         # To increase the speed while developing an specific interval of all frames can be set.
-        # "selection_interval" : [0,10000],
-        "selection_interval" : [0,100],
+        "selection_interval" : [0,10000],
+        # "selection_interval" : [0,100],
 
         "source" : {
             "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
@@ -29,7 +29,7 @@ root = {
 
         "mmdetection_config" : "detectors/mmdetection/configs/faster_rcnn_r50_fpn_1x_gta.py",
         "mmdetection_checkpoint_file" : "work_dirs/detector/faster_rcnn_gta22.07_epoch_5.pth",
-        "device" : "cuda:0",
+        "device" : "cuda:1,2",
         #Remove all detections with a confidence less than min_confidence
         "min_confidence" : 0.8,
 
