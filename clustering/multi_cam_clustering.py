@@ -136,27 +136,26 @@ def pickle_all_reid_features(work_dirs
                                                               , config_basename=config_basename
                                                               , dataset_type=dataset_type)
 
-            # if not os.path.exists(feature_pickle_filename):
-            #     print("no_features: ", feature_pickle_filename)
-            #     if len(feature_extraction) == 0:
-            #         feature_extraction.append(Feature_extraction(mc_cfg))
-            #
-            #     video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
-            #
-            #     ret, frame = video_capture.read()
-            #
-            #     if not ret:
-            #         raise Exception("Unable to read video frame.")
-            #
-            #
-            #
-            #     features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
-            #     person_id_to_feature = {}
-            #     for person_id, feature in zip(one_frame["person_id"], features_frame):
-            #         person_id_to_feature[person_id] = feature
-            #
-            #     with open(feature_pickle_filename, 'wb') as handle:
-            #         pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            if not os.path.exists(feature_pickle_filename):
+                if len(feature_extraction) == 0:
+                    feature_extraction.append(Feature_extraction(mc_cfg))
+
+                video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
+
+                ret, frame = video_capture.read()
+
+                if not ret:
+                    raise Exception("Unable to read video frame.")
+
+
+
+                features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
+                person_id_to_feature = {}
+                for person_id, feature in zip(one_frame["person_id"], features_frame):
+                    person_id_to_feature[person_id] = feature
+
+                with open(feature_pickle_filename, 'wb') as handle:
+                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -266,7 +265,7 @@ class Multi_cam_clustering:
 
 
     def calculate_track_feature_mean(self,track,dataset_type):
-
+        print("calculate_track_feature_mean")
         track_list = track["track"]
         person_id = track["person_id"]
         cam_id = track["cam_id"]
@@ -281,15 +280,18 @@ class Multi_cam_clustering:
                                                           ,config_basename=self.config_basename
                                                           ,dataset_type=dataset_type)
 
-            # print("cam_id: ", cam_id, ', frame_no_cam: ', frame_no_cam)
+            print("cam_id: ", cam_id, ', frame_no_cam: ', frame_no_cam)
             if os.path.exists(feature_pickle_name):
                 with open(feature_pickle_name, 'rb') as handle:
                     feature_dict = pickle.load(handle)
                     if person_id in feature_dict:
+                        print("feature_dict shape:", feature_dict[person_id].shape)
                         track_features.append(feature_dict[person_id])
 
         track_features = np.array(track_features)
+        print("track_features shape: ", track_features.shape)
         track_mean = np.mean(track_features,axis=0)
+        print("track_mean: ", track_mean)
         return track_mean
 
 
