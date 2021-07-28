@@ -280,7 +280,6 @@ class Multi_cam_clustering:
                                                           ,config_basename=self.config_basename
                                                           ,dataset_type=dataset_type)
 
-            print("cam_id: ", cam_id, ', frame_no_cam: ', frame_no_cam)
             if os.path.exists(feature_pickle_name):
                 with open(feature_pickle_name, 'rb') as handle:
                     feature_dict = pickle.load(handle)
@@ -291,7 +290,7 @@ class Multi_cam_clustering:
         track_features = np.array(track_features)
         print("track_features shape: ", track_features.shape)
         track_mean = np.mean(track_features,axis=0)
-        print("track_mean: ", track_mean)
+        print("track_mean shape: ", track_mean.shape)
         return track_mean
 
 
