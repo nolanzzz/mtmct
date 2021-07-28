@@ -33,7 +33,6 @@ class Feature_extraction:
 
     def get_features(self, bboxes_xyxy, ori_img, debug=False):
         im_crops = []
-        print("bboxes_xyxy shape: ", bboxes_xyxy.shape)
         print("bboxes_xyxy: ", bboxes_xyxy)
 
         for bbox in bboxes_xyxy:
