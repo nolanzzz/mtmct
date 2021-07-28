@@ -34,10 +34,8 @@ class Feature_extraction:
     def get_features(self, bboxes_xyxy, ori_img, debug=False):
         im_crops = []
         print("bboxes_xyxy: ", list(bboxes_xyxy))
-        print("bboxes_xyxy len: ", len(list(bboxes_xyxy)))
-
         for bbox in bboxes_xyxy:
-
+            print(bbox)
             bbox = map(int,bbox)
             xtl, ytl, xbr, ybr = bbox
             im = ori_img[ytl:ybr, xtl:xbr]
