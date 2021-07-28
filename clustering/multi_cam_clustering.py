@@ -125,9 +125,6 @@ def pickle_all_reid_features(work_dirs
         for frame_no_cam in tqdm(frame_nos):
 
             one_frame = track_results_df[track_results_df["frame_no_cam"] == frame_no_cam]
-            print("frame_no_cam:", frame_no_cam)
-            print("one_frame shape:", one_frame.shape)
-            print(one_frame)
             xyxy_bboxes = zip(one_frame["xtl"], one_frame["ytl"], one_frame["xbr"], one_frame["ybr"])
 
 
@@ -155,7 +152,6 @@ def pickle_all_reid_features(work_dirs
                 person_id_to_feature = {}
                 for person_id, feature in zip(one_frame["person_id"], features_frame):
                     person_id_to_feature[person_id] = feature
-                print("person_id_to_feature:", person_id_to_feature)
                 with open(feature_pickle_filename, 'wb') as handle:
                     pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
