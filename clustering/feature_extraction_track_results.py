@@ -48,7 +48,9 @@ class Feature_extraction:
 
             im_crops.append(im)
         print("im_crops len:", len(im_crops))
+        print("im_crops[0] len:", len(im_crops[0]))
         print("im_crops:", im_crops)
+        print("im_crops[0]:", im_crops[0])
         if im_crops:
             features = self.feature_extractor.extract(im_crops)
         else:
