@@ -155,7 +155,8 @@ def pickle_all_reid_features(work_dirs
                 person_id_to_feature = {}
                 for person_id, feature in zip(one_frame["person_id"], features_frame):
                     person_id_to_feature[person_id] = feature
-
+                print("person_id_to_feature shape:", person_id_to_feature.shape)
+                print("person_id_to_feature:", person_id_to_feature)
                 with open(feature_pickle_filename, 'wb') as handle:
                     pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
