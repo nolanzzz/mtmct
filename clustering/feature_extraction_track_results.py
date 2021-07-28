@@ -34,7 +34,6 @@ class Feature_extraction:
     def get_features(self, bboxes_xyxy, ori_img, debug=False):
         im_crops = []
         for bbox in bboxes_xyxy:
-            print("HERE")
             bbox = map(int,bbox)
             xtl, ytl, xbr, ybr = bbox
             im = ori_img[ytl:ybr, xtl:xbr]
@@ -49,5 +48,5 @@ class Feature_extraction:
             features = self.feature_extractor.extract(im_crops)
         else:
             features = np.array([])
-        print("features: ", features)
+        print("features: ", features.shape)
         return features
