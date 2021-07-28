@@ -108,6 +108,7 @@ class opts(object):
     self.parser.add_argument('--val_mot20', default=False, help='val mot20')
     self.parser.add_argument('--test_mot20', default=False, help='test mot20')
     self.parser.add_argument('--test_mta', default=False, help='test mta')
+    self.parser.add_argument('--train_mta', default=False, help='train mta')
     self.parser.add_argument('--test_mta_partial', default=False, help='test partial mta')
     self.parser.add_argument('--val_hie', default=False, help='val hie')
     self.parser.add_argument('--test_hie', default=False, help='test hie')
