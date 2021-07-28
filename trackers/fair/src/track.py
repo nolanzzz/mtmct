@@ -231,6 +231,14 @@ if __name__ == '__main__':
                       cam_4
                       cam_5'''
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+    if opt.train_mta:
+        seqs_str = '''cam_0
+                      cam_1
+                      cam_2
+                      cam_3
+                      cam_4
+                      cam_5'''
+        data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
     if opt.test_mta_partial:
         seqs_str = '''cam_0_t
                       cam_1_t
