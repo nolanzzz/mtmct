@@ -126,8 +126,8 @@ def pickle_all_reid_features(work_dirs
 
             one_frame = track_results_df[track_results_df["frame_no_cam"] == frame_no_cam]
             print("frame_no_cam:", frame_no_cam)
-            print("one_frame shape", one_frame.shape)
-            print("one_frame", one_frame)
+            print("one_frame shape:", one_frame.shape)
+            print(one_frame)
             xyxy_bboxes = zip(one_frame["xtl"], one_frame["ytl"], one_frame["xbr"], one_frame["ybr"])
 
 
