@@ -94,6 +94,8 @@ class Abd_net_extractor:
         img_crops = self.preprocess(img_crops)
         print("img_crops preprocess:", len(img_crops))
         print("img_crops[0] shape:", img_crops[0].shape)
+        print("img_crops[1] shape:", img_crops[1].shape)
+        print("img_crops[2] shape:", img_crops[2].shape)
 
         with torch.no_grad():
 
