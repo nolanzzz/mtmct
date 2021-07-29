@@ -126,7 +126,9 @@ def pickle_all_reid_features(work_dirs
 
             one_frame = track_results_df[track_results_df["frame_no_cam"] == frame_no_cam]
             xyxy_bboxes = zip(one_frame["xtl"], one_frame["ytl"], one_frame["xbr"], one_frame["ybr"])
-
+            xyxy_bboxes_list = list(xyxy_bboxes)
+            print("xyxy_bboxes len: ", len(xyxy_bboxes_list))
+            print("xyxy_bboxes: ", xyxy_bboxes_list)
 
 
             feature_pickle_filename = get_feature_pickle_path(work_dirs=work_dirs
