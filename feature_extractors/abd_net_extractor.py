@@ -114,7 +114,7 @@ class Abd_net_extractor:
                 # print("feature_content: ", feature)
                 # feature = np.reshape(feature,(-1,))
                 result.append(feature)
-
+        print(result)
         return result
 
 def convert_cv2_img_to_pil_img(cv2_img):

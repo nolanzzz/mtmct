@@ -29,7 +29,7 @@ root = {
                                            adam_beta2=0.999, arch='resnet50', branches=['global', 'abd'],
                                            compatibility=False, criterion='htri',
                                            cuhk03_classic_split=False, cuhk03_labeled=False, dan_dan=[],
-                                           dan_dan_no_head=False, dan_dim=128,
+                                           dan_dan_no_head=False, dan_dim=1024,
                                            data_augment=['crop,random-erase'], day_only=False, dropout=0.5, eval_freq=5,
                                            evaluate=False,
                                            fixbase=False, fixbase_epoch=10, flip_eval=False, gamma=0.1, global_dim=1024,
