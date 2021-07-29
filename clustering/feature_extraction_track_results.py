@@ -38,8 +38,6 @@ class Feature_extraction:
             bbox = map(int,bbox)
             xtl, ytl, xbr, ybr = bbox
             im = ori_img[ytl:ybr, xtl:xbr]
-            print("im shape:", im.shape)
-            print("im:", im)
 
             if debug:
                 cv2.imshow('image', im)
@@ -47,6 +45,8 @@ class Feature_extraction:
                 cv2.destroyAllWindows()
 
             im_crops.append(im)
+        print("im_crops:", len(im_crops))
+        print("im_crops[0] shape:", im_crops.shape)
         if im_crops:
             features = self.feature_extractor.extract(im_crops)
         else:
