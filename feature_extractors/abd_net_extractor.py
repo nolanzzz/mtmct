@@ -94,8 +94,6 @@ class Abd_net_extractor:
         img_crops = self.preprocess(img_crops)
         print("img_crops preprocess:", len(img_crops))
         print("img_crops[0] shape:", img_crops[0].shape)
-        print("img_crops[1] shape:", img_crops[1].shape)
-        print("img_crops[2] shape:", img_crops[2].shape)
 
         with torch.no_grad():
 
@@ -109,14 +107,14 @@ class Abd_net_extractor:
                 image_batch = image_batch.cuda()
 
             features = self.model(image_batch)[0]
-
+            print("Features shape: ", features.shape)
             features = features.cpu().numpy()
-            # print("Features shape: ", features.shape)
+            print("Features shape: ", features.shape)
 
             for i in range(features.shape[0]):
                 feature = features[i,:]
-                # print("Feature shape: ", feature.shape)
-                # print("feature_content: ", feature)
+                print("Feature shape: ", feature.shape)
+                print("feature_content: ", feature)
                 # feature = np.reshape(feature,(-1,))
                 result.append(feature)
         return result
