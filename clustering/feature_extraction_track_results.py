@@ -37,6 +37,7 @@ class Feature_extraction:
             bbox = map(int,bbox)
             xtl, ytl, xbr, ybr = bbox
             im = ori_img[ytl:ybr, xtl:xbr]
+            print(im)
 
             if debug:
                 cv2.imshow('image', im)

@@ -88,10 +88,7 @@ class Abd_net_extractor:
 
     def extract(self,img_crops):
         result = []
-        print(img_crops.shape)
-        print(len(img_crops))
-        print(len(img_crops[0]))
-        print(len(img_crops[0][0]))
+
         self.model.eval()
 
         img_crops = self.preprocess(img_crops)
