@@ -92,12 +92,16 @@ class Abd_net_extractor:
         self.model.eval()
 
         img_crops = self.preprocess(img_crops)
+        print("img_crops preprocess:", len(img_crops))
+        print("img_crops[0] shape:", img_crops[0].shape)
 
         with torch.no_grad():
 
 
 
             image_batch = torch.stack(img_crops)
+            print("image_batch shape: ", image_batch.shape)
+            print("image_batch: ", image_batch)
             #img = img.unsqueeze(0)
 
             if self.use_gpu:
