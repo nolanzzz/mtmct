@@ -88,7 +88,7 @@ class Abd_net_extractor:
 
     def extract(self,img_crops):
         result = []
-
+        print(img_crops)
         self.model.eval()
 
         img_crops = self.preprocess(img_crops)
@@ -114,7 +114,6 @@ class Abd_net_extractor:
                 # print("feature_content: ", feature)
                 # feature = np.reshape(feature,(-1,))
                 result.append(feature)
-        print(result)
         return result
 
 def convert_cv2_img_to_pil_img(cv2_img):
