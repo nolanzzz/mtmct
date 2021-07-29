@@ -147,7 +147,7 @@ def pickle_all_reid_features(work_dirs
                     raise Exception("Unable to read video frame.")
 
 
-
+                print("frame_no_cam: ",frame_no_cam)
                 features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
                 person_id_to_feature = {}
                 for person_id, feature in zip(one_frame["person_id"], features_frame):
