@@ -49,6 +49,6 @@ class Feature_extraction:
             features = self.feature_extractor.extract(im_crops)
         else:
             features = np.array([])
-        print("features shape:", features.shape)
+        print("features len:", len(features.shape))
         print("features:", features)
         return features
