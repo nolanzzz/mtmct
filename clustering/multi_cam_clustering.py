@@ -599,7 +599,7 @@ class Multi_cam_clustering:
 
         overlapping_area_hulls_path = get_overlapping_area_hulls_path(work_dirs=self.work_dirs
                                                                       ,config_basename=self.config_basename
-                                                                      ,dataset_type="train")
+                                                                      ,dataset_type="test")
 
         cam_id_to_cam_id_to_hull = get_overlapping_areas(dataset_path=self.train_dataset_folder
                                                          ,working_dirs=self.work_dirs
@@ -630,7 +630,7 @@ class Multi_cam_clustering:
 
         transition_matrix_path = get_cam_transition_matrix_path(work_dirs=self.work_dirs
                                                                 ,config_basename=self.config_basename
-                                                                ,dataset_type="train")
+                                                                ,dataset_type="test")
 
         if os.path.exists(transition_matrix_path):
             print("Found stored camera transition matrix.")
@@ -655,7 +655,7 @@ class Multi_cam_clustering:
 
         cam_homographies_path = get_cam_homographies_path(work_dirs=self.work_dirs
                                                           ,config_basename=self.config_basename
-                                                          , dataset_type="train")
+                                                          , dataset_type="test")
 
         self.cam_homographies = get_cam_homographies(self.train_dataset_folder
                              , self.work_dirs
@@ -1329,8 +1329,8 @@ def splitted_clustering_from_weights(test_track_results_folder
 
 
 
-    chunk_id_to_gt_chunks, chunk_id_to_tr_chunks = split_data(dataset_folder=train_dataset_folder
-                                                              , track_results_folder=train_track_results_folder
+    chunk_id_to_gt_chunks, chunk_id_to_tr_chunks = split_data(dataset_folder=test_dataset_folder
+                                                              , track_results_folder=test_track_results_folder
                                                               , cam_ids=list(range(cam_count))
                                                               , working_dir=work_dirs
                                                               , n_split_parts=n_split_parts)
@@ -1353,7 +1353,7 @@ def splitted_clustering_from_weights(test_track_results_folder
             person_identifier,
             best_weights_path,
             default_weights,
-            "train",
+            "test",
             config_basename,
             chunk_id,
             cam_count
@@ -1362,9 +1362,9 @@ def splitted_clustering_from_weights(test_track_results_folder
         pickle_all_reid_features(work_dirs=work_dirs
                                  , mc_cfg=mc_cfg
                                  , track_results_folder=test_chunk_tr
-                                 , dataset_folder=train_dataset_folder
+                                 , dataset_folder=test_dataset_folder
                                  , config_basename=config_basename
-                                 , dataset_type="train"
+                                 , dataset_type="test"
                                  , cam_count=cam_count
                                  , feature_extraction=feature_extraction)
 
