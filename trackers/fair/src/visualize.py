@@ -75,23 +75,23 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
         if (tracks_df.index == frame_id).any():
             if isinstance(tracks_df.loc[frame_id], pd.DataFrame):
                 for index, t in tracks_df.loc[frame_id].iterrows():
-                    # tlwh = [t.xtl, t.ytl, t.xbr - t.xtl, t.ybr - t.ytl]
-                    tlwh = [t.x_top_left_BB, t.y_top_left_BB, t.x_bottom_right_BB - t.x_top_left_BB, t.y_bottom_right_BB - t.y_top_left_BB]
+                    tlwh = [t.xtl, t.ytl, t.xbr - t.xtl, t.ybr - t.ytl]
+                    # tlwh = [t.x_top_left_BB, t.y_top_left_BB, t.x_bottom_right_BB - t.x_top_left_BB, t.y_bottom_right_BB - t.y_top_left_BB]
                     tid = t.person_id
                     vertical = tlwh[2] / tlwh[3] > 1.6
                     if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
                         online_tlwhs.append(tlwh)
                         online_ids.append(tid)
             else:
-                # tlwh = [tracks_df.loc[frame_id].xtl,
-                #         tracks_df.loc[frame_id].ytl,
-                #         tracks_df.loc[frame_id].xbr - tracks_df.loc[frame_id].xtl,
-                #         tracks_df.loc[frame_id].ybr - tracks_df.loc[frame_id].ytl]
+                tlwh = [tracks_df.loc[frame_id].xtl,
+                        tracks_df.loc[frame_id].ytl,
+                        tracks_df.loc[frame_id].xbr - tracks_df.loc[frame_id].xtl,
+                        tracks_df.loc[frame_id].ybr - tracks_df.loc[frame_id].ytl]
 
-                tlwh = [tracks_df.loc[frame_id].x_top_left_BB,
-                        tracks_df.loc[frame_id].y_top_left_BB,
-                        tracks_df.loc[frame_id].x_bottom_right_BB - tracks_df.loc[frame_id].x_top_left_BB,
-                        tracks_df.loc[frame_id].y_bottom_right_BB - tracks_df.loc[frame_id].y_top_left_BB]
+                # tlwh = [tracks_df.loc[frame_id].x_top_left_BB,
+                #         tracks_df.loc[frame_id].y_top_left_BB,
+                #         tracks_df.loc[frame_id].x_bottom_right_BB - tracks_df.loc[frame_id].x_top_left_BB,
+                #         tracks_df.loc[frame_id].y_bottom_right_BB - tracks_df.loc[frame_id].y_top_left_BB]
                 tid = tracks_df.loc[frame_id].person_id
                 vertical = tlwh[2] / tlwh[3] > 1.6
                 if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
@@ -113,7 +113,7 @@ def main(opt, seqs, data_root, exp_name='demo',
          save_images=True, save_videos=False):
     # logger.setLevel(logging.INFO)
     # result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
+    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/train'
     gt_root = '/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test'
     # output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
     output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
@@ -131,8 +131,8 @@ def main(opt, seqs, data_root, exp_name='demo',
 
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
 
-        # seq_track_result_df = load_tracks_per_cam(seq[-1], result_root)
-        seq_track_result_df = load_gt_per_cam(seq[-1], gt_root)
+        seq_track_result_df = load_tracks_per_cam(seq[-1], result_root)
+        # seq_track_result_df = load_gt_per_cam(seq[-1], gt_root)
 
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
@@ -161,6 +161,14 @@ if __name__ == '__main__':
                       cam_4
                       cam_5'''
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+    if opt.train_mta:
+        seqs_str = '''cam_0
+                      cam_1
+                      cam_2
+                      cam_3
+                      cam_4
+                      cam_5'''
+        data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
     if opt.test_mta_partial:
         seqs_str = '''cam_0_t
                       cam_1_t
@@ -177,4 +185,4 @@ if __name__ == '__main__':
          data_root=data_root,
          exp_name=opt.exp_id,
          save_images=True,
-         save_videos=True)
+         save_videos=False)

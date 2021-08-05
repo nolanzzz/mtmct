@@ -133,27 +133,27 @@ def pickle_all_reid_features(work_dirs
                                                               , config_basename=config_basename
                                                               , dataset_type=dataset_type)
 
-            if not os.path.exists(feature_pickle_filename):
-                if len(feature_extraction) == 0:
-                    feature_extraction.append(Feature_extraction(mc_cfg))
-
-                video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
-
-                ret, frame = video_capture.read()
-
-                if not ret:
-                    raise Exception("Unable to read video frame.")
-
-
-                # print("\nframe_no_cam: ",frame_no_cam)
-                # print("frame:", frame.shape)
-
-                features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
-                person_id_to_feature = {}
-                for person_id, feature in zip(one_frame["person_id"], features_frame):
-                    person_id_to_feature[person_id] = feature
-                with open(feature_pickle_filename, 'wb') as handle:
-                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # if not os.path.exists(feature_pickle_filename):
+            #     if len(feature_extraction) == 0:
+            #         feature_extraction.append(Feature_extraction(mc_cfg))
+            #
+            #     video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
+            #
+            #     ret, frame = video_capture.read()
+            #
+            #     if not ret:
+            #         raise Exception("Unable to read video frame.")
+            #
+            #
+            #     # print("\nframe_no_cam: ",frame_no_cam)
+            #     # print("frame:", frame.shape)
+            #
+            #     features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
+            #     person_id_to_feature = {}
+            #     for person_id, feature in zip(one_frame["person_id"], features_frame):
+            #         person_id_to_feature[person_id] = feature
+            #     with open(feature_pickle_filename, 'wb') as handle:
+            #         pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -263,7 +263,6 @@ class Multi_cam_clustering:
 
 
     def calculate_track_feature_mean(self,track,dataset_type):
-        print("calculate_track_feature_mean")
         track_list = track["track"]
         person_id = track["person_id"]
         cam_id = track["cam_id"]
@@ -277,18 +276,14 @@ class Multi_cam_clustering:
                                                           ,cam_id=cam_id
                                                           ,config_basename=self.config_basename
                                                           ,dataset_type=dataset_type)
-
             if os.path.exists(feature_pickle_name):
                 with open(feature_pickle_name, 'rb') as handle:
                     feature_dict = pickle.load(handle)
                     if person_id in feature_dict:
-                        print("feature_dict shape:", feature_dict[person_id].shape)
                         track_features.append(feature_dict[person_id])
 
         track_features = np.array(track_features)
-        print("track_features shape: ", track_features.shape)
         track_mean = np.mean(track_features,axis=0)
-        print("track_mean shape: ", track_mean.shape)
         return track_mean
 
 
@@ -604,7 +599,7 @@ class Multi_cam_clustering:
 
         overlapping_area_hulls_path = get_overlapping_area_hulls_path(work_dirs=self.work_dirs
                                                                       ,config_basename=self.config_basename
-                                                                      ,dataset_type="test")
+                                                                      ,dataset_type="train")
 
         cam_id_to_cam_id_to_hull = get_overlapping_areas(dataset_path=self.train_dataset_folder
                                                          ,working_dirs=self.work_dirs
@@ -635,7 +630,7 @@ class Multi_cam_clustering:
 
         transition_matrix_path = get_cam_transition_matrix_path(work_dirs=self.work_dirs
                                                                 ,config_basename=self.config_basename
-                                                                ,dataset_type="test")
+                                                                ,dataset_type="train")
 
         if os.path.exists(transition_matrix_path):
             print("Found stored camera transition matrix.")
@@ -660,7 +655,7 @@ class Multi_cam_clustering:
 
         cam_homographies_path = get_cam_homographies_path(work_dirs=self.work_dirs
                                                           ,config_basename=self.config_basename
-                                                          , dataset_type="test")
+                                                          , dataset_type="train")
 
         self.cam_homographies = get_cam_homographies(self.train_dataset_folder
                              , self.work_dirs
@@ -1334,8 +1329,8 @@ def splitted_clustering_from_weights(test_track_results_folder
 
 
 
-    chunk_id_to_gt_chunks, chunk_id_to_tr_chunks = split_data(dataset_folder=test_dataset_folder
-                                                              , track_results_folder=test_track_results_folder
+    chunk_id_to_gt_chunks, chunk_id_to_tr_chunks = split_data(dataset_folder=train_dataset_folder
+                                                              , track_results_folder=train_track_results_folder
                                                               , cam_ids=list(range(cam_count))
                                                               , working_dir=work_dirs
                                                               , n_split_parts=n_split_parts)
@@ -1358,7 +1353,7 @@ def splitted_clustering_from_weights(test_track_results_folder
             person_identifier,
             best_weights_path,
             default_weights,
-            "test",
+            "train",
             config_basename,
             chunk_id,
             cam_count
@@ -1367,9 +1362,9 @@ def splitted_clustering_from_weights(test_track_results_folder
         pickle_all_reid_features(work_dirs=work_dirs
                                  , mc_cfg=mc_cfg
                                  , track_results_folder=test_chunk_tr
-                                 , dataset_folder=test_dataset_folder
+                                 , dataset_folder=train_dataset_folder
                                  , config_basename=config_basename
-                                 , dataset_type="test"
+                                 , dataset_type="train"
                                  , cam_count=cam_count
                                  , feature_extraction=feature_extraction)
 
