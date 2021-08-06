@@ -92,29 +92,29 @@ class Abd_net_extractor:
         self.model.eval()
 
         img_crops = self.preprocess(img_crops)
-        print("img_crops preprocess:", len(img_crops))
-        print("img_crops[0] shape:", img_crops[0].shape)
+        # print("img_crops preprocess:", len(img_crops))
+        # print("img_crops[0] shape:", img_crops[0].shape)
 
         with torch.no_grad():
 
 
 
             image_batch = torch.stack(img_crops)
-            print("image_batch shape: ", image_batch.shape)
+            # print("image_batch shape: ", image_batch.shape)
             #img = img.unsqueeze(0)
 
             if self.use_gpu:
                 image_batch = image_batch.cuda()
 
             features = self.model(image_batch)[0]
-            print("Features shape: ", features.shape)
+            # print("Features shape: ", features.shape)
             features = features.cpu().numpy()
-            print("Features shape: ", features.shape)
+            # print("Features shape: ", features.shape)
 
             for i in range(features.shape[0]):
                 feature = features[i,:]
-                print("Feature shape: ", feature.shape)
-                print("feature_content: ", feature)
+                # print("Feature shape: ", feature.shape)
+                # print("feature_content: ", feature)
                 # feature = np.reshape(feature,(-1,))
                 result.append(feature)
         return result
@@ -168,6 +168,6 @@ if __name__ == "__main__":
 
     features = abd_ext.extract(img_crops=[image])
 
-    print("feature mean: {}".format(np.mean(features)))
+    # print("feature mean: {}".format(np.mean(features)))
     #output dimension 3072
-    print(features)
+    # print(features)
