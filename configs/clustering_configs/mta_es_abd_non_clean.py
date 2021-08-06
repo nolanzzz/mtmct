@@ -8,9 +8,9 @@ root = {
         # ,"train_track_results_folder" : "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
         ,"test_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
         # ,"test_track_results_folder" : "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
-        ,"train_dataset_folder" : "/u40/zhanr110/MTA_ext_short/train"
+        ,"train_dataset_folder" : "/u40/zhanr110/MTA_ext_short/train/"
         # ,"train_dataset_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
-        ,"test_dataset_folder" : "/u40/zhanr110/MTA_ext_short/test"
+        ,"test_dataset_folder" : "/u40/zhanr110/MTA_ext_short/test/"
         # ,"test_dataset_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
         ,"cam_count" : 6
 
