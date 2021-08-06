@@ -147,7 +147,7 @@ def pickle_all_reid_features(work_dirs
 
 
                 print("\nframe_no_cam: ",frame_no_cam)
-                # print("frame:", frame.shape)
+                print("frame:", frame.shape)
 
                 features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
                 person_id_to_feature = {}
