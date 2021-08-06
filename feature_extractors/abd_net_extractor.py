@@ -120,7 +120,6 @@ class Abd_net_extractor:
         return result
 
 def convert_cv2_img_to_pil_img(cv2_img):
-    print(cv2_img)
     img = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
     pil_img = PIL.Image.fromarray(img)
 

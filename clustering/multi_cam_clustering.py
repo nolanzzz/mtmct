@@ -117,7 +117,7 @@ def pickle_all_reid_features(work_dirs
         track_results_df = track_results_one_cam["track_results"]
         cam_id = track_results_one_cam["cam_id"]
         cam_video_path = os.path.join(dataset_folder,"cam_{}".format(cam_id),"cam_{}.mp4".format(cam_id))
-        video_capture = cv2.VideoCapture(cam_video_path)
+        video_capture = cv2.VideoCapture(cam_video_path, 0)
 
 
 
