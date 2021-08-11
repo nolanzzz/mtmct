@@ -281,7 +281,7 @@ class JDETracker(object):
         id0 = id0-1
         '''
         # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/pickled_appearance_features/test"
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_test/pickled_appearance_features/test"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_test_08/pickled_appearance_features/test"
         os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
         # print("feature_pkl_path: ", feature_pkl_path)
