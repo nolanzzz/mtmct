@@ -96,7 +96,8 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
             blob = torch.from_numpy(img).cuda().unsqueeze(0)
         else:
             blob = torch.from_numpy(img).unsqueeze(0)
-        online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
+        # online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
+        online_targets = tracker.update_with_wda_features(blob, img0, seq_id[-1], frame_id)
         online_tlwhs = []
         online_ids = []
         online_det_idxs = [i for i in range(len(online_targets))]
