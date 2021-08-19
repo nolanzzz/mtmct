@@ -133,8 +133,8 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
-    # result_root_wda = os.path.join('/Users//Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
+    # result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results')
+    result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_wda_feature/tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
@@ -154,7 +154,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
         nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
-                              save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
+                              save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=False)
         n_frame += nf
         timer_avgs.append(ta)
         timer_calls.append(tc)
