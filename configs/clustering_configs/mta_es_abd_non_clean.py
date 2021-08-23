@@ -4,9 +4,9 @@ root = {
 
         "work_dirs" : "/u40/zhanr110/mtmct/work_dirs"
         # "work_dirs" : "/Users/nolanzhang/Projects/mtmct/work_dirs"
-        ,"train_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
+        ,"train_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/tracker_results"
         # ,"train_track_results_folder" : "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
-        ,"test_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
+        ,"test_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/tracker_results"
         # ,"test_track_results_folder" : "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair/tracker_results"
         ,"train_dataset_folder" : "/u40/zhanr110/MTA_ext_short/train/"
         # ,"train_dataset_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
