@@ -445,7 +445,7 @@ class JDETracker(object):
 
 
         # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean_3/pickled_appearance_features/test"
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean_3/pickled_appearance_features/test"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/pickled_appearance_features/test"
         # os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pickle_name = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
         # print("feature_pkl_path: ", feature_pickle_name)
@@ -461,7 +461,7 @@ class JDETracker(object):
                 for key in id_feature.keys():
                     feature_list.append(id_feature[key])
                 id_feature = np.array(feature_list)
-                # print(id_feature.shape)
+                print(id_feature.shape)
 
             # vis
             '''
