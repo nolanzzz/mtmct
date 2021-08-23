@@ -451,7 +451,6 @@ class JDETracker(object):
         # print("feature_pkl_path: ", feature_pickle_name)
         # print(id_feature.shape)
         if os.path.exists(feature_pickle_name):
-            print("feature_pickle_name", feature_pickle_name)
             with open(feature_pickle_name, 'rb') as handle:
                 feature_dict = pickle.load(handle)
                 # if person_id in feature_dict:
