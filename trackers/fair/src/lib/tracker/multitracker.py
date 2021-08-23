@@ -461,7 +461,7 @@ class JDETracker(object):
                 for key in id_feature.keys():
                     feature_list.append(id_feature[key])
                 id_feature = np.array(feature_list)
-                print(id_feature.shape)
+                # print(id_feature.shape)
 
             # vis
             '''
