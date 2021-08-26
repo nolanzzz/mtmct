@@ -69,7 +69,8 @@ root = {
                   width=128, workers=4)
 
             ,"fair" : dict(arch='resnet50',
-                           load_weights='trackers/fair/exp/mot/mta_short_dla34/model_last.pth.tar')
+                           load_weights='trackers/fair/exp/mot/mta_short_dla34/model_last.pth.tar',
+                           gpu_devices='0,3')
 
     },
 
