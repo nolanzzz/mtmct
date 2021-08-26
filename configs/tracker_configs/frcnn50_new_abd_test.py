@@ -38,7 +38,7 @@ root = {
 
     "feature_extractor" : {
 
-        "feature_extractor_name" : "abd_net_extractor"
+        "feature_extractor_name" : "fair"
 
             ,"reid_strong_extractor": {
                 "reid_strong_baseline_config": "feature_extractors/reid_strong_baseline/configs/softmax_triplet.yml",
