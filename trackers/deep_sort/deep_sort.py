@@ -32,6 +32,8 @@ class DeepSort(object):
 
         if cfg.feature_extractor.feature_extractor_name == "abd_net_extractor":
             self.feature_extractor = Abd_net_extractor(cfg.feature_extractor.abd_net_extractor)
+        elif cfg.feature_extractor.feature_extractor_name == "fair":
+            self.feature_extractor = Abd_net_extractor(cfg.feature_extractor.fair)
         else:
             self.feature_extractor = Reid_strong_extractor(cfg.feature_extractor)
 
