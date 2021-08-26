@@ -68,6 +68,8 @@ root = {
                   use_metric_cuhk03=False, use_of=True, use_ow=True, visualize_ranks=False, weight_decay=0.0005,
                   width=128, workers=4)
 
+            ,"fair" : dict(arch='resnet50',
+                           load_weights='trackers/fair/exp/mot/mta_short_dla34/model_last.pth.tar')
 
     },
 
