@@ -77,6 +77,12 @@ def write_results_score(filename, results, data_type):
 
 
 def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
+
+    # detections_path_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features/detections"
+    # os.makedirs(detections_path_folder, exist_ok=True)
+    # detections_path = os.path.join(detections_path_folder, "detections_cam_{}.csv".format(seq_id[-1]))
+    # detections_frame_nos_path = os.path.join(detections_path_folder, "detections_frame_nos_cam_{}.csv".format(seq_id[-1]))
+
     if save_dir:
         mkdir_if_missing(save_dir)
     tracker = JDETracker(opt, frame_rate=frame_rate, use_cuda=use_cuda)
@@ -97,7 +103,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         else:
             blob = torch.from_numpy(img).unsqueeze(0)
         # online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
-        online_targets = tracker.update_with_wda_features(blob, img0, seq_id[-1], frame_id)
+        online_targets = tracker.update_store_detections(blob, img0, seq_id[-1], frame_id)
         online_tlwhs = []
         online_ids = []
         online_det_idxs = [i for i in range(len(online_targets))]
@@ -133,8 +139,8 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_wda_features/tracker_results')
-    # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_wda_feature/tracker_results')
+    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features/tracker_results')
+    # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features/tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
