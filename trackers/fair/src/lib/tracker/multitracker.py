@@ -439,13 +439,14 @@ class JDETracker(object):
         dets = self.post_process(dets, meta)
         dets = self.merge_outputs([dets])[1]
 
-        remain_inds = dets[:, 4] > self.opt.conf_thres
+        # remain_inds = dets[:, 4] > self.opt.conf_thres
+        remain_inds = dets[:, 6] > self.opt.conf_thres
         dets = dets[remain_inds]
         id_feature = id_feature[remain_inds]
         # print("dets shape: ", dets.shape)
         # print("id_feature shape: ", id_feature.shape)
 
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box50/features"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box50_det6/features"
         # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box50/features"
         # feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_train_mot17/pickled_appearance_features/train"
         os.makedirs(feature_pickle_folder, exist_ok=True)
