@@ -14,3 +14,4 @@ trackers/fair/**/__pycache__
 trackers/fair/**/__pycache__/**
 trackers/fair/data/**
 trackers/fair/exp/**
+*/.ipynb_checkpoints
