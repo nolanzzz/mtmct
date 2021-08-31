@@ -14,10 +14,10 @@ root = {
     "data" : {
         # To increase the speed while developing an specific interval of all frames can be set.
         "selection_interval" : [0,10000],
-        # "selection_interval" : [0,100],
 
         "source" : {
             "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
+            # "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test",
             "cam_ids" : [0,1,2,3,4,5]
         }
 

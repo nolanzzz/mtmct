@@ -6,7 +6,7 @@ root = {
         #The visible GPUS will be restricted to the numbers listed here. The pytorch (cuda:0) numeration will start at 0
         #This is a trick to get everything onto the wanted gpus because just setting cuda:4 in the function calls will
         #not work for mmdetection. There will still be things on gpu cuda:0.
-        "cuda_visible_devices" : "0",
+        "cuda_visible_devices" : "0, 1",
         "save_track_results" : True
 
     },
@@ -17,6 +17,7 @@ root = {
 
         "source" : {
             "base_folder" : "/u40/zhanr110/MTA_ext_short/train",
+            # "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train",
             "cam_ids" : [0,1,2,3,4,5]
         }
 
@@ -37,7 +38,7 @@ root = {
 
     "feature_extractor" : {
 
-        "feature_extractor_name" : "abd_net_extractor"
+        "feature_extractor_name" : "fair"
 
             ,"reid_strong_extractor": {
                 "reid_strong_baseline_config": "feature_extractors/reid_strong_baseline/configs/softmax_triplet.yml",
@@ -67,7 +68,9 @@ root = {
                   use_metric_cuhk03=False, use_of=True, use_ow=True, visualize_ranks=False, weight_decay=0.0005,
                   width=128, workers=4)
 
-
+                ,"fair" : dict(arch='resnet50',
+                                           load_weights='trackers/fair/exp/mot/mta_short_dla34/model_last.pth.tar',
+                                           gpu_devices='0,3')
     },
 
     "tracker" : {
