@@ -112,7 +112,8 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
             tlwh = t.tlwh
             tid = t.track_id
             vertical = tlwh[2] / tlwh[3] > 1.6
-            if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
+            # if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
+            if not vertical:
                 online_tlwhs.append(tlwh)
                 online_ids.append(tid)
                 #online_scores.append(t.score)
@@ -139,8 +140,8 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/tracker_results')
-    # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/tracker_results')
+    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_features_long_no_box/tracker_results')
+    # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_features_long_no_box/tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
