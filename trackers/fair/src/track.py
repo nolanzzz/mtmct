@@ -113,9 +113,8 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
             tid = t.track_id
             vertical = tlwh[2] / tlwh[3] > 1.6
             # if tlwh[2] * tlwh[3] > opt.min_box_area and not vertical:
-            if not vertical:
-                online_tlwhs.append(tlwh)
-                online_ids.append(tid)
+            online_tlwhs.append(tlwh)
+            online_ids.append(tid)
                 #online_scores.append(t.score)
         timer.toc()
         # save results
