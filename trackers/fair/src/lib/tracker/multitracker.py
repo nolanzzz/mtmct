@@ -445,8 +445,8 @@ class JDETracker(object):
         # print("dets shape: ", dets.shape)
         # print("id_feature shape: ", id_feature.shape)
 
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box20/features"
-        # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box20/features"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/features"
+        # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/features"
         # feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_train_mot17/pickled_appearance_features/train"
         os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
