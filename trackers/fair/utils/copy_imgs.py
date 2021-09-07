@@ -29,8 +29,8 @@ def main():
                 j += 1
                 period_i += 1
                 img_title = str(j).zfill(6) + '.jpg'
-                shutil.copy2('../data/MTA/mta_data/images/train/cam_' + str(i) + '/img1/' + img_title,
-                             '../data/MTA/mta_data/images/train/cam_' + str(i) + '_t/img1/')
+                shutil.copy2('../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(i) + '/img1/' + img_title,
+                             '../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(i) + '_t/img1/')
 
             # j, period_i, curr_step = 1, 0, 0
             # # train - 124230; test - 127880
