@@ -21,7 +21,7 @@ for i in range(6):
             period_i += 1
             img_title = str(j).zfill(6) + '.jpg'
             shutil.copy2('../data/MTA/mta_data/images/train/cam_' + str(i) + '/img1/' + img_title,
-                         '../data/MTA/mta_data/images/train/cam_' + str(i) + '_t/img1/' + img_title)
+                         '../data/MTA/mta_data/images/train/cam_' + str(i) + '_t/img1/')
     else:
         for j in range(1, frames):
             img_title = str(j).zfill(6) + '.jpg'
