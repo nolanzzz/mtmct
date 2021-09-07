@@ -14,7 +14,7 @@ def main():
 
     for i in range(6):
         if use_steps is True:
-            j, period_i, curr_step = 1, 0, 0
+            j, period_i, curr_step = 0, 0, 0
             # for i in range(len_all):
             while j < total_frames:
                 # pass the last step, return here
