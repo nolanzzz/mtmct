@@ -103,7 +103,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         else:
             blob = torch.from_numpy(img).unsqueeze(0)
         # online_targets = tracker.update(blob, img0, seq_id[-1], frame_id)
-        online_targets = tracker.update_store_detections(blob, img0, seq_id[-1], frame_id)
+        online_targets = tracker.update_store_detections(blob, img0, seq_id[-3] if seq_id[-1] == 't' else seq_id[-1], frame_id)
         online_tlwhs = []
         online_ids = []
         online_det_idxs = [i for i in range(len(online_targets))]
@@ -129,8 +129,8 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
             cv2.imwrite(os.path.join(save_dir, '{:05d}.jpg'.format(frame_id)), online_im)
         frame_id += 1
     # save results
-    write_results(result_filename_wda, results, 'wda', seq_id[-1])
-    write_results(result_filename, results, data_type, seq_id[-1])
+    write_results(result_filename_wda, results, 'wda', seq_id[-3] if seq_id[-1] == 't' else seq_id[-1])
+    write_results(result_filename, results, data_type, seq_id[-3] if seq_id[-1] == 't' else seq_id[-1])
     # write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
@@ -155,7 +155,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         print("data_root: ", data_root)
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
         result_filename = os.path.join(result_root, '{}.txt'.format(seq))
-        result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
+        result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-3] if seq[-1] == 't' else seq[-1]))
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
