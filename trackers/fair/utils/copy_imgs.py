@@ -14,7 +14,7 @@ for i in range(6):
             if period_i > frames:
                 curr_step += 1
                 period_i = 0
-                j = j + 1000
+                j = j + 10
                 continue
             # not enough frames yet:
             j += 1
