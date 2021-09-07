@@ -3,6 +3,7 @@ import sys
 
 
 def main():
+    print("here")
     gen_type = sys.argv[1]
     use_steps = bool(sys.argv[2])
     expected_frames = int(sys.argv[3])
