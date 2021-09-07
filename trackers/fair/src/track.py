@@ -255,6 +255,14 @@ if __name__ == '__main__':
                       cam_4_t
                       cam_5_t'''
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+    if opt.val_mta_long:
+        seqs_str = '''cam_0_t
+                      cam_1_t
+                      cam_2_t
+                      cam_3_t
+                      cam_4_t
+                      cam_5_t'''
+        data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
     if opt.test_mot17:
         seqs_str = '''MOT17-01-SDP
                       MOT17-03-SDP

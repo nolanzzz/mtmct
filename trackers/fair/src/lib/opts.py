@@ -110,6 +110,7 @@ class opts(object):
     self.parser.add_argument('--test_mta', default=False, help='test mta')
     self.parser.add_argument('--train_mta', default=False, help='train mta')
     self.parser.add_argument('--test_mta_partial', default=False, help='test partial mta')
+    self.parser.add_argument('--val_mta_long', default=False, help='validate mta train long - 3/3000')
     self.parser.add_argument('--val_hie', default=False, help='val hie')
     self.parser.add_argument('--test_hie', default=False, help='test hie')
     self.parser.add_argument('--conf_thres', type=float, default=0.4, help='confidence thresh for tracking')
