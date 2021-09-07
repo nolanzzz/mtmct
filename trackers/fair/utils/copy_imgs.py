@@ -63,5 +63,5 @@ def data_portion(total_frames, num_portions, expected_frames):
     return p_frames, step_len
 
 
-if __name__ == "main":
+if __name__ == '__main__':
     main()
