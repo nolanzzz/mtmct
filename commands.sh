@@ -1,5 +1,5 @@
 # Fair
-CUDA_VISIBLE_DEVICES="0, 3" python track.py mot --exp_id fair_features_long_val --val_mta_long True --load_model '../exp/mot/mta_long_dla34/model_last.pth' --data_dir '../data/MTA/' --conf_thres 0.4 --gpus 0,3
+CUDA_VISIBLE_DEVICES="0, 3" python track.py mot --exp_id fair_features_long --val_mta_long True --load_model '../exp/mot/mta_long_dla34/model_last.pth' --data_dir '../data/MTA/' --conf_thres 0.4 --gpus 0,3
 CUDA_VISIBLE_DEVICES="0, 3" python train.py mot --exp_id mta_4_10000 --resume --num_epochs 35 --load_model '../exp/mot/mta_4_10000/model_last.pth' --data_cfg '../src/lib/cfg/mta.json' --gpus 0,3
 CUDA_VISIBLE_DEVICES="1, 2" python demo.py mot --load_model '../exp/mot/mta_long_dla34/model_last.pth' --input-video '../data/MTA/mta_data/images/test/cam_5/cam_5.mp4' --output-root ../demos/mta_mot_short_newmodel_cam_5 --conf_thres 0.4 --gpus 1,2
 CUDA_VISIBLE_DEVICES="1, 2" python visualize.py mot --exp_id mta_wda_vis_train_short --train_mta True --data_dir '../data/MTA/'

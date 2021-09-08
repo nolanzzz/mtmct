@@ -445,11 +445,14 @@ class JDETracker(object):
         # print("dets shape: ", dets.shape)
         # print("id_feature shape: ", id_feature.shape)
 
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_features_long_val/features"
+        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_features_long/features"
+        track_feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_features_long/pickled_appearance_features"
         # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/features"
         # feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_train_mot17/pickled_appearance_features/train"
         os.makedirs(feature_pickle_folder, exist_ok=True)
+        os.makedirs(track_feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
+        track_feature_pkl_path = os.path.join(track_feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
         # print("feature_pkl_path: ", feature_pkl_path)
 
         if len(dets) > 0:
@@ -554,12 +557,12 @@ class JDETracker(object):
         output_stracks = [track for track in self.tracked_stracks if track.is_activated]
 
         ''' store track features per detection '''
-        # person_id_to_feature = {}
-        # for track in output_stracks:
-        #     if len(track.features) > 0:
-        #         person_id_to_feature[track.track_id] = track.features[-1]
-        #         with open(feature_pkl_path, 'wb') as handle:
-        #             pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        person_id_to_feature = {}
+        for track in output_stracks:
+            if len(track.features) > 0:
+                person_id_to_feature[track.track_id] = track.features[-1]
+                with open(track_feature_pkl_path, 'wb') as handle:
+                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         logger.debug('===========Frame {}=========='.format(self.frame_id))
         logger.debug('Activated: {}'.format([track.track_id for track in activated_starcks]))
