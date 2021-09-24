@@ -557,12 +557,12 @@ class JDETracker(object):
         output_stracks = [track for track in self.tracked_stracks if track.is_activated]
 
         ''' store track features per detection '''
-        person_id_to_feature = {}
-        for track in output_stracks:
-            if len(track.features) > 0:
-                person_id_to_feature[track.track_id] = track.features[-1]
-                with open(track_feature_pkl_path, 'wb') as handle:
-                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        # person_id_to_feature = {}
+        # for track in output_stracks:
+        #     if len(track.features) > 0:
+        #         person_id_to_feature[track.track_id] = track.features[-1]
+        #         with open(track_feature_pkl_path, 'wb') as handle:
+        #             pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         logger.debug('===========Frame {}=========='.format(self.frame_id))
         logger.debug('Activated: {}'.format([track.track_id for track in activated_starcks]))
