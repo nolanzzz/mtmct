@@ -204,7 +204,6 @@ class Motmetrics_evaluation:
 
 
 def evaluate_one_cam_task(ground_truth,track_results,working_dir,cam_id):
-
     eval_result = None
     try:
 
@@ -267,9 +266,9 @@ def eval_single_cam_multiple_cams(dataset_base, track_results_folder, working_di
             ground_truth = dataset_base
 
         evaluate_one_cam_task_args = (ground_truth,track_results,working_dir,cam_id)
-        #result = evaluate_one_cam_task(*evaluate_one_cam_task_args)
+        result = evaluate_one_cam_task(*evaluate_one_cam_task_args)
 
-        result = pool.apply_async(evaluate_one_cam_task,evaluate_one_cam_task_args)
+        # result = pool.apply_async(evaluate_one_cam_task,evaluate_one_cam_task_args)
         eval_results.append(result)
 
 
@@ -389,12 +388,14 @@ if __name__ == "__main__":
     '''
 
 
-    eval_single_cam_multiple_cams(dataset_base="/media/philipp/philippkoehl_ssd/GTA_ext_short/test"
+    eval_single_cam_multiple_cams(dataset_base="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
                                   ,
-                                  track_results_folder="/media/philipp/philippkoehl_ssd/work_dirs/config_runs/faster_rcnn_r50_gta_trained_strong_reid_GtaExtShort_test"
-                                  , working_dir="/media/philipp/philippkoehl_ssd/work_dirs"
-                                  , cam_ids=[0]
-                                  , results_csv_ouput_path="/media/philipp/philippkoehl_ssd/work_dirs/clustering/single_camera_clustering_results/faster_rcnn_r50_gta_trained_strong_reid_GtaExtShort_test/single_camera_clustering_results.csv")
+                                  track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/tracker_results"
+                                  # track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean_server/multicam_clustering_results/chunk_0/test"
+                                  , working_dir="/Users/nolanzhang/Projects/mtmct/work_dirs"
+                                  , cam_ids=[0,1,2,3,4,5]
+                                  , results_csv_ouput_path="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/single_camera_clustering_results.csv")
+                                  # , results_csv_ouput_path="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/multi_camera_clustering_results.csv")
 
 
 
