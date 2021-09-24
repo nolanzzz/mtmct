@@ -116,9 +116,10 @@ def pickle_all_reid_features(work_dirs
         frame_nos = get_frame_nos_track_results(track_results_one_cam["track_results"])
         track_results_df = track_results_one_cam["track_results"]
         cam_id = track_results_one_cam["cam_id"]
-        # cam_video_path = os.path.join(dataset_folder,"cam_{}".format(cam_id),"cam_{}.mp4".format(cam_id))
-        # print("cam_video_path:", cam_video_path)
-        # video_capture = cv2.VideoCapture(cam_video_path)
+
+        cam_video_path = os.path.join(dataset_folder,"cam_{}".format(cam_id),"cam_{}.mp4".format(cam_id))
+        print("cam_video_path:", cam_video_path)
+        video_capture = cv2.VideoCapture(cam_video_path)
 
 
 
@@ -142,27 +143,27 @@ def pickle_all_reid_features(work_dirs
 
             # comment out if using Fair features
 
-            # if not os.path.exists(feature_pickle_filename):
-            #     if len(feature_extraction) == 0:
-            #         feature_extraction.append(Feature_extraction(mc_cfg))
-            #
-            #     video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
-            #
-            #     ret, frame = video_capture.read()
-            #
-            #     if not ret:
-            #         raise Exception("Unable to read video frame.")
-            #
-            #
-            #     # print("\nframe_no_cam: ",frame_no_cam)
-            #     # print("frame:", frame.shape)
-            #
-            #     features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
-            #     person_id_to_feature = {}
-            #     for person_id, feature in zip(one_frame["person_id"], features_frame):
-            #         person_id_to_feature[person_id] = feature
-            #     with open(feature_pickle_filename, 'wb') as handle:
-            #         pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            if not os.path.exists(feature_pickle_filename):
+                if len(feature_extraction) == 0:
+                    feature_extraction.append(Feature_extraction(mc_cfg))
+
+                video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
+
+                ret, frame = video_capture.read()
+
+                if not ret:
+                    raise Exception("Unable to read video frame.")
+
+
+                # print("\nframe_no_cam: ",frame_no_cam)
+                # print("frame:", frame.shape)
+
+                features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
+                person_id_to_feature = {}
+                for person_id, feature in zip(one_frame["person_id"], features_frame):
+                    person_id_to_feature[person_id] = feature
+                with open(feature_pickle_filename, 'wb') as handle:
+                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
