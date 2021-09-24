@@ -141,9 +141,8 @@ def pickle_all_reid_features(work_dirs
             #         print("detections:", detections)
 
 
-            # comment out if using Fair features
-
-            if not os.path.exists(feature_pickle_filename):
+            # check if need to use wda extractor
+            if mc_cfg.config_basename != "fair_cluster" and not os.path.exists(feature_pickle_filename):
                 if len(feature_extraction) == 0:
                     feature_extraction.append(Feature_extraction(mc_cfg))
 
