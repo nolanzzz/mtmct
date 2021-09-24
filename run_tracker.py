@@ -26,6 +26,11 @@ from feature_extractors.reid_strong_baseline.utils.logger import setup_logger
 
 from datasets.mta_dataset_cam_iterator import get_cam_iterators
 from detectors.mmdetection_detector import Mmdetection_detector
+# from trackers.fair.src.lib.tracker import multitracker
+# from trackers.fair.src.lib.models import *
+# from trackers.fair.src.lib.utils import *
+from trackers.fair.src.lib import *
+
 
 class Run_tracker:
     def __init__(self,args):
@@ -34,6 +39,8 @@ class Run_tracker:
         self.cfg = mmcv.Config.fromfile(args.config).root
 
         self.cfg.general.config_basename = os.path.basename(args.config).replace(".py","")
+
+        self.use_original_wda = self.cfg.general.config_basename != "fair"
 
         self.cfg.general.repository_root = os.path.abspath(os.path.dirname(__file__))
 
@@ -46,7 +53,8 @@ class Run_tracker:
 
 
         #Initializes the detector class by calling the constructor and creating the object
-        self.detector = Mmdetection_detector(self.cfg)
+        if self.use_original_wda:
+            self.detector = Mmdetection_detector(self.cfg)
 
 
         self.deep_sort = DeepSort(self.cfg)
@@ -149,8 +157,7 @@ class Run_tracker:
                                         , "score" : score })
 
 
-
-    def img_callback(self,dataset_img):
+    def img_callback_original_wda(self, dataset_img):
 
 
         if len(self.detections_loaded) > 0:
@@ -186,10 +193,37 @@ class Run_tracker:
             cv2.waitKey(1)
 
 
+    def img_callback(self, dataset_img):
+
+        draw_img = dataset_img.img
+
+        outputs = self.deep_sort.update_with_fair_detections(dataset_img)
+
+        if len(outputs) > 0:
+
+            bboxes_xtylwh = outputs[:, :4]
+            bboxes_xyxy = [ xtylwh_to_xyxy(bbox_xtylwh,dataset_img.img_dims) for bbox_xtylwh in bboxes_xtylwh ]
+            identities = outputs[:, -2]
+            detection_idxs = outputs[:, -1]
+            draw_img = draw_bboxes(dataset_img.img, bboxes_xyxy, identities)
+
+
+            for detection_idx, person_id, bbox in zip(detection_idxs,identities,bboxes_xyxy):
+                print('%d,%d,%d,%d,%d,%d,%d,%d' % (
+                        dataset_img.frame_no_cam, dataset_img.cam_id, person_id, detection_idx,int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3])), file=self.track_results_file)
+
+        if self.cfg.general.display_viewer:
+            cv2.imshow("Annotation Viewer", draw_img)
+            cv2.waitKey(1)
+
+
     def run_on_cam_images(self,cam_iterator):
         for image in cam_iterator:
             self.pbar_tracker.update()
-            self.img_callback(image)
+            if self.use_original_wda:
+                self.img_callback_original_wda(image)
+            else:
+                self.img_callback(image)
 
     @staticmethod
     def get_cam_iterator_len_sum(cam_image_iterators):
@@ -224,14 +258,15 @@ class Run_tracker:
             logger.info(self.track_results_path)
             self.track_results_file = open(self.track_results_path, 'w')
             print("frame_no_cam,cam_id,person_id,detection_idx,xtl,ytl,xbr,ybr", file=self.track_results_file)
-
-            self.load_detections(cam_iterator)
+            if self.use_original_wda:
+                self.load_detections(cam_iterator)
 
             self.run_on_cam_images(cam_iterator)
 
             self.track_results_file.close()
 
-            self.save_detections()
+            if self.use_original_wda:
+                self.save_detections()
 
             track_count_string = count_tracks(self.track_results_path)
             logger.info(track_count_string)
