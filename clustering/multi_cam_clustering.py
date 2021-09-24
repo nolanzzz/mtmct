@@ -116,9 +116,9 @@ def pickle_all_reid_features(work_dirs
         frame_nos = get_frame_nos_track_results(track_results_one_cam["track_results"])
         track_results_df = track_results_one_cam["track_results"]
         cam_id = track_results_one_cam["cam_id"]
-        cam_video_path = os.path.join(dataset_folder,"cam_{}".format(cam_id),"cam_{}.mp4".format(cam_id))
-        print("cam_video_path:", cam_video_path)
-        video_capture = cv2.VideoCapture(cam_video_path)
+        # cam_video_path = os.path.join(dataset_folder,"cam_{}".format(cam_id),"cam_{}.mp4".format(cam_id))
+        # print("cam_video_path:", cam_video_path)
+        # video_capture = cv2.VideoCapture(cam_video_path)
 
 
 
@@ -133,29 +133,36 @@ def pickle_all_reid_features(work_dirs
                                                               , cam_id=cam_id
                                                               , config_basename=config_basename
                                                               , dataset_type=dataset_type)
+            # # load Fair detections & features here
+            # if os.path.exists(feature_pickle_filename):
+            #     with open(feature_pickle_filename, 'rb') as handle:
+            #         detections = pickle.load(handle)
+            #         print("detections:", detections)
+
+
             # comment out if using Fair features
 
-            if not os.path.exists(feature_pickle_filename):
-                if len(feature_extraction) == 0:
-                    feature_extraction.append(Feature_extraction(mc_cfg))
-
-                video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
-
-                ret, frame = video_capture.read()
-
-                if not ret:
-                    raise Exception("Unable to read video frame.")
-
-
-                # print("\nframe_no_cam: ",frame_no_cam)
-                # print("frame:", frame.shape)
-
-                features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
-                person_id_to_feature = {}
-                for person_id, feature in zip(one_frame["person_id"], features_frame):
-                    person_id_to_feature[person_id] = feature
-                with open(feature_pickle_filename, 'wb') as handle:
-                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # if not os.path.exists(feature_pickle_filename):
+            #     if len(feature_extraction) == 0:
+            #         feature_extraction.append(Feature_extraction(mc_cfg))
+            #
+            #     video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
+            #
+            #     ret, frame = video_capture.read()
+            #
+            #     if not ret:
+            #         raise Exception("Unable to read video frame.")
+            #
+            #
+            #     # print("\nframe_no_cam: ",frame_no_cam)
+            #     # print("frame:", frame.shape)
+            #
+            #     features_frame = feature_extraction[0].get_features(xyxy_bboxes, frame)
+            #     person_id_to_feature = {}
+            #     for person_id, feature in zip(one_frame["person_id"], features_frame):
+            #         person_id_to_feature[person_id] = feature
+            #     with open(feature_pickle_filename, 'wb') as handle:
+            #         pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
@@ -241,6 +248,7 @@ class Multi_cam_clustering:
 
             feature_mean = self.calculate_track_feature_mean(track=track_dict
                                                              ,dataset_type=dataset_type)
+            # print("feature_mean:", feature_mean)
             track_dict["feature_mean"] = feature_mean
 
 
@@ -966,7 +974,7 @@ class Multi_cam_clustering:
 
     def find_weights(self,weight_search_configs,dist_name_to_distance_weights):
 
-        def get_best_weight(evaluation_results,metric="IDF1"):
+        def get_best_weight(evaluation_results,metric="MOTA"):
 
             max_row = evaluation_results.loc[evaluation_results[metric].idxmax()]
 
@@ -999,7 +1007,7 @@ class Multi_cam_clustering:
                                                           message="Starting evaluation for dist_name: {} weight: {} ".format(
                                                               dist_name, weight)))
 
-                result = Multicam_evaluation(dataset_folder=self.train_dataset_folder
+                result = Multicam_evaluation(dataset_folder=self.test_dataset_folder
                     ,track_results_folder=clustering_results["tracking_results"]
                     ,cam_ids=list(range(self.cam_count))
                     ,working_dir=self.work_dirs
@@ -1163,8 +1171,8 @@ def find_clustering_weights(test_track_results_folder
     feature_extraction = []
 
     train_track_results_dataframes,train_dataset_dataframes = get_track_results_and_dataset(
-                                                                track_results_folder=train_track_results_folder
-                                                               , dataset_folder=train_dataset_folder
+                                                                track_results_folder=test_track_results_folder
+                                                               , dataset_folder=test_dataset_folder
                                                                , working_dir=work_dirs
                                                                , cam_count=cam_count
                                                                , until_frame_no=take_frames_per_cam)

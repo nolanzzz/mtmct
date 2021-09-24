@@ -55,13 +55,14 @@ class Tracker:
         for track in self.tracks:
             track.predict(self.kf)
 
-    def update(self, detections):
+    def update(self, detections, keep_features=False):
         """Perform measurement update and track management.
 
         Parameters
         ----------
         detections : List[deep_sort.detection.Detection]
             A list of detections at the current time step.
+        keep_features : Option to keep features in the outputs.
 
         """
         # Run matching cascade.
@@ -86,7 +87,8 @@ class Tracker:
                 continue
             features += track.features
             targets += [track.track_id for _ in track.features]
-            track.features = []
+            if not keep_features:
+                track.features = []
         self.metric.partial_fit(
             np.asarray(features), np.asarray(targets), active_targets)
 

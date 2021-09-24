@@ -63,7 +63,8 @@ class Run_multi_cam_clustering:
                                              , weight_search_configs=self.cfg.find_weights.weight_search_configs
                                              , dist_name_to_distance_weights=self.cfg.find_weights.dist_name_to_distance_weights
                                              , config_basename=self.cfg.config_basename
-                                             , person_identifier=self.cfg.person_identifier
+                                             , person_identifier="person_id"
+                                             # , person_identifier=self.cfg.person_identifier
                                              )
 
 

@@ -101,6 +101,9 @@ class Track:
         ret[:2] -= ret[2:] / 2
         return ret
 
+    def get_features(self):
+        return self.features
+
     def to_tlbr(self):
         """Get current position in bounding box format `(min x, miny, max x,
         max y)`.
