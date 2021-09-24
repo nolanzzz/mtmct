@@ -57,7 +57,7 @@ class Run_tracker:
             self.detector = Mmdetection_detector(self.cfg)
 
 
-        self.deep_sort = DeepSort(self.cfg)
+        self.deep_sort = DeepSort(self.cfg, use_original_wda=self.use_original_wda)
 
 
         #Set up the logger
