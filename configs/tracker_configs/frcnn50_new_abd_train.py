@@ -6,7 +6,7 @@ root = {
         #The visible GPUS will be restricted to the numbers listed here. The pytorch (cuda:0) numeration will start at 0
         #This is a trick to get everything onto the wanted gpus because just setting cuda:4 in the function calls will
         #not work for mmdetection. There will still be things on gpu cuda:0.
-        "cuda_visible_devices" : "0, 1",
+        "cuda_visible_devices" : "0, 3",
         "save_track_results" : True
 
     },
