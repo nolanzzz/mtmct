@@ -16,8 +16,8 @@ root = {
         "selection_interval" : [0,10000],
 
         "source" : {
-            # "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
-            "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test",
+            "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
+            # "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test",
             "cam_ids" : [0,1,2,3,4,5]
         }
 
@@ -38,7 +38,7 @@ root = {
 
     "feature_extractor" : {
 
-        "feature_extractor_name" : "fair"
+        "feature_extractor_name" : "abd_net_extractor"
 
             ,"reid_strong_extractor": {
                 "reid_strong_baseline_config": "feature_extractors/reid_strong_baseline/configs/softmax_triplet.yml",
