@@ -74,7 +74,7 @@ def gen_data_path_mta_full(root_path, gen_type):
     label_path = 'data/MTA/mta_data/labels_with_ids/' + gen_type
     real_path = os.path.join(root_path, label_path)
     write_file = os.path.join(root_path, 'src/data/mta.' + gen_type)
-    seq_names = [s for s in sorted(os.listdir(real_path))]
+    seq_names = [s for s in sorted(os.listdir(real_path)) if len(s) == 5]
     with open(write_file, 'w') as f:
         for seq_name in seq_names:
             seq_path = os.path.join(real_path, seq_name)
@@ -130,7 +130,8 @@ def data_portion(total_frames, num_portions, expected_frames):
 
 
 if __name__ == '__main__':
-    root = '/u40/zhanr110/mtmct/trackers/fair'
+    # root = '/u40/zhanr110/mtmct/trackers/fair'
+    root = '/Users/nolanzhang/Projects/mtmct/trackers/fair'
     # train or test
     data_type = sys.argv[1]
     if len(sys.argv) > 2:
