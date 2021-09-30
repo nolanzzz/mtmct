@@ -26,8 +26,8 @@ class DeepSort(object):
             cfg.feature_extractor.reid_strong_extractor.checkpoint_file = os.path.join(cfg.general.repository_root
                                                                                        ,cfg.feature_extractor.reid_strong_extractor.checkpoint_file)
 
-            cfg.feature_extractor.abd_net_extractor.load_weights = os.path.join(cfg.general.repository_root
-                                                                                       ,cfg.feature_extractor.abd_net_extractor.load_weights)
+            # cfg.feature_extractor.abd_net_extractor.load_weights = os.path.join(cfg.general.repository_root
+            #                                                                            ,cfg.feature_extractor.abd_net_extractor.load_weights)
 
 
 
