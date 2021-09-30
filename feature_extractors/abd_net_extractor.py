@@ -66,8 +66,8 @@ class Abd_net_extractor:
         except Exception as e:
             print(e)
             checkpoint = torch.load(self.args.load_weights, map_location={'cuda:0': 'cpu'})
-        print(checkpoint.keys())
-        exit()
+        # print(checkpoint.keys())
+        # exit()
         pretrain_dict = checkpoint['state_dict']
         model_dict = model.state_dict()
         pretrain_dict = {k: v for k, v in pretrain_dict.items() if k in model_dict and model_dict[k].size() == v.size()}
