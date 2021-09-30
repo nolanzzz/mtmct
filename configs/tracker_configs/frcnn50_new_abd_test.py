@@ -58,7 +58,7 @@ root = {
                   of_start_epoch=23, open_layers=['classifier'], optim='adam', ow_beta=0.001,
                   pool_tracklet_features='avg', print_freq=10, resume='', rmsprop_alpha=0.99
                   # , load_weights='work_dirs/feature_extractor/abd-net/checkpoint_ep30_non_clean.pth.tar'
-                  # , load_weights='work_dirs/feature_extractor/abd-net/nvidia_resnet50_200821.pth.tar'
+                  , load_weights='work_dirs/feature_extractor/abd-net/resnet_v1_50.ckpt'
                   , root='work_dirs/datasets'
                        , sample_method='evenly'
                        , save_dir='work_dirs/feature_extractor/abd-net/log/eval-resnet50'
