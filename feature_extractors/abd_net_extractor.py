@@ -54,11 +54,11 @@ class Abd_net_extractor:
     def load_model_weights(self):
 
 
-        # model = models.init_model(name=self.args.arch, num_classes=1500, loss={'xent'}, use_gpu=self.use_gpu,
-        #                           args=vars(self.args))
-        # use FairMOT model instead
-        model = models.init_model(name=self.args.arch, num_classes=1, use_gpu=self.use_gpu,
+        model = models.init_model(name=self.args.arch, num_classes=1500, loss={'xent'}, use_gpu=self.use_gpu,
                                   args=vars(self.args))
+        # use FairMOT model instead
+        # model = models.init_model(name=self.args.arch, num_classes=1, use_gpu=self.use_gpu,
+        #                           args=vars(self.args))
 
         # load pretrained weights but ignore layers that don't match in size
         try:
