@@ -84,7 +84,7 @@ def gen_data_path_mta_full(root_path, gen_type):
             # len_half = int(len_all / 2)
             for i in range(len_all):
                 image = ((images[i])[:-3] + 'jpg').replace(label_path, data_path)
-                print(image[29:], file=f)
+                print(image[43:], file=f)
     f.close()
 
 
