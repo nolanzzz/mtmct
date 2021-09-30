@@ -130,8 +130,8 @@ def data_portion(total_frames, num_portions, expected_frames):
 
 
 if __name__ == '__main__':
-    # root = '/u40/zhanr110/mtmct/trackers/fair'
-    root = '/Users/nolanzhang/Projects/mtmct/trackers/fair'
+    root = '/u40/zhanr110/mtmct/trackers/fair'
+    # root = '/Users/nolanzhang/Projects/mtmct/trackers/fair'
     # train or test
     data_type = sys.argv[1]
     if len(sys.argv) > 2:
