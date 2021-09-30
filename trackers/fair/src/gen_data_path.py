@@ -83,6 +83,8 @@ def gen_data_path_mta_full(root_path, gen_type):
             len_all = len(images)
             # len_half = int(len_all / 2)
             for i in range(len_all):
+                if images[i][-10:-4] == "000000":
+                    continue
                 image = ((images[i])[:-3] + 'jpg').replace(label_path, data_path)
                 print(image[43:], file=f)
     f.close()
