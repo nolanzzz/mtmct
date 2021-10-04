@@ -86,9 +86,6 @@ def main():
         distributed = False
     else:
         distributed = True
-        print("torch.cuda.device_count()")
-        print(torch.cuda.device_count())
-        exit()
         init_dist(args.launcher, **cfg.dist_params)
 
     # create work_dir
