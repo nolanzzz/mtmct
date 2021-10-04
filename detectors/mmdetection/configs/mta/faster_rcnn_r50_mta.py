@@ -106,7 +106,7 @@ test_cfg=dict(
 # dataset_type = 'GtaDataset'
 dataset_type = 'CocoDataset'
 # classes = ('pedestrian',)
-data_root = '/u40/zhanr110/mmdetection/data/MTA_short/'
+data_root = '/u40/zhanr110/mtmct/detectors/mmdetection/data/MTA_short/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
