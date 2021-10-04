@@ -14,6 +14,8 @@ from mmdet.models import build_detector
 
 
 def init_detector(config, checkpoint=None, device='cuda:0'):
+    print(config)
+    exit()
     """Initialize a detector from config file.
 
     Args:
