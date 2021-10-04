@@ -14,8 +14,6 @@ from mmdet.models import build_detector
 
 
 def init_detector(config, checkpoint=None, device='cuda:0'):
-    print(config)
-    exit()
     """Initialize a detector from config file.
 
     Args:
@@ -29,6 +27,8 @@ def init_detector(config, checkpoint=None, device='cuda:0'):
     """
     if isinstance(config, str):
         config = mmcv.Config.fromfile(config)
+        print(config)
+        exit()
     elif not isinstance(config, mmcv.Config):
         raise TypeError('config must be a filename or Config object, '
                         'but got {}'.format(type(config)))
