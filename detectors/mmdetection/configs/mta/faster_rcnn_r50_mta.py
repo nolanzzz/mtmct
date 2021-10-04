@@ -180,7 +180,7 @@ optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 
 # runtime settings
-total_epochs = 3
+total_epochs = 1
 dist_params = dict(backend='nccl')
 load_from = None
 resume_from = None
