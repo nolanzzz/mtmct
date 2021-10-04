@@ -6,7 +6,7 @@ CUDA_VISIBLE_DEVICES="1, 2" python demo.py mot --load_model '../exp/mot/mta_long
 CUDA_VISIBLE_DEVICES="1, 2" python visualize.py mot --exp_id mta_wda_vis_train_short --train_mta True --data_dir '../data/MTA/'
 
 # wda_tracker
-CUDA_VISIBLE_DEVICES="0, 1" python run_tracker.py --config configs/tracker_configs/frcnn50_new_abd_test.py
+CUDA_VISIBLE_DEVICES="0, 3" python run_tracker.py --config configs/tracker_configs/frcnn50_new_abd_test.py
 CUDA_VISIBLE_DEVICES="0, 3" python run_multi_cam_clustering.py --config configs/clustering_configs/mta_es_abd_non_clean.py
 
 # mmdetection
