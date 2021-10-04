@@ -150,5 +150,5 @@ if __name__ == '__main__':
     import sys
 
     print(sys.path)
-    os.environ['CUDA_VISIBLE_DEVICES'] = "5"
+    os.environ['CUDA_VISIBLE_DEVICES'] = "0,1,2,3"
     main()
