@@ -13,7 +13,7 @@ model = dict(
         # init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')),
         # init_cfg=dict(type='Pretrained', checkpoint='/u40/zhanr110/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth')
     ),
-    pretrained='/u40/zhanr110/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
+    pretrained='/u40/zhanr110/mtmct/detectors/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
     neck=dict(
         type='FPN',
         in_channels=[256, 512, 1024, 2048],
