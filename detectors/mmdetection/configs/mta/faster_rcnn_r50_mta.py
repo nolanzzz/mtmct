@@ -105,7 +105,7 @@ test_cfg=dict(
 )
 # dataset_type = 'GtaDataset'
 dataset_type = 'CocoDataset'
-classes = ('pedestrian',)
+# classes = ('pedestrian',)
 data_root = '/u40/zhanr110/mmdetection/data/MTA_short/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -141,19 +141,19 @@ data = dict(
             type=dataset_type,
             ann_file=data_root + 'train/annotations_coco.json',
             img_prefix=data_root + 'train/img1/',
-            classes=classes,
+            # classes=classes,
             pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         ann_file=data_root + 'test/annotations_coco.json',
         img_prefix=data_root + 'test/img1/',
-        classes=classes,
+        # classes=classes,
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'test/annotations_coco.json',
         img_prefix=data_root + 'test/img1/',
-        classes=classes,
+        # classes=classes,
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 log_level = 'INFO'

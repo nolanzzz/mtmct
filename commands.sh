@@ -10,5 +10,5 @@ CUDA_VISIBLE_DEVICES="0, 3" python run_tracker.py --config configs/tracker_confi
 CUDA_VISIBLE_DEVICES="0, 3" python run_multi_cam_clustering.py --config configs/clustering_configs/mta_es_abd_non_clean.py
 
 # mmdetection
-CUDA_VISIBLE_DEVICES="0, 1" python tools/train.py configs/mta/faster_rcnn_r50_mta.py --gpus 2 --launcher pytorch
+CUDA_VISIBLE_DEVICES=0,1,2,3 python tools/train.py configs/mta/faster_rcnn_r50_mta.py --gpus 4
 CUDA_VISIBLE_DEVICES=0,1,2,3 ./tools/dist_train.sh configs/mta/faster_rcnn_r50_mta.py 4
