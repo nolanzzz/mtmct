@@ -29,7 +29,7 @@ root = {
     "detector" : {
 
         # "mmdetection_config" : "detectors/mmdetection/configs/faster_rcnn_r50_fpn_1x_gta.py",
-        "mmdetection_config" : "detectors/mmdetection/configs/faster_rcnn_r50_mta.py",
+        "mmdetection_config" : "detectors/mmdetection/configs/mta/faster_rcnn_r50_mta.py",
         # "mmdetection_checkpoint_file" : "work_dirs/detector/faster_rcnn_gta22.07_epoch_5.pth",
         "mmdetection_checkpoint_file" : "work_dirs/detector/latest.pth",
         "device" : "cuda:0, 3",
