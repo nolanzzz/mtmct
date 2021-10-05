@@ -180,11 +180,11 @@ optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 
 # runtime settings
-total_epochs = 12
+total_epochs = 5
 dist_params = dict(backend='nccl')
 load_from = None
 resume_from = None
 
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
-work_dir = './work_dirs/faster_rcnn_r50_mta_12epoch'
+work_dir = './work_dirs/faster_rcnn_r50_mta_5epoch'
