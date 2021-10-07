@@ -31,7 +31,7 @@ def load_tracks_per_cam(cam_id, track_results_folder):
     track_result_df = track_result_df.astype({"frame_no_cam": int,
                                               "cam_id": int,
                                               "person_id": int,
-                                              "track_unclustered_no": int,
+                                              "detection_idx": int,
                                               "xtl": int,
                                               "ytl": int,
                                               "xbr": int,
@@ -113,10 +113,10 @@ def main(opt, seqs, data_root, exp_name='demo',
          save_images=True, save_videos=False):
     # logger.setLevel(logging.INFO)
     # result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/train'
+    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/' + exp_name + '/tracker_results'
     gt_root = '/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test'
     # output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
-    output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
+    output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/'
     print("\n", result_root, "\n")
 
     # run visualizing
@@ -125,7 +125,7 @@ def main(opt, seqs, data_root, exp_name='demo',
 
     for seq in seqs:
 
-        output_dir = os.path.join(output_root, 'outputs', exp_name, seq) if save_images or save_videos else None
+        output_dir = os.path.join(output_root, exp_name, 'outputs', seq) if save_images or save_videos else None
 
         # logger.info('start seq: {}'.format(seq))
 
@@ -154,12 +154,7 @@ if __name__ == '__main__':
     print(opt)
 
     if opt.test_mta:
-        seqs_str = '''cam_0
-                      cam_1
-                      cam_2
-                      cam_3
-                      cam_4
-                      cam_5'''
+        seqs_str = '''cam_1'''
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
     if opt.train_mta:
         seqs_str = '''cam_0
