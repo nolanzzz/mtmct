@@ -135,18 +135,18 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'train/annotations_coco.json',
-        img_prefix=data_root + 'train/img1/',
+        ann_file=data_root + 'train/coords.json',
+        img_prefix=data_root + 'train/images/',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'test/annotations_coco.json',
-        img_prefix=data_root + 'test/img1/',
+        ann_file=data_root + 'test/coords.json',
+        img_prefix=data_root + 'test/images/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'test/annotations_coco.json',
-        img_prefix=data_root + 'test/img1/',
+        ann_file=data_root + 'test/coords.json',
+        img_prefix=data_root + 'test/images/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 # optimizer
@@ -170,7 +170,7 @@ log_config = dict(
 total_epochs = 1
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/faster_rcnn_r50_mta_1_gtadataset'
+work_dir = './work_dirs/GtaDataset_1e'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]

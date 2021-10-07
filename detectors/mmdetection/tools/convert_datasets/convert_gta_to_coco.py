@@ -137,7 +137,7 @@ def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_num
 
             frame_annotations = get_frame_annotation(cam_coords_frame,frame_no_gta, img_dims)
             image_name = "image_{}_{}.jpg".format(frame_no_cam,cam_id)
-            image_path_gta = osp.join(cam_path,image_name)
+            image_path_gta = osp.join(cam_path, "img1", image_name)
             image_path_gta_coco = osp.join(coco_gta_dataset_images_path,image_name)
 
 
@@ -172,14 +172,14 @@ def xyxy2xywh(bbox):
 
 def main():
 
-    gta_dataset_path = "/net/merkur/storage/deeplearning/users/koehl/gta/GTA_Dataset_22.07.2019/train"
-    coco_dataset_path = "/net/merkur/storage/deeplearning/users/koehl/gta/COCO_GTA_Dataset_22.07.2019_sampled/train"
-    work_dirs = "/home/koehlp/Downloads/work_dirs/"
+    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
+    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
+    work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
     convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs)
 
-    gta_dataset_path = "/net/merkur/storage/deeplearning/users/koehl/gta/GTA_Dataset_22.07.2019/test"
-    coco_dataset_path = "/net/merkur/storage/deeplearning/users/koehl/gta/COCO_GTA_Dataset_22.07.2019_sampled/test"
-    work_dirs = "/home/koehlp/Downloads/work_dirs/"
+    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
+    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
+    work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
     convert_annotations(gta_dataset_path, coco_dataset_path, work_dirs)
 
 
