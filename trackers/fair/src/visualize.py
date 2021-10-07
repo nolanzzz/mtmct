@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
     if opt.test_mta:
         seqs_str = '''cam_0'''
-        data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+        data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
     if opt.train_mta:
         seqs_str = '''cam_0
                       cam_1

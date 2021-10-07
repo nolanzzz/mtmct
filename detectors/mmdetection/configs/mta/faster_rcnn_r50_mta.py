@@ -1,19 +1,14 @@
 # model settings
 model = dict(
     type='FasterRCNN',
+    pretrained='/u40/zhanr110/mtmct/detectors/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
     backbone=dict(
         type='ResNet',
         depth=50,
         num_stages=4,
         out_indices=(0, 1, 2, 3),
         frozen_stages=1,
-        # norm_cfg=dict(type='BN', requires_grad=True),
-        # norm_eval=True,
-        style='pytorch',
-        # init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')),
-        # init_cfg=dict(type='Pretrained', checkpoint='/u40/zhanr110/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth')
-    ),
-    pretrained='/u40/zhanr110/mtmct/detectors/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
+        style='pytorch'),
     neck=dict(
         type='FPN',
         in_channels=[256, 512, 1024, 2048],
@@ -48,8 +43,7 @@ model = dict(
         reg_class_agnostic=False,
         loss_cls=dict(
             type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
-        loss_bbox=dict(type='SmoothL1Loss', beta=1.0, loss_weight=1.0))
-)
+        loss_bbox=dict(type='SmoothL1Loss', beta=1.0, loss_weight=1.0)))
 # model training and testing settings
 train_cfg=dict(
     rpn=dict(
@@ -105,8 +99,8 @@ test_cfg=dict(
     # soft-nms is also supported for rcnn testing
     # e.g., nms=dict(type='soft_nms', iou_threshold=0.5, min_score=0.05)
 )
-# dataset_type = 'GtaDataset'
-dataset_type = 'CocoDataset'
+dataset_type = 'GtaDataset'
+# dataset_type = 'CocoDataset'
 # classes = ('pedestrian',)
 data_root = '/u40/zhanr110/mtmct/detectors/mmdetection/data/MTA_short/'
 img_norm_cfg = dict(
@@ -143,23 +137,21 @@ data = dict(
             type=dataset_type,
             ann_file=data_root + 'train/annotations_coco.json',
             img_prefix=data_root + 'train/img1/',
-            # classes=classes,
             pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         ann_file=data_root + 'test/annotations_coco.json',
         img_prefix=data_root + 'test/img1/',
-        # classes=classes,
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'test/annotations_coco.json',
         img_prefix=data_root + 'test/img1/',
-        # classes=classes,
-        pipeline=test_pipeline))
+        pipeline=test_pipeline)),
 evaluation = dict(interval=1, metric='bbox')
-log_level = 'INFO'
-workflow = [('train', 1)]
+# optimizer
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
 lr_config = dict(
     policy='step',
@@ -174,17 +166,14 @@ log_config = dict(
         dict(type='TextLoggerHook'),
         # dict(type='TensorboardLoggerHook')
     ])
-
-# optimizer
-optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
-optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
-
 # runtime settings
-total_epochs = 5
+total_epochs = 1
 dist_params = dict(backend='nccl')
+log_level = 'INFO'
+work_dir = './work_dirs/faster_rcnn_r50_mta_1_gtadataset'
 load_from = None
 resume_from = None
-
+workflow = [('train', 1)]
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
-work_dir = './work_dirs/faster_rcnn_r50_mta_5epoch'
+
