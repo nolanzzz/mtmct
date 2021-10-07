@@ -147,7 +147,7 @@ data = dict(
         type=dataset_type,
         ann_file=data_root + 'test/annotations_coco.json',
         img_prefix=data_root + 'test/img1/',
-        pipeline=test_pipeline)),
+        pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 # optimizer
 optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
