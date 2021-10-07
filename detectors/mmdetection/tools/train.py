@@ -121,7 +121,7 @@ def main():
 
     model = build_detector(
         cfg.model, train_cfg=cfg.train_cfg, test_cfg=cfg.test_cfg)
-    print(cfg.data)
+    print(cfg.data.keys())
     exit()
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:
