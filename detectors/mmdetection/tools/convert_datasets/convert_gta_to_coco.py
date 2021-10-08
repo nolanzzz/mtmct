@@ -68,7 +68,7 @@ def get_frame_annotation(cam_coords_frame: pd.DataFrame, image_id: int, image_si
 
 
 
-def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_number=6,img_dims=(1920,1080),person_id_name="person_id",samplingRate=41):
+def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_number=6,img_dims=(1920,1080),person_id_name="person_id",samplingRate=1):
     coco_dict = {
         'info': {
             'description': 'GTA_MTMCT',
@@ -172,10 +172,10 @@ def xyxy2xywh(bbox):
 
 def main():
 
-    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
-    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
-    work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
-    convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs)
+    # gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
+    # coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
+    # work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
+    # convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs)
 
     gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
     coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
