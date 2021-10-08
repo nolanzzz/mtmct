@@ -131,8 +131,8 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    imgs_per_gpu=4,
-    workers_per_gpu=4,
+    imgs_per_gpu=3,
+    workers_per_gpu=3,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'train/coords.json',
