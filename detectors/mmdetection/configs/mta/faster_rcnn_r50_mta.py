@@ -167,12 +167,13 @@ log_config = dict(
         # dict(type='TensorboardLoggerHook')
     ])
 # runtime settings
-total_epochs = 12
+total_epochs = 15
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = './work_dirs/GtaDataset_12e'
 load_from = None
-resume_from = None
+# resume_from = None
+resume_from = './work_dirs/GtaDataset_12e/epoch_10.pth'
 workflow = [('train', 1)]
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
