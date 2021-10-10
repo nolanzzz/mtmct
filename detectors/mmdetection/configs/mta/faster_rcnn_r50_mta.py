@@ -173,7 +173,7 @@ log_level = 'INFO'
 work_dir = './work_dirs/GtaDataset_12e'
 load_from = None
 # resume_from = None
-resume_from = './work_dirs/GtaDataset_12e/epoch_10.pth'
+resume_from = './work_dirs/GtaDataset_12e/latest.pth'
 workflow = [('train', 1)]
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
