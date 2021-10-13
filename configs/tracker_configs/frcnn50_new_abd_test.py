@@ -30,7 +30,7 @@ root = {
         # "mmdetection_config" : "detectors/mmdetection/configs/faster_rcnn_r50_fpn_1x_gta.py",
         "mmdetection_config" : "detectors/mmdetection/configs/mta/faster_rcnn_r50_mta.py",
         # "mmdetection_checkpoint_file" : "work_dirs/detector/faster_rcnn_gta22.07_epoch_5.pth",
-        "mmdetection_checkpoint_file" : "detectors/mmdetection/work_dirs/GtaDataset_15e/epoch_15.pth",
+        "mmdetection_checkpoint_file" : "detectors/mmdetection/work_dirs/GtaDataset_15e/epoch_20.pth",
         "device" : "cuda:1,2",
         #Remove all detections with a confidence less than min_confidence
         "min_confidence" : 0.4,
