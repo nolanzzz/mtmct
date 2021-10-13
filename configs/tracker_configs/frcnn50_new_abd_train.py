@@ -18,7 +18,7 @@ root = {
         "source" : {
             "base_folder" : "/u40/zhanr110/MTA_ext_short/train",
             # "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train",
-            "cam_ids" : [2]
+            "cam_ids" : [3]
         }
 
 
@@ -31,7 +31,7 @@ root = {
         "mmdetection_config" : "detectors/mmdetection/configs/mta/faster_rcnn_r50_mta.py",
         # "mmdetection_checkpoint_file" : "work_dirs/detector/faster_rcnn_gta22.07_epoch_5.pth",
         "mmdetection_checkpoint_file" : "detectors/mmdetection/work_dirs/GtaDataset_15e/epoch_20.pth",
-        "device" : "cuda:1,2",
+        "device" : "cuda:0,1,2,3",
         #Remove all detections with a confidence less than min_confidence
         "min_confidence" : 0.4,
 
