@@ -1,5 +1,6 @@
 {
-    "root":"/u40/zhanr110/mtmct/trackers/fair/data/MTA",
+    "root":"/u40/mtmct/trackers/fair/data/MTA_short",
+//    "root":"/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short",
     "train":
     {
         "mta":"./data/mta.train"

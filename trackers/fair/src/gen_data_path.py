@@ -70,23 +70,23 @@ def gen_data_path_mot17_emb(root_path):
 
 
 def gen_data_path_mta_full(root_path, gen_type):
-    data_path = 'data/MTA/mta_data/images/' + gen_type
-    label_path = 'data/MTA/mta_data/labels_with_ids/' + gen_type
+    data_path = 'data/MTA_short/mta_data/images/' + gen_type
+    label_path = 'data/MTA_short/mta_data/labels_with_ids/' + gen_type
     real_path = os.path.join(root_path, label_path)
     write_file = os.path.join(root_path, 'src/data/mta.' + gen_type)
     seq_names = [s for s in sorted(os.listdir(real_path)) if len(s) == 5]
+    # seq_names = ['cam_0']
     with open(write_file, 'w') as f:
         for seq_name in seq_names:
-            seq_path = os.path.join(real_path, seq_name)
-            seq_path = os.path.join(seq_path, 'img1')
+            seq_path = os.path.join(real_path, seq_name, 'img1')
             images = sorted(glob.glob(seq_path + '/*.txt'))
             len_all = len(images)
             # len_half = int(len_all / 2)
             for i in range(len_all):
-                if images[i][-10:-4] == "000000":
-                    continue
+                # if images[i][-10:-4] == "000000":
+                #     continue
                 image = ((images[i])[:-3] + 'jpg').replace(label_path, data_path)
-                print(image[43:], file=f)
+                print(image[49:], file=f)
     f.close()
 
 
