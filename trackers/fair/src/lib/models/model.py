@@ -37,6 +37,7 @@ def load_model(model, model_path, optimizer=None, resume=False,
   # print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
   print(checkpoint.keys())
   print(checkpoint['state_dict'])
+  print("\n\n\n\n")
   print(checkpoint['optimizer'])
   exit()
   state_dict_ = checkpoint['state_dict']
