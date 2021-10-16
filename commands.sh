@@ -6,6 +6,7 @@ CUDA_VISIBLE_DEVICES="0,1,2,3" python train.py mot --exp_id dla34_imagenet --num
 
 CUDA_VISIBLE_DEVICES="0,1,2,3" python train.py mot --exp_id dla34-ba --num_epochs 20 --load_model '../models/dla34-ba.pth' --data_cfg '../src/lib/cfg/mta.json' --gpus 0,1,2,3
 CUDA_VISIBLE_DEVICES="0,1,2,3" python train.py mot --exp_id fairmot_dla34_test --num_epochs 20 --load_model '../models/fairmot_dla34.pth' --data_cfg '../src/lib/cfg/mta.json' --gpus 0,1,2,3
+CUDA_VISIBLE_DEVICES="2,3" python train.py mot --exp_id hrnetv2_w18_imagenet_pretrained.pth --num_epochs 20 --load_model '../models/hrnetv2_w18_imagenet_pretrained.pth' --data_cfg '../src/lib/cfg/mta.json' --gpus 2,3
 
 
 
