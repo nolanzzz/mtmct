@@ -38,7 +38,8 @@ def load_model(model, model_path, optimizer=None, resume=False,
   print(checkpoint.keys())
   # print(checkpoint['state_dict'].keys())
   # print("\n\n\n\n")
-  # print(checkpoint['optimizer'].keys())
+  print(checkpoint['optimizer']['state'])
+  print(checkpoint['optimizer']['param_groups'])
   # print(checkpoint)
   exit()
   state_dict_ = checkpoint['state_dict']
