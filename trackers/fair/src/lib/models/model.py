@@ -36,9 +36,10 @@ def load_model(model, model_path, optimizer=None, resume=False,
   checkpoint = torch.load(model_path, map_location=lambda storage, loc: storage)
   # print('loaded {}, epoch {}'.format(model_path, checkpoint['epoch']))
   print(checkpoint.keys())
-  print(checkpoint['state_dict'])
+  print(checkpoint['state_dict'].keys())
   print("\n\n\n\n")
-  print(checkpoint['optimizer'])
+  print(checkpoint['optimizer'].keys())
+  # print(checkpoint)
   exit()
   state_dict_ = checkpoint['state_dict']
   state_dict = {}
