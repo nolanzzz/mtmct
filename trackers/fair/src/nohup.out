@@ -1,0 +1,21 @@
+Using tensorboardX
+Fix size testing.
+training chunk_sizes: [4, 4, 4]
+The output will be saved to  /nfs/u40/zhanr110/mtmct/trackers/fair/src/lib/../../exp/mot/mta_full_5_epochs
+Setting up data...
+================================================================================
+dataset summary
+OrderedDict([('mta', 1368.0)])
+total # identities: 1369
+start index
+OrderedDict([('mta', 0)])
+================================================================================
+heads {'hm': 1, 'wh': 4, 'id': 128, 'reg': 2}
+Namespace(K=500, arch='dla_34', batch_size=12, cat_spec_wh=False, chunk_sizes=[4, 4, 4], conf_thres=0.4, data_cfg='../src/lib/cfg/mta.json', data_dir='/u40/zhanr110/data/MOT/JDE', dataset='jde', debug_dir='/nfs/u40/zhanr110/mtmct/trackers/fair/src/lib/../../exp/mot/mta_full_5_epochs/debug', dense_wh=False, det_thres=0.3, down_ratio=4, exp_dir='/nfs/u40/zhanr110/mtmct/trackers/fair/src/lib/../../exp/mot', exp_id='mta_full_5_epochs', fix_res=True, gpus=[0, 1, 2], gpus_str='1,2,3', head_conv=256, heads={'hm': 1, 'wh': 4, 'id': 128, 'reg': 2}, hide_data_time=False, hm_weight=1, id_loss='ce', id_weight=1, img_size=(1088, 608), input_h=1088, input_res=1088, input_video='../videos/MOT16-03.mp4', input_w=608, keep_res=False, load_model='../exp/mot/mot17_dla34/model_last.pth', lr=0.0001, lr_step=[20], ltrb=True, master_batch_size=4, mean=None, metric='loss', min_box_area=100, mse_loss=False, nID=1369, nms_thres=0.4, norm_wh=False, not_cuda_benchmark=False, not_prefetch_test=False, not_reg_offset=False, num_classes=1, num_epochs=5, num_iters=-1, num_stacks=1, num_workers=8, off_weight=1, output_format='video', output_h=272, output_res=272, output_root='../demos', output_w=152, pad=31, print_iter=0, reg_loss='l1', reg_offset=True, reid_dim=128, resume=False, root_dir='/nfs/u40/zhanr110/mtmct/trackers/fair/src/lib/../..', save_all=False, save_dir='/nfs/u40/zhanr110/mtmct/trackers/fair/src/lib/../../exp/mot/mta_full_5_epochs', seed=317, std=None, task='mot', test=False, test_hie=False, test_mot15=False, test_mot16=False, test_mot17=False, test_mot20=False, test_mta=False, test_mta_partial=False, track_buffer=30, train_mta=False, trainval=False, val_hie=False, val_intervals=5, val_mot15=False, val_mot16=False, val_mot17=False, val_mot20=False, val_mta_long=False, vis_thresh=0.5, wh_weight=0.1)
+Creating model...
+Starting training...
+loaded ../exp/mot/mot17_dla34/model_last.pth, epoch 30
+/u40/zhanr110/miniconda3/envs/wda/lib/python3.7/site-packages/torch/nn/_reduction.py:43: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))
+/u40/zhanr110/miniconda3/envs/wda/lib/python3.7/site-packages/torch/nn/parallel/_functions.py:61: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
