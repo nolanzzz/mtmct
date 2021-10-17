@@ -239,8 +239,6 @@ if __name__ == '__main__':
                       cam_5'''
         # seqs_str = "cam_0"
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
-        print(data_root)
-        exit()
     if opt.train_mta:
         seqs_str = '''cam_0
                       cam_1
