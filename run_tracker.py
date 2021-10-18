@@ -40,7 +40,7 @@ class Run_tracker:
 
         self.cfg.general.config_basename = os.path.basename(args.config).replace(".py","")
 
-        self.use_original_wda = self.cfg.general.config_basename != "fair"
+        self.use_original_wda = self.cfg.general.config_basename[:4] != "fair"
 
         self.cfg.general.repository_root = os.path.abspath(os.path.dirname(__file__))
 
