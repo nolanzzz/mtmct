@@ -142,7 +142,7 @@ def pickle_all_reid_features(work_dirs
 
 
             # check if need to use wda extractor
-            if mc_cfg.config_basename != "fair_cluster" and not os.path.exists(feature_pickle_filename):
+            if mc_cfg.config_basename[:4] != "fair" and not os.path.exists(feature_pickle_filename):
                 if len(feature_extraction) == 0:
                     feature_extraction.append(Feature_extraction(mc_cfg))
 
