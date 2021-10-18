@@ -18,7 +18,7 @@ CUDA_VISIBLE_DEVICES="1, 2" python demo.py mot --load_model '../exp/mot/mta_long
 python visualize.py mot --exp_id new_test_20e --test_mta True --data_dir '../data/MTA_short/'
 
 # wda_tracker
-python run_tracker.py --config configs/tracker_configs/frcnn50_new_abd_train.py
+python run_tracker.py --config configs/tracker_configs/fair_dla34_coco_wda_test.py
 CUDA_VISIBLE_DEVICES="0, 3" python run_multi_cam_clustering.py --config configs/clustering_configs/mta_es_abd_non_clean.py
 
 # mmdetection
