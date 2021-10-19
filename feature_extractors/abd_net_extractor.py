@@ -88,6 +88,7 @@ class Abd_net_extractor:
                 pil_img = convert_cv2_img_to_pil_img(img)
                 transformed_img = self.transform_test(pil_img)
                 result.append(transformed_img)
+                print(img.shape)
             except:
                 print(img)
                 print(len(img))
