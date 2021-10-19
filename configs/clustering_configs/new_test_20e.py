@@ -33,7 +33,7 @@ root = {
                                            data_augment=['crop,random-erase'], day_only=False, dropout=0.5, eval_freq=5,
                                            evaluate=False,
                                            fixbase=False, fixbase_epoch=10, flip_eval=False, gamma=0.1, global_dim=1024,
-                                           global_max_pooling=False, gpu_devices='0', height=384, htri_only=False,
+                                           global_max_pooling=False, gpu_devices='2', height=384, htri_only=False,
                                            label_smooth=True,
                                            lambda_htri=0.1, lambda_xent=1, lr=0.0003, margin=1.2, max_epoch=80,
                                            min_height=-1,
