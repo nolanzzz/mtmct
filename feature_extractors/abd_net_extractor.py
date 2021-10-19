@@ -92,7 +92,7 @@ class Abd_net_extractor:
             except:
                 print(img)
                 print(len(img))
-                print(img.shape)
+                print(len(img[0]))
                 exit()
         return result
 
