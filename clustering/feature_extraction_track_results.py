@@ -42,9 +42,10 @@ class Feature_extraction:
                 cv2.imshow('image', im)
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
-            print(len(im[0]))
             if len(im) != 0 and len(im[0]) != 0:
                 im_crops.append(im)
+            else:
+                print(im.shape)
         # print("im_crops:", len(im_crops))
         # print("im_crops[0] shape:", im_crops[0].shape)
         if im_crops:
