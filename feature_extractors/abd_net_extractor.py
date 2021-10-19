@@ -84,6 +84,8 @@ class Abd_net_extractor:
     def preprocess(self,img_crops):
         result = []
         for img in img_crops:
+            print("here")
+            print(img)
             pil_img = convert_cv2_img_to_pil_img(img)
             transformed_img = self.transform_test(pil_img)
             result.append(transformed_img)
