@@ -19,7 +19,7 @@ python visualize.py mot --exp_id new_test_20e --test_mta True --data_dir '../dat
 
 # wda_tracker
 python run_tracker.py --config configs/tracker_configs/fair_dla34_coco_wda_test.py
-CUDA_VISIBLE_DEVICES="2" python run_multi_cam_clustering.py --config configs/clustering_configs/new_test_20e.py
+CUDA_VISIBLE_DEVICES="2" python run_multi_cam_clustering.py --config configs/clustering_configs/new_test_20e_train.py
 
 # mmdetection
 CUDA_VISIBLE_DEVICES="1,2" python tools/train.py configs/mta/faster_rcnn_r50_mta.py --gpus 2
