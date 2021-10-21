@@ -25,7 +25,7 @@ import pandas as pd
 from feature_extractors.reid_strong_baseline.utils.logger import setup_logger
 
 from datasets.mta_dataset_cam_iterator import get_cam_iterators
-# from detectors.mmdetection_detector import Mmdetection_detector
+from detectors.mmdetection_detector import Mmdetection_detector
 # from trackers.fair.src.lib.tracker import multitracker
 # from trackers.fair.src.lib.models import *
 # from trackers.fair.src.lib.utils import *
