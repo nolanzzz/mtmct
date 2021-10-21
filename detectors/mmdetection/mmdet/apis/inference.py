@@ -25,6 +25,8 @@ def init_detector(config, checkpoint=None, device='cuda:0'):
     Returns:
         nn.Module: The constructed detector.
     """
+    print(torch.cuda.is_available())
+    print("here")
     if isinstance(config, str):
         config = mmcv.Config.fromfile(config)
     elif not isinstance(config, mmcv.Config):
