@@ -227,11 +227,11 @@ if __name__ == "__main__":
                             , work_dirs="/media/philipp/philippkoehl_ssd/work_dirs"
                             , cam_ids=[0,1,2,3,4,5])
     '''
-    ctti = Convert_tack_to_images(dataset_base_folder="/net/merkur/storage/deeplearning/users/koehl/gta/GTA_Dataset_22.07.2019/train"
-                                  , track_results_folder=""
-                                  , output_folder="/home/koehlp/Downloads/work_dirs/track_images/train"
-                                  , work_dirs="/home/koehlp/Downloads/work_dirs/work_dirs"
-                                  , cam_ids=[0, 1, 2, 3, 4, 5])
+    ctti = Convert_tack_to_images(dataset_base_folder="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
+                                  , track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_30e/tracker_results"
+                                  , output_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_30e/tracks_images"
+                                  , work_dirs="/Users/nolanzhang/Projects/mtmct/work_dirs"
+                                  , cam_ids=[1])
 
 
     #ctti.create_track_images()

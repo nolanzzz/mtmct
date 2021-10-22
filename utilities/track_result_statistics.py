@@ -41,6 +41,6 @@ def print_track_lengths(track_results_path):
 
 
 if __name__ == "__main__":
-    result = print_track_lengths("/home/philipp/work_dirs/clustering/single_camera_refinement/track_results_2.txt")
+    result = count_tracks("/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results/track_results_1.txt")
 
     print(result)
