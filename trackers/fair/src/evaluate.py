@@ -14,7 +14,8 @@ from opts import opts
 
 def main(data_root, seqs, exp_name):
     logger.setLevel(logging.INFO)
-    result_root = os.path.join(data_root, '..', 'results', exp_name)
+    # result_root = os.path.join(data_root, '..', 'results', exp_name)
+    result_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/results/dla34_coco_wda_short_test/"
     data_type = 'mot'
 
     # run tracking
@@ -52,7 +53,8 @@ if __name__ == '__main__':
                       cam_4
                       cam_5'''
         # seqs_str = "cam_0"
-        data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+        # data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
+        data_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/test"
     if opt.train_mta:
         seqs_str = '''cam_0
                       cam_1
@@ -60,7 +62,8 @@ if __name__ == '__main__':
                       cam_3
                       cam_4
                       cam_5'''
-        data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
+        # data_root = os.path.join(opt.data_dir, 'mta_data/images/train')
+        data_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/train"
 
 
     seqs = [seq.strip() for seq in seqs_str.split()]
