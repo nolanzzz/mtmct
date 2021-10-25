@@ -3,26 +3,27 @@ import os
 import sys
 import numpy as np
 
-data_type = sys.argv[1]
-folder_no = sys.argv[2]
-path = '/u40/zhanr110/mtmct/trackers/fair/data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no
-filename = path + '/coords_fib_cam_' + folder_no + '.csv'
 
-tid_curr = 0
-tid_last = -1
-gt = np.loadtxt(filename, dtype=np.float64, delimiter=',')
-gt_fpath = path + '/gt/unsorted.txt'
-for fid, tid, x1, y1, x2, y2 in gt:
-    fid = int(fid)
-    tid = int(tid)
-    x1 = int(x1)
-    x2 = int(x2)
-    y1 = int(y1)
-    y2 = int(y2)
-    width = int(x2 - x1)
-    height = int(y2 - y1)
-    rest = 1
-    gt_str = '{:d},{:d},{:d},{:d},{:d},{:d},{:d},{:d},{:d}\n'.format(
-        fid, tid, x1, y1, width, height, rest, rest, rest)
-    with open(gt_fpath, 'a') as f:
-        f.write(gt_str)
+def main():
+    seqs = [0,1,2,3,4,5]
+    path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results_wda_ready/'
+    output_path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results_wda_to_fair/'
+    if not osp.exists(output_path):
+        os.makedirs(output_path)
+
+    for seq in seqs:
+        filename = path + 'track_results_' + str(seq) + '.txt'
+        output_filename = output_path + 'cam_' + str(seq) + '.txt'
+        wda_file = np.loadtxt(filename, dtype=np.float64, delimiter=',')
+
+        with open(output_filename, 'w') as f:
+            for frame_id, cam_id, person_id, det_id, xtl, ytl, xbr, ybr in wda_file:
+                save_format = '{frame},{id},{x1},{y1},{w},{h},1,-1,-1,-1\n'
+                w = xbr - xtl
+                h = ybr - ytl
+                line = save_format.format(frame=int(frame_id), id=int(person_id), x1=xtl, y1=ytl, x2=xbr, y2=ybr, w=w, h=h)
+                f.write(line)
+
+
+if __name__ == '__main__':
+    main()
