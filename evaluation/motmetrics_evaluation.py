@@ -390,11 +390,11 @@ if __name__ == "__main__":
 
     eval_single_cam_multiple_cams(dataset_base="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
                                   ,
-                                  track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_30e/tracker_results"
+                                  track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results"
                                   # track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean_server/multicam_clustering_results/chunk_0/test"
                                   , working_dir="/Users/nolanzhang/Projects/mtmct/work_dirs"
                                   , cam_ids=[0,1,2,3,4,5]
-                                  , results_csv_ouput_path="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_30e/single_camera_clustering_results.csv")
+                                  , results_csv_ouput_path="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/single_camera_clustering_results.csv")
                                   # , results_csv_ouput_path="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/frcnn50_new_abd_test/multi_camera_clustering_results.csv")
 
 

@@ -15,7 +15,8 @@ from opts import opts
 def main(data_root, seqs, exp_name):
     logger.setLevel(logging.INFO)
     # result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/results/dla34_coco_wda_short_test/"
+    # result_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/results/dla34_coco_wda_short_test/"
+    result_root = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/tracker_results_fair_out/"
     data_type = 'mot'
 
     # run tracking
