@@ -12,11 +12,11 @@ from tracking_utils.evaluation import Evaluator
 from opts import opts
 
 
-def main(data_root, seqs, exp_name):
+def main(data_root, seqs):
     logger.setLevel(logging.INFO)
     # result_root = os.path.join(data_root, '..', 'results', exp_name)
     # result_root = "/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/results/dla34_coco_wda_short_test/"
-    result_root = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/tracker_results_fair_out/"
+    result_root = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_20e_train/tracker_results_wda_to_fair/"
     data_type = 'mot'
 
     # run tracking
@@ -38,7 +38,7 @@ def main(data_root, seqs, exp_name):
         namemap=mm.io.motchallenge_metric_names
     )
     print(strsummary)
-    Evaluator.save_summary(summary, os.path.join(result_root, 'summary_{}.xlsx'.format(exp_name)))
+    Evaluator.save_summary(summary, os.path.join(result_root, 'summary.xlsx'))
 
 
 if __name__ == '__main__':
@@ -70,5 +70,4 @@ if __name__ == '__main__':
     seqs = [seq.strip() for seq in seqs_str.split()]
 
     main(data_root=data_root,
-         seqs=seqs,
-         exp_name=opt.exp_id)
+         seqs=seqs)

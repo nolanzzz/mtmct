@@ -6,8 +6,8 @@ import numpy as np
 
 def main():
     seqs = [0,1,2,3,4,5]
-    path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results_wda_ready/'
-    output_path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_test/tracker_results_wda_to_fair/'
+    path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_20e_train/tracker_results_wda_ready/'
+    output_path = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/new_test_20e_train/tracker_results_wda_to_fair/'
     if not osp.exists(output_path):
         os.makedirs(output_path)
 
