@@ -27,4 +27,5 @@ CUDA_VISIBLE_DEVICES="1,2" python tools/train.py configs/mta/faster_rcnn_r50_mta
 CUDA_VISIBLE_DEVICES="2,3" python tools/train.py configs/mta/mta_full_test_data.py --gpus 2
 CUDA_VISIBLE_DEVICES=0,1,2,3 ./tools/dist_train.sh configs/mta/faster_rcnn_r50_mta.py 4
 
-python tools/test.py configs/mta/faster_rcnn_r50_mta.py work_dirs/GtaDataset_30e/epoch_20.pth --eval acc
+python tools/test.py configs/mta/test_detector.py work_dirs/GtaDataset_30e/epoch_20.pth --eval segm
+python tools/test.py configs/mta/test_detector.py work_dirs/GtaDataset_30e/epoch_20.pth --out result.mp4
