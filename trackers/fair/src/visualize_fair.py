@@ -26,30 +26,28 @@ from opts import opts
 
 
 def load_tracks_per_cam(cam_id, track_results_folder):
-    track_result_path = osp.join(track_results_folder, "track_results_{}.txt".format(cam_id))
+    track_result_path = osp.join(track_results_folder, "cam_{}.txt".format(cam_id))
     track_result_df = pd.read_csv(track_result_path)
-    track_result_df = track_result_df.astype({"frame_no_cam": int,
-                                              "cam_id": int,
-                                              "person_id": int,
-                                              "detection_idx": int,
-                                              "xtl": int,
-                                              "ytl": int,
-                                              "xbr": int,
-                                              "ybr": int})
-    track_result_df = track_result_df.set_index(['frame_no_cam'])
+    track_result_df = track_result_df.astype({"frame": int,
+                                              "id": int,
+                                              "x1": int,
+                                              "y1": int,
+                                              "w": int,
+                                              "h": int})
+    track_result_df = track_result_df.set_index(['frame'])
     return track_result_df
 
 
 def load_gt_per_cam(cam_id, track_results_folder):
-    track_result_path = osp.join(track_results_folder, "cam_{}".format(cam_id), "coords_fib_cam_{}.csv".format(cam_id))
+    track_result_path = osp.join(track_results_folder, "cam_{}".format(cam_id), "gt", "gt_test.csv")
     track_result_df = pd.read_csv(track_result_path)
-    track_result_df = track_result_df.astype({"frame_no_cam": int,
-                                              "person_id": int,
-                                              "x_top_left_BB": int,
-                                              "y_top_left_BB": int,
-                                              "x_bottom_right_BB": int,
-                                              "y_bottom_right_BB": int})
-    track_result_df = track_result_df.set_index(['frame_no_cam'])
+    track_result_df = track_result_df.astype({"frame": int,
+                                              "id": int,
+                                              "x1": int,
+                                              "y1": int,
+                                              "w": int,
+                                              "h": int})
+    track_result_df = track_result_df.set_index(['frame'])
     return track_result_df
 
 
@@ -61,12 +59,6 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
     frame_id = 1
     #for path, img, img0 in dataloader:
     for i, (path, img, img0) in enumerate(dataloader):
-        #if i % 8 != 0:
-            #continue
-        # if frame_id % 20 == 0:
-        #     logger.info('Processing frame {} ({:.2f} fps)'.format(frame_id, 1. / max(1e-5, timer.average_time)))
-
-        # run tracking
         timer.tic()
 
         online_tlwhs = []
@@ -75,23 +67,17 @@ def vis_seq(opt, dataloader, tracks_df, save_dir=None, show_image=True, frame_ra
         if (tracks_df.index == frame_id).any():
             if isinstance(tracks_df.loc[frame_id], pd.DataFrame):
                 for index, t in tracks_df.loc[frame_id].iterrows():
-                    tlwh = [t.xtl, t.ytl, t.xbr - t.xtl, t.ybr - t.ytl]
-                    # tlwh = [t.x_top_left_BB, t.y_top_left_BB, t.x_bottom_right_BB - t.x_top_left_BB, t.y_bottom_right_BB - t.y_top_left_BB]
-                    tid = t.person_id
+                    tlwh = [t.x1, t.y1, t.w, t.h]
+                    tid = t.id
 
                     online_tlwhs.append(tlwh)
                     online_ids.append(tid)
             else:
-                tlwh = [tracks_df.loc[frame_id].xtl,
-                        tracks_df.loc[frame_id].ytl,
-                        tracks_df.loc[frame_id].xbr - tracks_df.loc[frame_id].xtl,
-                        tracks_df.loc[frame_id].ybr - tracks_df.loc[frame_id].ytl]
-
-                # tlwh = [tracks_df.loc[frame_id].x_top_left_BB,
-                #         tracks_df.loc[frame_id].y_top_left_BB,
-                #         tracks_df.loc[frame_id].x_bottom_right_BB - tracks_df.loc[frame_id].x_top_left_BB,
-                #         tracks_df.loc[frame_id].y_bottom_right_BB - tracks_df.loc[frame_id].y_top_left_BB]
-                tid = tracks_df.loc[frame_id].person_id
+                tlwh = [tracks_df.loc[frame_id].x1,
+                        tracks_df.loc[frame_id].y1,
+                        tracks_df.loc[frame_id].w,
+                        tracks_df.loc[frame_id].h]
+                tid = tracks_df.loc[frame_id].id
 
                 online_tlwhs.append(tlwh)
                 online_ids.append(tid)
@@ -111,8 +97,8 @@ def main(opt, seqs, data_root, exp_name='demo',
          save_images=True, save_videos=False):
     # logger.setLevel(logging.INFO)
     # result_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/multicam_clustering_results/chunk_0/test'
-    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/' + exp_name + '/tracker_results'
-    gt_root = '/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test'
+    result_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/' + exp_name + '/fair_results'
+    gt_root = '/Users/nolanzhang/Projects/mtmct/trackers/fair/data/MTA_short/mta_data/images/test'
     # output_root = '/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean/'
     output_root = '/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/'
     print("\n", result_root, "\n")
@@ -123,7 +109,7 @@ def main(opt, seqs, data_root, exp_name='demo',
 
     for seq in seqs:
 
-        output_dir = os.path.join(output_root, exp_name, 'outputs_wda', seq) if save_images or save_videos else None
+        output_dir = os.path.join(output_root, exp_name, 'outputs_fair', seq) if save_images or save_videos else None
 
         # logger.info('start seq: {}'.format(seq))
 

@@ -16,6 +16,7 @@ python evaluate.py mot --test_mta True --exp_id dla34_coco_wda_short_test --data
 CUDA_VISIBLE_DEVICES="0,2" python train.py mot --exp_id mta_full_5_epochs --num_epochs 5 --load_model '../exp/mot/mot17_dla34/model_last.pth' --data_cfg '../src/lib/cfg/mta.json' --gpus 0,2
 CUDA_VISIBLE_DEVICES="1, 2" python demo.py mot --load_model '../exp/mot/mta_long_dla34/model_last.pth' --input-video '../data/MTA/mta_data/images/test/cam_5/cam_5.mp4' --output-root ../demos/mta_mot_short_newmodel_cam_5 --conf_thres 0.4 --gpus 1,2
 python visualize.py mot --exp_id new_test_20e --test_mta True --data_dir '../data/MTA_short/'
+python visualize_fair.py mot --exp_id new_test_20e --test_mta True --data_dir '../data/MTA_short/'
 
 # wda_tracker
 python run_tracker.py --config configs/tracker_configs/fair_dla34_coco_wda_test.py
@@ -23,7 +24,7 @@ CUDA_VISIBLE_DEVICES="2" python run_multi_cam_clustering.py --config configs/clu
 
 # mmdetection
 CUDA_VISIBLE_DEVICES="1,2" python tools/train.py configs/mta/faster_rcnn_r50_mta.py --gpus 2
-CUDA_VISIBLE_DEVICES="1,2" python tools/train.py configs/mta/mta_full_test_data.py --gpus 2
+CUDA_VISIBLE_DEVICES="2,3" python tools/train.py configs/mta/mta_full_test_data.py --gpus 2
 CUDA_VISIBLE_DEVICES=0,1,2,3 ./tools/dist_train.sh configs/mta/faster_rcnn_r50_mta.py 4
 
 python tools/test.py configs/mta/faster_rcnn_r50_mta.py work_dirs/GtaDataset_30e/epoch_20.pth --eval bbox
