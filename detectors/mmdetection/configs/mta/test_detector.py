@@ -145,8 +145,8 @@ data = dict(
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'test/coords.json',
-        img_prefix=data_root + 'test/images/',
+        ann_file=data_root + 'test_old/coords.json',
+        img_prefix=data_root + 'test_old/images/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 # optimizer
