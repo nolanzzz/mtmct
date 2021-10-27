@@ -1,8 +1,8 @@
 # model settings
 model = dict(
     type='FasterRCNN',
-    # pretrained='/u40/zhanr110/mtmct/work_dirs/detector/faster_rcnn_r50_fpn_1x_2019-50f10f7d.pth',
-    pretrained='/u40/zhanr110/mtmct/detectors/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
+    pretrained='/u40/zhanr110/mtmct/work_dirs/detector/faster_rcnn_r50_fpn_1x_2019-50f10f7d.pth',
+    # pretrained='/u40/zhanr110/mtmct/detectors/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth',
     backbone=dict(
         type='ResNet',
         depth=50,
