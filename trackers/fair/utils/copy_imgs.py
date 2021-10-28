@@ -7,12 +7,14 @@ def main():
     gen_type = sys.argv[1]
     cam_no = sys.argv[2]
     start_frame = int(sys.argv[3])
+    diff = start_frame - 1
     total_num = int(sys.argv[4])
     os.makedirs('../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(cam_no) + '_short' + '/img1/', exist_ok=True)
     for i in range(start_frame, start_frame + total_num):
         img_title = str(i).zfill(6) + '.jpg'
-        shutil.copy2('../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(cam_no) + '/img1/' + img_title,
-                     '../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(cam_no) + '_short' + '/img1/')
+        new_img_title = str(i - diff).zfill(6) + '.jpg'
+        shutil.copy('../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(cam_no) + '/img1/' + img_title,
+                     '../data/MTA/mta_data/images/' + gen_type + '/cam_' + str(cam_no) + '_short' + '/img1/' + new_img_title)
 
 
 def copy_steps():
