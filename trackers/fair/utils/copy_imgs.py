@@ -5,8 +5,8 @@ import sys
 def main():
     gen_type = sys.argv[1]
     cam_no = sys.argv[2]
-    start_frame = sys.argv[3]
-    total_num = sys.argv[4]
+    start_frame = int(sys.argv[3])
+    total_num = int(sys.argv[4])
 
     for i in range(start_frame, start_frame + total_num):
         img_title = str(i).zfill(6) + '.jpg'
