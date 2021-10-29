@@ -170,10 +170,10 @@ log_config = dict(
 total_epochs = 30
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/GtaDataset_30e'
+work_dir = './work_dirs/GtaDataset_full_test_20e'
 load_from = None
 # resume_from = None
-resume_from = './work_dirs/GtaDataset_30e/latest.pth'
+resume_from = './work_dirs/GtaDataset_full_test_20e/latest.pth'
 workflow = [('train', 1)]
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
