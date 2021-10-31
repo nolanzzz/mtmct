@@ -5,7 +5,7 @@ import numpy as np
 
 data_type = sys.argv[1]
 folder_no = sys.argv[2]
-path = '/u40/zhanr110/mtmct/trackers/fair/data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no
+path = '/u40/zhanr110/mtmct/trackers/fair/data/MTA_short/mta_data/images/' + data_type + '/cam_' + folder_no
 filename = path + '/coords_fib_cam_' + folder_no + '.csv'
 
 tid_curr = 0
