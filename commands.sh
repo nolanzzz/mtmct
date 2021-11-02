@@ -21,7 +21,7 @@ python visualize_fair.py mot --exp_id new_test_20e --test_mta True --data_dir '.
 
 
 # wda_tracker
-python run_tracker.py --config configs/tracker_configs/fair_with_new_cam_1.py
+python run_tracker.py --config configs/tracker_configs/new_test_20e_cam_1_new_short_high.py
 CUDA_VISIBLE_DEVICES="2" python run_multi_cam_clustering.py --config configs/clustering_configs/new_test_20e_train.py
 
 
