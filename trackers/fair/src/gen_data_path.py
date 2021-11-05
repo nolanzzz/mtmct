@@ -85,8 +85,9 @@ def gen_data_path_mta_full(root_path, gen_type):
             for i in range(len_all):
                 # if images[i][-10:-4] == "000000":
                 #     continue
-                image = ((images[i])[:-3] + 'jpg').replace(label_path, data_path)
-                print(image[49:], file=f)
+                image = ((images[i])[:-3] + 'png').replace(label_path, data_path)
+                label_len = -43 if gen_type == "train" else -42
+                print(image[label_len:], file=f)
     f.close()
 
 
