@@ -16,15 +16,19 @@ filename = '../data/MTA/MTA_videos_coords/' + data_type + '/cam_' + folder_no + 
 # output = '../data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no + '/test.csv'
 output = '../data/MTA/MTA_videos_coords/' + data_type + '/cam_' + folder_no + '/test.csv'
 
-df = pd.read_csv(filename)
-res = df.query('frame_no_cam >= 37843 & frame_no_cam <= 42763')
+# df = pd.read_csv(filename)
+# res = df.query('frame_no_cam >= 37843 & frame_no_cam <= 42763')
 # res = df.loc[(df['frame_no_cam'] >= 10) & (df['frame_no_cam'] <= 20)]
 
-# res = df.loc[10 : 20]
+chunksize = 10 ** 6
+chunk_no = 1
+for chunk in pd.read_csv(filename, chunksize=chunksize):
+    header = True if chunk_no == 1 else False
+    res = chunk.query('frame_no_cam >= 10 & frame_no_cam <= 20')
+    res.to_csv(output, header=header, mode='a')
+    chunk_no += 1
 
-
-
-res.to_csv(output)
+# res.to_csv(output)
 
 
 
