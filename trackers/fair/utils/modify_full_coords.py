@@ -24,7 +24,7 @@ chunksize = 10 ** 6
 chunk_no = 1
 for chunk in pd.read_csv(filename, chunksize=chunksize):
     header = True if chunk_no == 1 else False
-    res = chunk.query('frame_no_cam >= 10 & frame_no_cam <= 20')
+    res = chunk.query('frame_no_cam >= 37843 & frame_no_cam <= 42763')
     res.to_csv(output, header=header, mode='a')
     chunk_no += 1
 
