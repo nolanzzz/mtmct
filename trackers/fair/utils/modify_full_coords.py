@@ -8,13 +8,13 @@ data_type = sys.argv[1]
 folder_no = sys.argv[2]
 
 # filename = '../data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no + '/coords_cam_' + folder_no + '.csv'
-filename = '../data/MTA_ext_short_coords/' + data_type + '/cam_' + folder_no + '/coords_cam_' + folder_no + '.csv'
+filename = '../data/MTA/MTA_videos_coords/' + data_type + '/cam_' + folder_no + '/coords_cam_' + folder_no + '.csv'
 # filename = '../data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no + '/coords_result.csv'
 
 # file = np.loadtxt(filename, delimiter=',', skiprows=1)
 # output = '../data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no + '/coords_result.csv'
 # output = '../data/MTA/mta_data/images/' + data_type + '/cam_' + folder_no + '/test.csv'
-output = '../data/MTA_ext_short_coords/' + data_type + '/cam_' + folder_no + '/test.csv'
+output = '../data/MTA/MTA_videos_coords/' + data_type + '/cam_' + folder_no + '/test.csv'
 
 df = pd.read_csv(filename)
 res = df.query('frame_no_cam >= 37843 & frame_no_cam <= 42763')
