@@ -1,7 +1,4 @@
-import os.path as osp
-import os
 import sys
-import numpy as np
 import pandas as pd
 
 data_type = sys.argv[1]
