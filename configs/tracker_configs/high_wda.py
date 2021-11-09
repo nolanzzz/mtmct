@@ -40,6 +40,12 @@ root = {
 
         "feature_extractor_name" : "abd_net_extractor"
 
+            ,"reid_strong_extractor": {
+                "reid_strong_baseline_config": "feature_extractors/reid_strong_baseline/configs/softmax_triplet.yml",
+                "checkpoint_file": "work_dirs/feature_extractor/strong_reid_baseline/resnet50_model_reid_GTA_softmax_triplet.pth",
+                "device": "cuda:0,1"
+                ,"visible_device" : "0,1"}
+
             ,"abd_net_extractor" : dict(abd_dan=['cam', 'pam'], abd_dan_no_head=False, abd_dim=1024, abd_np=2, adam_beta1=0.9,
                   adam_beta2=0.999, arch='resnet50', branches=['global', 'abd'], compatibility=False, criterion='htri',
                   cuhk03_classic_split=False, cuhk03_labeled=False, dan_dan=[], dan_dan_no_head=False, dan_dim=1024,
