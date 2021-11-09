@@ -15,7 +15,7 @@ for chunk in pd.read_csv(filename, chunksize=chunksize):
     header = True if chunk_no == 1 else False
     df = chunk.query('frame_no_cam >= 37843 & frame_no_cam <= 42763')
     # df['frame_no_cam'] = df['frame_no_cam'].apply(lambda x: x - 37843)
-    df.to_csv(output, header=header, mode='a')
+    df.to_csv(output, header=header, mode='a', index=False)
     chunk_no += 1
 
 # res.to_csv(output)
