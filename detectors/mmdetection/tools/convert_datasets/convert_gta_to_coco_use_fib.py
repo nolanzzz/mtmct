@@ -68,7 +68,7 @@ def get_frame_annotation(cam_coords_frame: pd.DataFrame, image_id: int, image_si
 
 
 
-def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_number=1,img_dims=(1920,1080),person_id_name="person_id",samplingRate=1):
+def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,data_type,cam_number=6,img_dims=(1920,1080),person_id_name="person_id",samplingRate=1):
     coco_dict = {
         'info': {
             'description': 'GTA_MTMCT',
@@ -110,11 +110,11 @@ def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_num
         print("processing cam_{}".format(cam_id))
 
         cam_path = os.path.join(gta_dataset_path,"cam_{}".format(cam_id))
-        csv_path = osp.join(cam_path, "coords_cam_{}.csv".format(cam_id))
+        csv_path = osp.join(cam_path, "coords_fib_cam_{}.csv".format(cam_id))
 
         cam_coords = load_csv(work_dirs, csv_path)
-        cam_coords = cam_coords.groupby(["frame_no_gta", person_id_name], as_index=False).mean()
-        cam_frames = cam_coords.groupby("frame_no_gta", as_index=False).mean()
+        cam_coords = cam_coords.groupby(["frame_no_cam", person_id_name], as_index=False).mean()
+        cam_frames = cam_coords.groupby("frame_no_cam", as_index=False).mean()
 
         cam_frames = cam_frames.iloc[::samplingRate]
 
@@ -130,15 +130,20 @@ def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_num
         for cam_frame in cam_frames.iterrows():
 
             frame_no_cam = int(cam_frame[1]["frame_no_cam"])
-            frame_no_gta = int(cam_frame[1]["frame_no_gta"])
+            # train - 1; test - 2
+            if data_type == "train":
+                code = "1"
+            else:
+                code = "2"
+            image_id = int(code + str(cam_id) + '{:06d}'.format(frame_no_cam))
 
             cam_coords_frame = cam_coords[cam_coords["frame_no_cam"] == frame_no_cam ]
 
 
-            frame_annotations = get_frame_annotation(cam_coords_frame,frame_no_gta, img_dims)
-            image_name = "image_{}_{}.jpg".format(frame_no_cam,cam_id)
-            image_path_gta = osp.join(cam_path, "img1", image_name)
-            image_path_gta_coco = osp.join(coco_gta_dataset_images_path,image_name)
+            frame_annotations = get_frame_annotation(cam_coords_frame,image_id, img_dims)
+            image_name = "image_{}_{}.png".format(frame_no_cam,cam_id)
+            # image_path_gta = osp.join(cam_path, "img1", image_name)
+            # image_path_gta_coco = osp.join(coco_gta_dataset_images_path,image_name)
 
 
             coco_dict['images'].append({
@@ -147,7 +152,7 @@ def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_num
                 'height': img_dims[1],
                 'width': img_dims[0],
                 'date_captured': '2019-07-28 00:00:00',
-                'id': frame_no_gta
+                'id': image_id
             })
 
             coco_dict['annotations'].extend(frame_annotations)
@@ -158,7 +163,7 @@ def convert_annotations(gta_dataset_path,coco_gta_dataset_path,work_dirs,cam_num
 
 
 
-    mmcv.dump(coco_dict, osp.join(coco_gta_dataset_path,"coords.json"))
+    mmcv.dump(coco_dict, osp.join(coco_gta_dataset_path,"coords_{}.json".format(data_type)))
     return coco_dict
 
 
@@ -173,17 +178,19 @@ def xyxy2xywh(bbox):
 
 def main():
 
-    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
-    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/train"
+    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/train"
+    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/train"
     work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
-    convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs)
+    convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs,"train")
 
-    # gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original"
-    # coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original_cam_0"
-    # work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
-    # convert_annotations(gta_dataset_path, coco_dataset_path, work_dirs)
+    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/test"
+    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/test"
+    work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
+    convert_annotations(gta_dataset_path, coco_dataset_path, work_dirs,"test")
 
 
 
 if __name__ == '__main__':
     main()
+
+
