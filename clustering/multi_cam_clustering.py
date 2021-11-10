@@ -151,6 +151,8 @@ def pickle_all_reid_features(work_dirs
                 ret, frame = video_capture.read()
 
                 if not ret:
+                    print(frame_no_cam)
+                    print(video_capture)
                     raise Exception("Unable to read video frame.")
 
 
