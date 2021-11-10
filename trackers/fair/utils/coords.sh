@@ -1,3 +1,4 @@
+python modify_full_coords.py test 0
 python modify_full_coords.py test 1
 python modify_full_coords.py test 2
 python modify_full_coords.py test 3
