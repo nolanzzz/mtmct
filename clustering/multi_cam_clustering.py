@@ -154,11 +154,12 @@ def pickle_all_reid_features(work_dirs
                     print(frame)
                     raise Exception("Unable to read video frame.")
 
-                if not ret and frame_no_cam < 4919:
+                if not ret and frame_no_cam <= 4919:
                     print(frame_no_cam)
                     print(ret)
                     print(frame)
-                    raise Exception("Unable to read video frame.")
+                    # raise Exception("Unable to read video frame.")
+                    continue
 
 
                 # print("\nframe_no_cam: ",frame_no_cam)
