@@ -153,7 +153,7 @@ def pickle_all_reid_features(work_dirs
                     print(ret)
                     print(frame)
 
-                if not ret and frame_no_cam <= 4919:
+                if not ret and frame_no_cam < 4919:
                     print(frame_no_cam)
                     print(ret)
                     print(frame)
