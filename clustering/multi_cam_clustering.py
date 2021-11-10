@@ -149,8 +149,11 @@ def pickle_all_reid_features(work_dirs
                 video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_no_cam)
 
                 ret, frame = video_capture.read()
+                if frame_no_cam == 4920:
+                    print(ret)
+                    print(frame)
 
-                if not ret:
+                if not ret and frame_no_cam <= 4919:
                     print(frame_no_cam)
                     print(ret)
                     print(frame)
