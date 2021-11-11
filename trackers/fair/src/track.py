@@ -139,7 +139,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/tracker_results')
+    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_high_30/tracker_results')
     # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
@@ -232,11 +232,7 @@ if __name__ == '__main__':
         data_root = os.path.join(opt.data_dir, 'MOT15/images/test')
     if opt.test_mta:
         seqs_str = '''cam_0
-                      cam_1
-                      cam_2
-                      cam_3
-                      cam_4
-                      cam_5'''
+                      cam_1'''
         # seqs_str = "cam_1"
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
     if opt.train_mta:
