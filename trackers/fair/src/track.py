@@ -231,8 +231,10 @@ if __name__ == '__main__':
                       Venice-1'''
         data_root = os.path.join(opt.data_dir, 'MOT15/images/test')
     if opt.test_mta:
-        seqs_str = '''cam_0
-                      cam_1'''
+        seqs_str = '''cam_2
+                      cam_3
+                      cam_4
+                      cam_5'''
         # seqs_str = "cam_1"
         data_root = os.path.join(opt.data_dir, 'mta_data/images/test')
     if opt.train_mta:
