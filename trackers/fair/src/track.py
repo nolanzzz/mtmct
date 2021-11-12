@@ -76,12 +76,7 @@ def write_results_score(filename, results, data_type):
     logger.info('save results to {}'.format(filename))
 
 
-def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
-
-    # detections_path_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features/detections"
-    # os.makedirs(detections_path_folder, exist_ok=True)
-    # detections_path = os.path.join(detections_path_folder, "detections_cam_{}.csv".format(seq_id[-1]))
-    # detections_frame_nos_path = os.path.join(detections_path_folder, "detections_frame_nos_cam_{}.csv".format(seq_id[-1]))
+def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, root_path, exp_name, save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
 
     if save_dir:
         mkdir_if_missing(save_dir)
@@ -102,7 +97,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
             blob = torch.from_numpy(img).cuda().unsqueeze(0)
         else:
             blob = torch.from_numpy(img).unsqueeze(0)
-        online_targets = tracker.update_store_detections(blob, img0, seq_id[-1], frame_id)
+        online_targets = tracker.update_store_det_features(blob, img0, seq_id[-1], frame_id, root_path, exp_name)
         online_tlwhs = []
         online_ids = []
         online_det_idxs = [i for i in range(len(online_targets))]
@@ -129,7 +124,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         frame_id += 1
     # save results
     write_results(result_filename_wda, results, 'wda', seq_id[-1])
-    # write_results(result_filename, results, data_type, seq_id[-1])
+    write_results(result_filename, results, data_type, seq_id[-1])
     # write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
@@ -137,9 +132,11 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
 def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), exp_name='demo',
          save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
+
+    mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
+
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_high_30/tracker_results')
-    # result_root_wda = os.path.join('/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/tracker_results')
+    result_root_wda = os.path.join('../../work_dirs/tracker/config_runs', exp_name, 'tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
@@ -158,7 +155,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
-        nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
+        nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq, mtmct_root, exp_name,
                               save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
         n_frame += nf
         timer_avgs.append(ta)
