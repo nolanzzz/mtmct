@@ -129,7 +129,7 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
         frame_id += 1
     # save results
     write_results(result_filename_wda, results, 'wda', seq_id[-1])
-    write_results(result_filename, results, data_type, seq_id[-1])
+    # write_results(result_filename, results, data_type, seq_id[-1])
     # write_results_score(result_filename, results, data_type)
     return frame_id, timer.average_time, timer.calls
 
