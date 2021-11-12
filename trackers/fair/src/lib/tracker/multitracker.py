@@ -405,7 +405,7 @@ class JDETracker(object):
 
         return output_stracks
 
-    def update_store_det_features(self, im_blob, img0, cam_id, frame_id):
+    def update_store_det_features(self, im_blob, img0, cam_id, frame_id, root_path, exp_name):
         self.frame_id += 1
         activated_starcks = []
         refind_stracks = []
@@ -445,15 +445,9 @@ class JDETracker(object):
         # print("dets shape: ", dets.shape)
         # print("id_feature shape: ", id_feature.shape)
 
-        feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_dla34_coco_wda_train/features"
-        track_feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_dla34_coco_wda_train/pickled_appearance_features"
-        # feature_pickle_folder = "/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_detections_features_long_box500/features"
-        # feature_pickle_folder = "/u40/zhanr110/mtmct/work_dirs/clustering/config_runs/fair_short_train_mot17/pickled_appearance_features/train"
+        feature_pickle_folder = os.path.join(root_path, "work_dirs/tracker/config_runs", exp_name, "features")
         os.makedirs(feature_pickle_folder, exist_ok=True)
-        os.makedirs(track_feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
-        track_feature_pkl_path = os.path.join(track_feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
-        # print("feature_pkl_path: ", feature_pkl_path)
 
         if len(dets) > 0:
             '''Detections'''
@@ -555,14 +549,6 @@ class JDETracker(object):
         self.tracked_stracks, self.lost_stracks = remove_duplicate_stracks(self.tracked_stracks, self.lost_stracks)
         # get scores of lost tracks
         output_stracks = [track for track in self.tracked_stracks if track.is_activated]
-
-        ''' store track features per detection '''
-        # person_id_to_feature = {}
-        # for track in output_stracks:
-        #     if len(track.features) > 0:
-        #         person_id_to_feature[track.track_id] = track.features[-1]
-        #         with open(track_feature_pkl_path, 'wb') as handle:
-        #             pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         logger.debug('===========Frame {}=========='.format(self.frame_id))
         logger.debug('Activated: {}'.format([track.track_id for track in activated_starcks]))
