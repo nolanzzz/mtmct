@@ -2,8 +2,9 @@ from utilities.python_path_utility import append_to_pythonpath
 
 append_to_pythonpath(['feature_extractors/reid_strong_baseline'
                       ,'feature_extractors/ABD_Net'
-                        ,'detectors/mmdetection'
-                       ,'evaluation/py_motmetrics'], __file__)
+                      ,'detectors/mmdetection'
+                      ,'evaluation/py_motmetrics'
+                      ,'trackers/fair/src/lib'], __file__)
 
 import argparse
 import mmcv
@@ -25,10 +26,6 @@ import pandas as pd
 from feature_extractors.reid_strong_baseline.utils.logger import setup_logger
 
 from datasets.mta_dataset_cam_iterator import get_cam_iterators
-# from trackers.fair.src.lib.tracker import multitracker
-# from trackers.fair.src.lib.models import *
-# from trackers.fair.src.lib.utils import *
-from trackers.fair.src.lib import *
 
 
 class Run_tracker:
