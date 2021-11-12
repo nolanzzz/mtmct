@@ -405,7 +405,7 @@ class JDETracker(object):
 
         return output_stracks
 
-    def update_store_detections(self, im_blob, img0, cam_id, frame_id):
+    def update_store_det_features(self, im_blob, img0, cam_id, frame_id):
         self.frame_id += 1
         activated_starcks = []
         refind_stracks = []
