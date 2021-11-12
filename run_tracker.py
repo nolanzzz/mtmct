@@ -45,6 +45,8 @@ class Run_tracker:
 
         self.set_tracker_config_run_path()
 
+        self.set_track_features_folder()
+
         #mmdetection does not put everything to the device that is being set in its function calls
         #E.g. With torch.cuda.set_device(4) it will run without errors. But still using GPU 0
         #With os.environ['CUDA_VISIBLE_DEVICES'] = '4' the visibility will be restricted to only the named GPUS starting internatlly from zero
@@ -104,8 +106,18 @@ class Run_tracker:
         if frame_nos_union_length == cam_iterator_frame_nos_length and os.path.exists(self.detections_path):
             self.detections_loaded = pd.read_csv(self.detections_path)
 
+    def set_track_features_folder(self):
 
+        # Build the path where transformed track features will be stored for preparation of clustering.
 
+        self.cfg.general.track_features_folder = os.path.join(self.cfg.general.repository_root
+                                                        , "work_dirs"
+                                                        , "clustering"
+                                                        , "config_runs"
+                                                        , self.cfg.general.config_basename
+                                                        , "pickled_appearance_features"
+                                                        , "test")
+        os.makedirs(self.cfg.general.track_features_folder, exist_ok=True)
 
     def set_tracker_config_run_path(self):
 

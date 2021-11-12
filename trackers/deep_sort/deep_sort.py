@@ -45,7 +45,7 @@ class DeepSort(object):
         self.tracker = Tracker(metric)
 
         self.feature_pickle_folder = self.get_features_pickle_folder()
-        self.track_feature_pickle_folder = self.get_track_features_pickle_folder()
+        self.track_feature_pickle_folder = cfg.general.track_features_folder
 
 
 
@@ -56,11 +56,11 @@ class DeepSort(object):
         return feature_pickle_folder
 
 
-    def get_track_features_pickle_folder(self):
-        track_feature_pickle_folder = os.path.join(self.cfg.general.config_run_path, "track_features")
-        os.makedirs(track_feature_pickle_folder, exist_ok=True)
-
-        return track_feature_pickle_folder
+    # def get_track_features_pickle_folder(self):
+    #     track_feature_pickle_folder = os.path.join(self.cfg.general.config_run_path, "track_features")
+    #     os.makedirs(track_feature_pickle_folder, exist_ok=True)
+    #
+    #     return track_feature_pickle_folder
 
 
     def update(self, bboxes_xtylwh, confidences, dataset_img):
@@ -108,6 +108,60 @@ class DeepSort(object):
             outputs = np.stack(outputs,axis=0)
         return outputs
 
+
+    def update_with_wda_features(self, bboxes_xtylwh, confidences, dataset_img):
+        '''
+        Attention the input bounding boxes have to be in the x-top y-left and width height format!
+         Not the x-center y-center width
+        :param bboxes_xtylwh: input bounding boxes have to be in the x-top y-left and width height format
+        :param confidences:
+        :param ori_img:
+        :return:
+        '''
+        self.height, self.width = dataset_img.img.shape[:2]
+        # generate detections
+
+        feature_pkl_path = os.path.join(self.feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(dataset_img.frame_no_cam,dataset_img.cam_id))
+        ''' reformat features for multi-cam clustering '''
+        track_feature_pkl_path = os.path.join(self.track_feature_pickle_folder,"frame_no_cam_{}_cam_id_{}.pkl".format(dataset_img.frame_no_cam,dataset_img.cam_id))
+        person_id_to_feature = {}
+
+        if os.path.exists(feature_pkl_path):
+            with open(feature_pkl_path, 'rb') as handle:
+                detections = pickle.load(handle)
+
+        else:
+
+            features = self._get_features(bboxes_xtylwh, dataset_img.img)
+            detections = [Detection(bbox_xtylwh, conf, feature) for bbox_xtylwh,conf, feature in zip(bboxes_xtylwh, confidences, features)]
+            # print("Detections: ", detections)
+            with open(feature_pkl_path, 'wb') as handle:
+                pickle.dump(detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+
+        # update tracker
+        self.tracker.predict()
+        self.tracker.update(detections, keep_features=True)
+
+        # output bbox identities
+        outputs = []
+        for track in self.tracker.tracks:
+            if not track.is_confirmed() or track.time_since_update > 1:
+                continue
+            x,y,w,h = track.to_tlwh()
+            track_id = track.track_id
+            outputs.append(np.array([x,y,w,h,track_id,track.last_detection_idx()], dtype=np.int))
+            ''' store track features so that multi_clustering does not need to do it again '''
+            if len(track.features) > 0:
+                person_id_to_feature[track.track_id] = track.features[-1]
+                with open(track_feature_pkl_path, 'wb') as handle:
+                    pickle.dump(person_id_to_feature, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        if len(outputs) > 0:
+            outputs = np.stack(outputs,axis=0)
+        return outputs
+
+
     def update_with_fair_detections(self, dataset_img):
         '''
         Attention the input bounding boxes have to be in the x-top y-left and width height format!
@@ -116,7 +170,7 @@ class DeepSort(object):
         '''
         self.height, self.width = dataset_img.img.shape[:2]
         feature_pkl_path = os.path.join(self.feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(dataset_img.frame_no_cam,dataset_img.cam_id))
-        ''' store track features per detection '''
+        ''' reformat features for multi-cam clustering '''
         track_feature_pkl_path = os.path.join(self.track_feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(dataset_img.frame_no_cam,dataset_img.cam_id))
         person_id_to_feature = {}
 
