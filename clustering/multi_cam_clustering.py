@@ -1382,7 +1382,7 @@ def splitted_clustering_from_weights(test_track_results_folder
                                  , feature_extraction=feature_extraction)
 
         print(get_elapsed_time_and_msg(start_time=features_start_time,
-                                       message="Time spent for loading reid features"))
+                                       message="Creating features spent time"))
 
         #evaluation_result = cluster_from_weights_task(*cluster_from_weights_task_args)
         #Will return pool.AsyncResult
