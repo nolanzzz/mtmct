@@ -1370,6 +1370,8 @@ def splitted_clustering_from_weights(test_track_results_folder
             cam_count
         )
 
+        features_start_time = time.time()
+
         pickle_all_reid_features(work_dirs=work_dirs
                                  , mc_cfg=mc_cfg
                                  , track_results_folder=test_chunk_tr
@@ -1379,6 +1381,8 @@ def splitted_clustering_from_weights(test_track_results_folder
                                  , cam_count=cam_count
                                  , feature_extraction=feature_extraction)
 
+        print(get_elapsed_time_and_msg(start_time=features_start_time,
+                                       message="Time spent for loading reid features"))
 
         #evaluation_result = cluster_from_weights_task(*cluster_from_weights_task_args)
         #Will return pool.AsyncResult
