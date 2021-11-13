@@ -136,10 +136,13 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
     mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
 
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('../../work_dirs/tracker/config_runs', exp_name, 'tracker_results')
+    result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
+
+    print("result_root: ", result_root)
+    print("result_root_wda: ", result_root_wda)
 
     # run tracking
     accs = []
@@ -151,7 +154,9 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         print("data_root: ", data_root)
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
         result_filename = os.path.join(result_root, '{}.txt'.format(seq))
-        result_filename_wda = os.path.join(result_root_wda, 'fair_track_results_{}.txt'.format(seq[-1]))
+        result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
+        print("result_filename: ", result_filename)
+        print("result_filename_wda: ", result_filename_wda)
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu

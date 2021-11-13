@@ -448,6 +448,9 @@ class JDETracker(object):
         feature_pickle_folder = os.path.join(root_path, "work_dirs/tracker/config_runs", exp_name, "features")
         os.makedirs(feature_pickle_folder, exist_ok=True)
         feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
+        print("feature_pickle_folder: ", feature_pickle_folder)
+        print("feature_pkl_path: ", feature_pkl_path)
+        exit()
 
         if len(dets) > 0:
             '''Detections'''
