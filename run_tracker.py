@@ -8,6 +8,7 @@ append_to_pythonpath(['feature_extractors/reid_strong_baseline'
 
 import argparse
 import mmcv
+import numpy as np
 from trackers.deep_sort import DeepSort
 from util import draw_bboxes
 from tqdm import tqdm
@@ -26,6 +27,7 @@ import pandas as pd
 from feature_extractors.reid_strong_baseline.utils.logger import setup_logger
 
 from datasets.mta_dataset_cam_iterator import get_cam_iterators
+from tracking_utils.timer import Timer
 
 
 class Run_tracker:
@@ -227,12 +229,18 @@ class Run_tracker:
 
 
     def run_on_cam_images(self,cam_iterator):
+        timer = Timer()
         for image in cam_iterator:
             self.pbar_tracker.update()
+            timer.tic()
             if self.use_original_wda:
                 self.img_callback_original_wda(image)
             else:
                 self.img_callback(image)
+            timer.toc()
+
+        return timer.average_time, timer.calls
+
 
     @staticmethod
     def get_cam_iterator_len_sum(cam_image_iterators):
@@ -258,7 +266,7 @@ class Run_tracker:
         frame_count_all_cams = self.get_cam_iterator_len_sum(cam_iterators)
         self.pbar_tracker = tqdm(total=frame_count_all_cams)
 
-
+        timer_avgs, timer_calls = [], []
 
         for cam_iterator in cam_iterators:
             logger.info("Processing cam {}".format(cam_iterator.cam_id))
@@ -270,7 +278,9 @@ class Run_tracker:
             if self.use_original_wda:
                 self.load_detections(cam_iterator)
 
-            self.run_on_cam_images(cam_iterator)
+            ta, tc = self.run_on_cam_images(cam_iterator)
+            timer_avgs.append(ta)
+            timer_calls.append(tc)
 
             self.track_results_file.close()
 
@@ -280,6 +290,11 @@ class Run_tracker:
             track_count_string = count_tracks(self.track_results_path)
             logger.info(track_count_string)
 
+        timer_avgs = np.asarray(timer_avgs)
+        timer_calls = np.asarray(timer_calls)
+        all_time = np.dot(timer_avgs, timer_calls)
+        avg_time = all_time / np.sum(timer_calls)
+        logger.info('Time elapsed: {:.2f} seconds, FPS: {:.2f}'.format(all_time, 1.0 / avg_time))
 
 
     def run(self):
