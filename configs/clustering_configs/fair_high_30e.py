@@ -5,7 +5,7 @@ root = {
         "work_dirs" : "/u40/zhanr110/mtmct/work_dirs"
         ,"train_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_high_30e/tracker_results"
         ,"test_track_results_folder" : "/u40/zhanr110/mtmct/work_dirs/tracker/config_runs/fair_high_30e/tracker_results"
-        ,"train_dataset_folder" : "/u40/zhanr110/MTA_ext_short/train/"
+        ,"train_dataset_folder" : "/u40/zhanr110/MTA_ext_short/test/"
         ,"test_dataset_folder" : "/u40/zhanr110/MTA_ext_short/test/"
         ,"cam_count" : 6
 
