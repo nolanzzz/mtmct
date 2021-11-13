@@ -136,7 +136,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
     mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
 
     result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'tracker_results')
+    result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'fair_tracker_results')
     mkdir_if_missing(result_root)
     mkdir_if_missing(result_root_wda)
     data_type = 'mot'
