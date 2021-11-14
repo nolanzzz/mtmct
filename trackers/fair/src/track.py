@@ -155,7 +155,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
     logger.setLevel(logging.INFO)
 
     mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
-    print("opt.use_original: ", opt.use_original)
+
     if opt.use_original:
         result_root = os.path.join(data_root, '..', 'results', exp_name)
         result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'fair_tracker_results')
@@ -219,7 +219,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
 
 
 if __name__ == '__main__':
-    os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+    os.environ['CUDA_VISIBLE_DEVICES'] = '2'
     opt = opts().init()
     print(opt)
 
