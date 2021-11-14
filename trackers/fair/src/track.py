@@ -76,7 +76,29 @@ def write_results_score(filename, results, data_type):
     logger.info('save results to {}'.format(filename))
 
 
-def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, root_path, exp_name, save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
+def eval_seq(opt, dataloader, seq_id, root_path, exp_name, frame_rate=41, use_cuda=True):
+
+    tracker = JDETracker(opt, frame_rate=frame_rate, use_cuda=use_cuda)
+    timer = Timer()
+    frame_id = 0
+    #for path, img, img0 in dataloader:
+    for i, (path, img, img0) in enumerate(dataloader):
+        if frame_id % 20 == 0:
+            logger.info('Processing frame {} ({:.2f} fps)'.format(frame_id, 1. / max(1e-5, timer.average_time)))
+        # run tracking
+        timer.tic()
+        if use_cuda:
+            blob = torch.from_numpy(img).cuda().unsqueeze(0)
+        else:
+            blob = torch.from_numpy(img).unsqueeze(0)
+        tracker.update_store_det_features_only(blob, img0, seq_id[-1], frame_id, root_path, exp_name)
+        timer.toc()
+        frame_id += 1
+    return frame_id, timer.average_time, timer.calls
+
+
+def original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, root_path, exp_name,
+             save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
 
     if save_dir:
         mkdir_if_missing(save_dir)
@@ -130,67 +152,70 @@ def eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, s
 
 
 def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), exp_name='demo',
-         save_images=False, save_videos=False, show_image=True):
+         save_images=False, save_videos=False, show_image=True, use_original=False):
     logger.setLevel(logging.INFO)
 
     mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
 
-    result_root = os.path.join(data_root, '..', 'results', exp_name)
-    result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'fair_tracker_results')
-    mkdir_if_missing(result_root)
-    mkdir_if_missing(result_root_wda)
+    if use_original:
+        result_root = os.path.join(data_root, '..', 'results', exp_name)
+        result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'fair_tracker_results')
+        mkdir_if_missing(result_root)
+        mkdir_if_missing(result_root_wda)
+    accs = []
+
     data_type = 'mot'
 
-    # print("result_root: ", result_root)
-    # print("result_root_wda: ", result_root_wda)
-
     # run tracking
-    accs = []
     n_frame = 0
     timer_avgs, timer_calls = [], []
     for seq in seqs:
         output_dir = os.path.join(data_root, '..', 'outputs', exp_name, seq) if save_images or save_videos else None
         logger.info('start seq: {}'.format(seq))
-        print("data_root: ", data_root)
+
         dataloader = datasets.LoadImages(osp.join(data_root, seq, 'img1'), opt.img_size)
-        result_filename = os.path.join(result_root, '{}.txt'.format(seq))
-        result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
-        # print("result_filename: ", result_filename)
-        # print("result_filename_wda: ", result_filename_wda)
+
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
-        nf, ta, tc = eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq, mtmct_root, exp_name,
-                              save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
+        if use_original:
+            result_filename = os.path.join(result_root, '{}.txt'.format(seq))
+            result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
+            nf, ta, tc = original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq, mtmct_root, exp_name,
+                                           save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
+            # eval
+            logger.info('Evaluate seq: {}'.format(seq))
+            evaluator = Evaluator(data_root, seq, data_type)
+            accs.append(evaluator.eval_file(result_filename))
+            if save_videos:
+                output_video_path = osp.join(output_dir, '{}.mp4'.format(seq))
+                cmd_str = 'ffmpeg -f image2 -i {}/%05d.jpg -c:v copy {}'.format(output_dir, output_video_path)
+                os.system(cmd_str)
+        else:
+            nf, ta, tc = eval_seq(opt, dataloader, seq, mtmct_root, exp_name, frame_rate=frame_rate, use_cuda=True)
+
         n_frame += nf
         timer_avgs.append(ta)
         timer_calls.append(tc)
 
-        # eval
-        logger.info('Evaluate seq: {}'.format(seq))
-        evaluator = Evaluator(data_root, seq, data_type)
-        accs.append(evaluator.eval_file(result_filename))
-        if save_videos:
-            output_video_path = osp.join(output_dir, '{}.mp4'.format(seq))
-            cmd_str = 'ffmpeg -f image2 -i {}/%05d.jpg -c:v copy {}'.format(output_dir, output_video_path)
-            os.system(cmd_str)
     timer_avgs = np.asarray(timer_avgs)
     timer_calls = np.asarray(timer_calls)
     all_time = np.dot(timer_avgs, timer_calls)
     avg_time = all_time / np.sum(timer_calls)
     logger.info('Time elapsed: {:.2f} seconds, FPS: {:.2f}'.format(all_time, 1.0 / avg_time))
 
-    # get summary
-    metrics = mm.metrics.motchallenge_metrics
-    mh = mm.metrics.create()
-    summary = Evaluator.get_summary(accs, seqs, metrics)
-    strsummary = mm.io.render_summary(
-        summary,
-        formatters=mh.formatters,
-        namemap=mm.io.motchallenge_metric_names
-    )
-    print(strsummary)
-    Evaluator.save_summary(summary, os.path.join(result_root, 'summary_{}.xlsx'.format(exp_name)))
+    if use_original:
+        # get summary
+        metrics = mm.metrics.motchallenge_metrics
+        mh = mm.metrics.create()
+        summary = Evaluator.get_summary(accs, seqs, metrics)
+        strsummary = mm.io.render_summary(
+            summary,
+            formatters=mh.formatters,
+            namemap=mm.io.motchallenge_metric_names
+        )
+        print(strsummary)
+        Evaluator.save_summary(summary, os.path.join(result_root, 'summary_{}.xlsx'.format(exp_name)))
 
 
 if __name__ == '__main__':
@@ -317,4 +342,5 @@ if __name__ == '__main__':
          exp_name=opt.exp_id,
          show_image=False,
          save_images=False,
-         save_videos=False)
+         save_videos=False,
+         use_original=False)

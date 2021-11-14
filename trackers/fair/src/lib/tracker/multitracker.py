@@ -558,6 +558,56 @@ class JDETracker(object):
 
         return output_stracks
 
+    def update_store_det_features_only(self, im_blob, img0, cam_id, frame_id, root_path, exp_name):
+        self.frame_id += 1
+        activated_starcks = []
+        refind_stracks = []
+        lost_stracks = []
+        removed_stracks = []
+
+        width = img0.shape[1]
+        height = img0.shape[0]
+        inp_height = im_blob.shape[2]
+        inp_width = im_blob.shape[3]
+        c = np.array([width / 2., height / 2.], dtype=np.float32)
+        s = max(float(inp_width) / float(inp_height) * height, width) * 1.0
+        meta = {'c': c, 's': s,
+                'out_height': inp_height // self.opt.down_ratio,
+                'out_width': inp_width // self.opt.down_ratio}
+
+        ''' Step 1: Network forward, get detections & embeddings'''
+        with torch.no_grad():
+            output = self.model(im_blob)[-1]
+            hm = output['hm'].sigmoid_()
+            wh = output['wh']
+            id_feature = output['id']
+            id_feature = F.normalize(id_feature, dim=1)
+
+            reg = output['reg'] if self.opt.reg_offset else None
+            dets, inds = mot_decode(hm, wh, reg=reg, ltrb=self.opt.ltrb, K=self.opt.K)
+            id_feature = _tranpose_and_gather_feat(id_feature, inds)
+            id_feature = id_feature.squeeze(0)
+            id_feature = id_feature.cpu().numpy()
+
+        dets = self.post_process(dets, meta)
+        dets = self.merge_outputs([dets])[1]
+
+        remain_inds = dets[:, 4] > self.opt.conf_thres
+        dets = dets[remain_inds]
+        id_feature = id_feature[remain_inds]
+
+        feature_pickle_folder = os.path.join(root_path, "work_dirs/tracker/config_runs", exp_name, "features")
+        os.makedirs(feature_pickle_folder, exist_ok=True)
+        feature_pkl_path = os.path.join(feature_pickle_folder, "frame_no_cam_{}_cam_id_{}.pkl".format(frame_id, cam_id))
+
+        if len(dets) > 0:
+            ''' Export detections and features '''
+            feature_detections = [Detection(STrack.tlbr_to_tlwh(tlbrs[:4]), tlbrs[4], feature)
+                                  for tlbrs, feature in zip(dets[:, :5], id_feature)]
+            with open(feature_pkl_path, 'wb') as handle:
+                pickle.dump(feature_detections, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
     def update_feed_with_wda_features(self, im_blob, img0, cam_id, frame_id):
         self.frame_id += 1
         activated_starcks = []
