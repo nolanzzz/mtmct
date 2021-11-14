@@ -151,12 +151,12 @@ def original_eval_seq(opt, dataloader, data_type, result_filename, result_filena
 
 
 def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), exp_name='demo',
-         save_images=False, save_videos=False, show_image=True, use_original=False):
+         save_images=False, save_videos=False, show_image=True):
     logger.setLevel(logging.INFO)
 
     mtmct_root = os.path.abspath(os.path.join(data_root, '../../../../../../..'))
 
-    if use_original:
+    if opt.use_original:
         result_root = os.path.join(data_root, '..', 'results', exp_name)
         result_root_wda = os.path.join('../../../work_dirs/tracker/config_runs', exp_name, 'fair_tracker_results')
         mkdir_if_missing(result_root)
@@ -177,7 +177,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         meta_info = open(os.path.join(data_root, seq, 'seqinfo.ini')).read()
         frame_rate = int(meta_info[meta_info.find('frameRate') + 10:meta_info.find('\nseqLength')])
         # set use_cuda to False if run with cpu
-        if use_original:
+        if opt.use_original:
             result_filename = os.path.join(result_root, '{}.txt'.format(seq))
             result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
             nf, ta, tc = original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
@@ -204,7 +204,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
     avg_time = all_time / np.sum(timer_calls)
     logger.info('Time elapsed: {:.2f} seconds, FPS: {:.2f}'.format(all_time, 1.0 / avg_time))
 
-    if use_original:
+    if opt.use_original:
         # get summary
         metrics = mm.metrics.motchallenge_metrics
         mh = mm.metrics.create()
@@ -342,5 +342,4 @@ if __name__ == '__main__':
          exp_name=opt.exp_id,
          show_image=False,
          save_images=False,
-         save_videos=False,
-         use_original=False)
+         save_videos=False)

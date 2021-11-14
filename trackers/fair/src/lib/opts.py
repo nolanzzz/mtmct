@@ -129,6 +129,7 @@ class opts(object):
                              default='../src/lib/cfg/data.json',
                              help='load data from cfg')
     self.parser.add_argument('--data_dir', type=str, default='/u40/zhanr110/data/MOT/JDE')
+    self.parser.add_argument('--use_original', default=False, help='use original fair tracker')
 
     # loss
     self.parser.add_argument('--mse_loss', action='store_true',
