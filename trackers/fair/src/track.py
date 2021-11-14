@@ -181,7 +181,8 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
             result_filename = os.path.join(result_root, '{}.txt'.format(seq))
             result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
             nf, ta, tc = original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
-                                           save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
+                                           save_dir=output_dir, show_image=show_image, frame_rate=frame_rate,
+                                           use_cuda=True)
             # eval
             logger.info('Evaluate seq: {}'.format(seq))
             evaluator = Evaluator(data_root, seq, data_type)
