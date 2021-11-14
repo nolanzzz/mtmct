@@ -825,12 +825,28 @@ class Multi_cam_clustering:
         elif dataset_type == "test":
             track_results_folder = self.test_track_results_folder
 
+
+
+        feature_mean_start_time = time.time()
         self.get_all_tracks_with_feature_mean(track_results_folder,dataset_type)
+        self.logger.info(get_elapsed_time_and_msg(start_time=feature_mean_start_time,
+                                                  message="Finished getting all tracks with feature mean."))
+
+        overlapping_start_time = time.time()
         self.initialize_overlapping_area_tester()
+        self.logger.info(get_elapsed_time_and_msg(start_time=overlapping_start_time,
+                                                  message="Finished initializing overlapping area."))
+
+        homographies_start_time = time.time()
         self.initialize_cam_homographies()
+        self.logger.info(get_elapsed_time_and_msg(start_time=homographies_start_time,
+                                                  message="Finished initializing cam homographies."))
+
+        maximum_link_start_time = time.time()
         self.initialize_maximum_link_predict_distance(track_results_folder=track_results_folder
                                                       ,dataset_type=dataset_type)
-
+        self.logger.info(get_elapsed_time_and_msg(start_time=maximum_link_start_time,
+                                                  message="Finished initializing maximum link predict distance."))
 
 
         tracks_all_persons = self.person_id_tracks
@@ -842,6 +858,7 @@ class Multi_cam_clustering:
         current_clusters = set([(track_idx,) for track_idx,_ in enumerate(tracks_all_persons)])
         old_clusters = []
 
+        pairwise_distance_start_time = time.time()
 
         data_pairwise_dist = self.load_pairwise_distances(dataset=tracks_all_persons
                                                           ,dist_name_to_distance_weights=dist_name_to_distance_weights
@@ -852,8 +869,12 @@ class Multi_cam_clustering:
 
         heap = build_priority_queue(data_pairwise_dist)
 
+        self.logger.info(get_elapsed_time_and_msg(start_time=pairwise_distance_start_time,
+                                                  message="Finished calculating pairwise distances."))
+
         pbar = tqdm(total=(len(data_pairwise_dist)))
 
+        clustering_start_time = time.time()
         print("Clustering tracks")
         while len(current_clusters) > person_count:
             pbar.update()
@@ -885,6 +906,9 @@ class Multi_cam_clustering:
         #Uses a different save_track_all_cams function because the current in single cam clustering uses
         #enumerate to create the person ids but this is not possible here because the tracks will be separated to cams
         assign_track_nos_to_track_dict(cluster_tracks)
+
+        self.logger.info(get_elapsed_time_and_msg(start_time=clustering_start_time,
+                                                  message="Finished clustering tracks."))
 
         save_results_folder,tracking_results = self.save_track_all_cams(track_clusters=cluster_tracks
                                                                  ,config_basename=self.config_basename
@@ -1121,6 +1145,8 @@ class Multi_cam_clustering:
                                                             ,distance_cache_active=True
                                                             ,person_count=1
                                                             ,dataset_type=dataset_type)
+
+        self.logger.info(get_elapsed_time_and_msg(start_time, "Finished Clustering"))
 
         self.logger.info("Starting single cam evaluation chunk_{}.".format(self.chunk_id))
 

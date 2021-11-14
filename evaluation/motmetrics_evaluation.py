@@ -388,7 +388,7 @@ if __name__ == "__main__":
     '''
 
 
-    eval_single_cam_multiple_cams(dataset_base="/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/test"
+    eval_single_cam_multiple_cams(dataset_base="/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test"
                                   ,
                                   track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/tracker/config_runs/fair_high_30e/tracker_results"
                                   # track_results_folder="/Users/nolanzhang/Projects/mtmct/work_dirs/clustering/config_runs/mta_es_abd_non_clean_server/multicam_clustering_results/chunk_0/test"
