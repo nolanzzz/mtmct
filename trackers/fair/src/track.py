@@ -97,9 +97,8 @@ def eval_seq(opt, dataloader, seq_id, root_path, exp_name, frame_rate=41, use_cu
     return frame_id, timer.average_time, timer.calls
 
 
-def original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, root_path, exp_name,
-             save_dir=None, show_image=True, frame_rate=41, use_cuda=True):
-
+def original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq_id, save_dir=None,
+                      show_image=True, frame_rate=41, use_cuda=True):
     if save_dir:
         mkdir_if_missing(save_dir)
     tracker = JDETracker(opt, frame_rate=frame_rate, use_cuda=use_cuda)
@@ -119,7 +118,7 @@ def original_eval_seq(opt, dataloader, data_type, result_filename, result_filena
             blob = torch.from_numpy(img).cuda().unsqueeze(0)
         else:
             blob = torch.from_numpy(img).unsqueeze(0)
-        online_targets = tracker.update_store_det_features(blob, img0, seq_id[-1], frame_id, root_path, exp_name)
+        online_targets = tracker.update(blob, img0)
         online_tlwhs = []
         online_ids = []
         online_det_idxs = [i for i in range(len(online_targets))]
@@ -181,7 +180,7 @@ def main(opt, data_root='/data/MOT16/train', det_root=None, seqs=('MOT16-05',), 
         if use_original:
             result_filename = os.path.join(result_root, '{}.txt'.format(seq))
             result_filename_wda = os.path.join(result_root_wda, 'track_results_{}.txt'.format(seq[-1]))
-            nf, ta, tc = original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq, mtmct_root, exp_name,
+            nf, ta, tc = original_eval_seq(opt, dataloader, data_type, result_filename, result_filename_wda, seq,
                                            save_dir=output_dir, show_image=show_image, frame_rate=frame_rate, use_cuda=True)
             # eval
             logger.info('Evaluate seq: {}'.format(seq))
