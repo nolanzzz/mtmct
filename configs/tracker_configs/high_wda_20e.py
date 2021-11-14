@@ -27,8 +27,8 @@ root = {
 
     "detector" : {
 
-        "mmdetection_config" : "detectors/mmdetection/configs/mta/faster_rcnn_r50_mta.py",
-        "mmdetection_checkpoint_file" : "detectors/mmdetection/work_dirs/GtaDataset_full_test_20e/epoch_20.pth",
+        "mmdetection_config" : "detectors/mmdetection/configs/mta/mta_high.py",
+        "mmdetection_checkpoint_file" : "detectors/mmdetection/work_dirs/high_20e/latest.pth",
         "device" : "cuda:0",
         #Remove all detections with a confidence less than min_confidence
         "min_confidence" : 0.8,
