@@ -1,11 +1,9 @@
 # MTMCT
 This is an implementation of a Multi-Target Multi-Camera Tracking (MTMCT) solution.
 Pipeline of our solution:
-
 <img src="readme_files/pipeline_white.png" style="zoom:35%;" />
 
 ## Tracking performance
-
 ### Results and comparisons with FairMOT and WDA Tracker trained and tested on a 6x2-minute MTA dataset
 <table>
     <thead>
@@ -55,7 +53,7 @@ Pipeline of our solution:
             <td>N/A</td>
         </tr>
         <tr>
-            <td><strong>Ours</strong></td>
+            <td>Ours</td>
             <td><strong>70.8</strong></td>
             <td>47.8</td>
             <td><strong>470.2</strong></td>
@@ -70,6 +68,25 @@ Pipeline of our solution:
     </tbody>
 </table>
 
-
 ### Video demos on Multi Camera Track Auto (MTA) dataset
 <img src="readme_files/cam_0.gif" width="400"/> <img src="readme_files/cam_1.gif" width="400"/> <img src="readme_files/cam_2.gif" width="400"/> <img src="readme_files/cam_3.gif" width="400"/> <img src="readme_files/cam_4.gif" width="400"/> <img src="readme_files/cam_5.gif" width="400"/>
+
+## Installation
+```shell
+conda create -n mtmct python=3.7.7 -y
+conda activate mtmct
+pip install -r requirements.txt
+```
+Install dependencies for FairMOT:
+```shell
+cd trackers/fair
+conda install pytorch==1.7.0 torchvision==0.8.0 cudatoolkit=10.2 -c pytorch
+pip install cython
+pip install -r requirements.txt
+cd DCNv2
+./make.sh
+conda install -c conda-forge ffmpeg
+```
+
+## Acknowledgement
+A large part of the code is borrowed from [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset)
