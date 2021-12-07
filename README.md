@@ -92,7 +92,7 @@ conda install -c conda-forge ffmpeg
 Go to [https://github.com/schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset) to download the MTA data. Or use other datasets that match the same format.
 
 ## Configurations
-Modify config files under `tracker_configs` and `clustering_configs` for customization. More instructions can be found at [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker).
+Modify config files under `tracker_configs` and `clustering_configs` for customization. Create a `work_dirs` and see more instructions at [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker).
 E.g. in `configs/tracker_configs/fair_high_20e` set the data -> source -> base_folder to your dataset location.
 
 ## Tracking
