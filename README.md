@@ -44,7 +44,7 @@ Pipeline of our solution:
         <tr>
             <td>FairMOT</td>
             <td>64.1</td>
-            <td>48.0</td>
+            <td><strong>48.0</strong></td>
             <td>588.2</td>
             <td>34.7%</td>
             <td>7.8%</td>
@@ -56,16 +56,16 @@ Pipeline of our solution:
         </tr>
         <tr>
             <td>WDA</td>
-            <td>70.8</td>
+            <td><strong>70.8</strong></td>
             <td>47.8</td>
-            <td>470.2</td>
-            <td>40.5%</td>
-            <td>5.6%</td>
-            <td>65.6</td>
-            <td>31.5</td>
-            <td>494.5</td>
-            <td>31.2%</td>
-            <td>1.1%</td>
+            <td><strong>470.2</strong></td>
+            <td><strong>40.5%</strong></td>
+            <td><strong>5.6%</strong></td>
+            <td><strong>65.6</strong></td>
+            <td><strong>31.5</strong></td>
+            <td><strong>494.5</strong></td>
+            <td><strong>31.2%</strong></td>
+            <td><strong>1.1%</strong></td>
         </tr>
     </tbody>
 </table>
