@@ -88,5 +88,12 @@ cd DCNv2
 conda install -c conda-forge ffmpeg
 ```
 
+## Tracking
+```shell
+sh start.sh fair_high_20e
+```
+
+Modify config files under `tracker_configs` and `clustering_configs` for customization. More instructions can be found at [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker).
+
 ## Acknowledgement
 A large part of the code is borrowed from [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset)
