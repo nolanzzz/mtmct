@@ -16,8 +16,7 @@ root = {
         "selection_interval" : [0,10000],
 
         "source" : {
-            # "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
-            "base_folder" : "/Users/nolanzhang/Projects/mtmct/data/MTA_short_new/test",
+            "base_folder" : "/u40/zhanr110/MTA_ext_short/test",
             "cam_ids" : [0,1,2,3,4,5]
         }
 

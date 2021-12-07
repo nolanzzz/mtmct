@@ -178,10 +178,10 @@ def main():
     work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
     convert_annotations(gta_dataset_path,coco_dataset_path,work_dirs)
 
-    # gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original"
-    # coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original_cam_0"
-    # work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
-    # convert_annotations(gta_dataset_path, coco_dataset_path, work_dirs)
+    gta_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original"
+    coco_dataset_path = "/Users/nolanzhang/Projects/mtmct/data/MTA_ext_short/test_original_cam_0"
+    work_dirs = "/Users/nolanzhang/Projects/mtmct/work_dirs/"
+    convert_annotations(gta_dataset_path, coco_dataset_path, work_dirs)
 
 
 
