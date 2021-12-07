@@ -55,7 +55,7 @@ Pipeline of our solution:
             <td>N/A</td>
         </tr>
         <tr>
-            <td>WDA</td>
+            <td><strong>Ours</strong></td>
             <td><strong>70.8</strong></td>
             <td>47.8</td>
             <td><strong>470.2</strong></td>
