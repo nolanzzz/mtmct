@@ -107,11 +107,6 @@ Modify config files under `tracker_configs` and `clustering_configs` for customi
 ## Acknowledgement
 A large part of the code is borrowed from [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset)
 
-## Citation
-```
-@article{zhang2021mtmct,
-  title={Design and Implementation of a Multi-Target Multi-Camera Tracking Solution},
-  author={Zhang, Ruizhe},
-  year={2021}
-}
-```
+## Copyright
+
+Ruizhe Zhang is the author of this repository and the corresponding report, the copyright belongs to Wireless System Research Group (WiSeR), McMaster University.
