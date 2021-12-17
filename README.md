@@ -99,7 +99,7 @@ E.g. in `configs/tracker_configs/fair_high_20e` set the data -> source -> base_f
 ## Tracking
 Run single and the multi-camera tracking with one script:
 ```shell
-sh start.sh fair_high_20e
+sh start.sh fair_high_30e
 ```
 
 Modify config files under `tracker_configs` and `clustering_configs` for customization. More instructions can be found at [ifzhang/FairMOT](https://github.com/ifzhang/FairMOT) and [koehlp/wda_tracker](https://github.com/koehlp/wda_tracker).
