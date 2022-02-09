@@ -1,12 +1,12 @@
-English | [简体中文](./README-ch.md)
+[English](./README.md) | 简体中文
 
 # MTMCT
-This is an implementation of a Multi-Target Multi-Camera Tracking (MTMCT) solution.
-Pipeline of our solution:
+本项目提供了一个有效的多目标多摄像头追踪(MTMCT)的解决方案。以下为项目逻辑：
+
 <img src="readme_files/pipeline_white.png" style="zoom:35%;" />
 
-## Tracking performance
-### Results and comparisons with FairMOT and WDA Tracker trained and tested on a 6x2-minute MTA dataset
+## 追踪表现
+### 基于6x2分钟MTA数据集的训练以及测试结果，以及与FairMOT和WDA Tracker的对比：
 <table>
     <thead>
         <tr>
@@ -70,16 +70,16 @@ Pipeline of our solution:
     </tbody>
 </table>
 
-### Video demos on Multi Camera Track Auto (MTA) dataset
+### 基于MTA数据集的多摄像头追踪展示
 <img src="readme_files/cam_0.gif" width="400"/> <img src="readme_files/cam_1.gif" width="400"/> <img src="readme_files/cam_2.gif" width="400"/> <img src="readme_files/cam_3.gif" width="400"/> <img src="readme_files/cam_4.gif" width="400"/> <img src="readme_files/cam_5.gif" width="400"/>
 
-## Installation
+## 项目安装
 ```shell
 conda create -n mtmct python=3.7.7 -y
 conda activate mtmct
 pip install -r requirements.txt
 ```
-Install dependencies for FairMOT:
+安装FairMOT的依赖:
 ```shell
 cd trackers/fair
 conda install pytorch==1.7.0 torchvision==0.8.0 cudatoolkit=10.2 -c pytorch
@@ -90,24 +90,23 @@ cd DCNv2
 conda install -c conda-forge ffmpeg
 ```
 
-## Download data
-Go to [https://github.com/schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset) to download the MTA data. Or use other datasets that match the same format.
+## 下载数据
+前往 [https://github.com/schuar-iosb/mta-dataset](https://github.com/schuar-iosb/mta-dataset) 下载MTA数据集。或者使用其他符合相同格式的数据。
 
-## Configurations
-Modify config files under `tracker_configs` and `clustering_configs` for customization. Create a `work_dirs` and see more instructions at [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker).
+## 配置
+修改`tracker_configs`和`clustering_configs`目录下的config文件来进行定制化配置。新建一个`work_dirs`目录并参照 [FairMOT](https://github.com/ifzhang/FairMOT) 以及 [wda_tracker](https://github.com/koehlp/wda_tracker) 查看更多文档。
+配置示例：在`configs/tracker_configs/fair_high_30e`文件中修改data -> source -> base_folder为要使用的数据集的路径。
 
-E.g. in `configs/tracker_configs/fair_high_30e` set the data -> source -> base_folder to your dataset location.
-
-## Tracking
-Run single and the multi-camera tracking with one script:
+## 追踪
+使用一键运行脚本来进行单摄像头以及多摄像头追踪任务：
 ```shell
 sh start.sh fair_high_30e
 ```
 
-Modify config files under `tracker_configs` and `clustering_configs` for customization. More instructions can be found at [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker).
+修改`tracker_configs`和`clustering_configs`目录下的配置文件来进行定制。详细文档请参考 [FairMOT](https://github.com/ifzhang/FairMOT) 和 [wda_tracker](https://github.com/koehlp/wda_tracker)
 
-## Acknowledgement
-A large part of the code is borrowed from [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [mta-dataset](https://github.com/schuar-iosb/mta-dataset)
+## 致谢
+本项目大量借鉴了 [FairMOT](https://github.com/ifzhang/FairMOT), [wda_tracker](https://github.com/koehlp/wda_tracker) 的代码。所使用的数据集为[mta-dataset](https://github.com/schuar-iosb/mta-dataset)
 
 ## Copyright
 
