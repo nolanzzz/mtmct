@@ -73,6 +73,8 @@ Pipeline of our solution:
 ### Video demos on Multi Camera Track Auto (MTA) dataset
 <img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
+Demo GIFs can be seen [here](./demo_gifs.md)
+
 ## Installation
 ```shell
 conda create -n mtmct python=3.7.7 -y

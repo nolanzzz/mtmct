@@ -73,6 +73,8 @@
 ### 基于MTA数据集的多摄像头追踪展示
 <img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
+点击这里查看动图展示：[动图示例](./demo_gifs.md)
+
 ## 项目安装
 ```shell
 conda create -n mtmct python=3.7.7 -y
