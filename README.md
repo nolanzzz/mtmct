@@ -1,12 +1,13 @@
 English | [简体中文](./README-ch.md)
 
 # MTMCT
-This is an implementation of a Multi-Target Multi-Camera Tracking (MTMCT) solution.
+This project demonstrates the design and implementation of a Multi-Target Multi-Camera Tracking (MTMCT) solution.
+
 Pipeline of our solution:
 <img src="readme_files/pipeline_white.png" style="zoom:35%;" />
 
 ## Tracking performance
-### Results and comparisons with FairMOT and WDA Tracker trained and tested on a 6x2-minute MTA dataset
+### Results and comparisons with [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker) trained and tested on a 6x2-minute [MTA](https://github.com/schuar-iosb/mta-dataset) dataset
 <table>
     <thead>
         <tr>
@@ -70,7 +71,7 @@ Pipeline of our solution:
     </tbody>
 </table>
 
-### Video demos on Multi Camera Track Auto (MTA) dataset
+### Video demos on [Multi Camera Track Auto (MTA)](https://github.com/schuar-iosb/mta-dataset) dataset
 <img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
 Demo GIFs can be seen [here](./demo_gifs.md)
@@ -81,7 +82,7 @@ conda create -n mtmct python=3.7.7 -y
 conda activate mtmct
 pip install -r requirements.txt
 ```
-Install dependencies for FairMOT:
+Install dependencies for [FairMOT](https://github.com/ifzhang/FairMOT):
 ```shell
 cd trackers/fair
 conda install pytorch==1.7.0 torchvision==0.8.0 cudatoolkit=10.2 -c pytorch
@@ -109,7 +110,7 @@ sh start.sh fair_high_30e
 Modify config files under `tracker_configs` and `clustering_configs` for customization. More instructions can be found at [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker).
 
 ## Acknowledgement
-A large part of the code is borrowed from [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [mta-dataset](https://github.com/schuar-iosb/mta-dataset)
+A large part of the code is borrowed from [FairMOT](https://github.com/ifzhang/FairMOT) and [wda_tracker](https://github.com/koehlp/wda_tracker). The dataset used is [MTA](https://github.com/schuar-iosb/mta-dataset)
 
 ## Copyright
 

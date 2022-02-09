@@ -1,12 +1,12 @@
 [English](./README.md) | 简体中文
 
 # MTMCT
-本项目提供了一个有效的多目标多摄像头追踪(MTMCT)的解决方案。以下为项目逻辑：
+本项目包含了一个有效的多目标多摄像头追踪(MTMCT)解决方案的设计与代码实现。以下为解决方案的逻辑流程：
 
 <img src="readme_files/pipeline_white.png" style="zoom:35%;" />
 
 ## 追踪表现
-### 基于6x2分钟MTA数据集的训练以及测试结果，以及与FairMOT和WDA Tracker的对比：
+### 基于6x2分钟 [MTA](https://github.com/schuar-iosb/mta-dataset) 数据集的训练以及测试结果，以及与 [FairMOT](https://github.com/ifzhang/FairMOT) 和 [wda_tracker](https://github.com/koehlp/wda_tracker) 的对比：
 <table>
     <thead>
         <tr>
@@ -70,7 +70,7 @@
     </tbody>
 </table>
 
-### 基于MTA数据集的多摄像头追踪展示
+### 基于 [MTA](https://github.com/schuar-iosb/mta-dataset) 数据集的多摄像头追踪展示
 <img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
 点击这里查看动图展示：[动图示例](./demo_gifs.md)
@@ -81,7 +81,7 @@ conda create -n mtmct python=3.7.7 -y
 conda activate mtmct
 pip install -r requirements.txt
 ```
-安装FairMOT的依赖:
+安装 [FairMOT](https://github.com/ifzhang/FairMOT) 的依赖:
 ```shell
 cd trackers/fair
 conda install pytorch==1.7.0 torchvision==0.8.0 cudatoolkit=10.2 -c pytorch
@@ -108,7 +108,7 @@ sh start.sh fair_high_30e
 修改`tracker_configs`和`clustering_configs`目录下的配置文件来进行定制。详细文档请参考 [FairMOT](https://github.com/ifzhang/FairMOT) 和 [wda_tracker](https://github.com/koehlp/wda_tracker)
 
 ## 致谢
-本项目大量借鉴了 [FairMOT](https://github.com/ifzhang/FairMOT), [wda_tracker](https://github.com/koehlp/wda_tracker) 的代码。所使用的数据集为[mta-dataset](https://github.com/schuar-iosb/mta-dataset)
+本项目大量借鉴了 [FairMOT](https://github.com/ifzhang/FairMOT), [wda_tracker](https://github.com/koehlp/wda_tracker) 的代码。所使用的数据集为[MTA](https://github.com/schuar-iosb/mta-dataset)
 
 ## Copyright
 
