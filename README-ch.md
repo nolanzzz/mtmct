@@ -71,7 +71,7 @@
 </table>
 
 ### 基于MTA数据集的多摄像头追踪展示
-<img src="readme_files/cam_0.gif" width="400"/> <img src="readme_files/cam_1.gif" width="400"/> <img src="readme_files/cam_2.gif" width="400"/> <img src="readme_files/cam_3.gif" width="400"/> <img src="readme_files/cam_4.gif" width="400"/> <img src="readme_files/cam_5.gif" width="400"/>
+<img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
 ## 项目安装
 ```shell

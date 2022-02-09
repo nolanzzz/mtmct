@@ -71,7 +71,7 @@ Pipeline of our solution:
 </table>
 
 ### Video demos on Multi Camera Track Auto (MTA) dataset
-<img src="readme_files/cam_0.gif" width="400"/> <img src="readme_files/cam_1.gif" width="400"/> <img src="readme_files/cam_2.gif" width="400"/> <img src="readme_files/cam_3.gif" width="400"/> <img src="readme_files/cam_4.gif" width="400"/> <img src="readme_files/cam_5.gif" width="400"/>
+<img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
 ## Installation
 ```shell
