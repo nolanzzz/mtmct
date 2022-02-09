@@ -70,10 +70,12 @@
     </tbody>
 </table>
 
-### 基于 [MTA](https://github.com/schuar-iosb/mta-dataset) 数据集的多摄像头追踪展示
+### 基于 [MTA](https://github.com/schuar-iosb/mta-dataset) 数据集的多摄像头追踪成果展示
 <img src="readme_files/cam_0_sample.png" width="400"/> <img src="readme_files/cam_1_sample.png" width="400"/> <img src="readme_files/cam_2_sample.png" width="400"/> <img src="readme_files/cam_3_sample.png" width="400"/> <img src="readme_files/cam_4_sample.png" width="400"/> <img src="readme_files/cam_5_sample.png" width="400"/>
 
 点击这里查看动图展示：[动图示例](./demo_gifs.md)
+
+更多完整展示视频请前往：[https://youtu.be/lS9YvbrhOdo](https://youtu.be/lS9YvbrhOdo)
 
 ## 项目安装
 ```shell
